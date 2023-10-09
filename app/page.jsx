@@ -3,12 +3,11 @@ import "/styles/global.css";
 import Nav from "/components/nav.jsx"; // Import your nav component
 import Footer from "/components/footer.jsx";
 import Link from 'next/link';
-import Login from "/pages/login.jsx";
 
 const Home = () => (
   <div>
     <Nav />
-    <Login/>
+  
     <div
       style={{
         height: '500px',
@@ -32,7 +31,7 @@ const Home = () => (
         <p className='text-lg'>
         A smart platform for enterprise fleet solution.
         </p>
-        <Link href="/Login" className="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+        <Link href="/login" className="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
   Get Started
         </Link>
 

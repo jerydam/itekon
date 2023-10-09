@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import "/styles/global.css";
 
-const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const Signu = () => {
+  const [name, setName] = useState('');
+  const [user, setUser] = useState('');
+  const [number, setNumber] = useState('');
 
-  const handleSignup = async () => {
+  const handleSignu = async () => {
     // Add your authentication logic here
   };
 
@@ -17,68 +17,58 @@ const Signup = () => {
         <p className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "}
           <p className="text-sm font-normal">
-            Sign up here to create an account
+            Let get to know you
           </p>
         </p>
 
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignu}>
           <div className="my-5">
-            <label htmlFor="email" className="block text-gray-600">
-              Email:
+            <label htmlFor="number" className="block text-gray-600">
+              Phone Number:
             </label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="number"
+              id="number"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
               className="border border-[#2D6C56] px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-[#2D6C56]">
-              Password:
+            <label htmlFor="name" className="block text-[#2D6C56]">
+              First Name:
             </label>
             <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="border border-[#2D6C56] px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-[#2D6C56]">
-              Confirm Password:
+            <label htmlFor="user" className="block text-[#2D6C56]">
+              Last Name:
             </label>
             <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="text"
+              id="user"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
               className="border border-[#2D6C56] px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
             />
 
           </div>
-          <div>
-        <input
-            type="checkbox"
-            id="remember"
-            className="text-blue-500 form-checkbox"
-          />
-          <label htmlFor="remember" className="inline-block ml-2 text-gray-600">
-            Remember Me
-          </label>
-          
-        </div>
+         
           <div
             type="submit"
-            className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
+            className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
           >
-           <a href="/signu">Continue</a>
+           Sign Up
           </div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
-            <a className="text-[#2D6C56]hover:underline" href="">
+            <a className="text-[#2D6C56]hover:underline" href="/login">
               Sign in here
             </a>
           </p>
@@ -112,4 +102,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signu;

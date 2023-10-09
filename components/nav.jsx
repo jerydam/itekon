@@ -1,5 +1,7 @@
 'use client'
 import React, { useState } from 'react';
+import "/styles/global.css";
+
 const Nav = () => {
   
   const [isSearchVisible, setIsSearchVisible] = useState(false);
