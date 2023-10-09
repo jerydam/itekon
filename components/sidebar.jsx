@@ -15,7 +15,7 @@ const Sidebar = () => {
           <Link href="/contact" className="hover:text-blue-500">Contact </Link>
         </li>
       </ul>
-        </div>
+    </div>
   );
 };
 

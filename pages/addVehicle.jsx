@@ -45,6 +45,7 @@ const Add = () => {
   };
 
   return (
+    <div>
     <div className='flex'>
     <Sidebar />
     <div className=" h-full border-red-600 my-4"></div>
@@ -54,7 +55,7 @@ const Add = () => {
     
     <div className='flex'>
           <form onSubmit={handleSubmit} className='mr-10'>
-          <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 circle border-black'>1</span> Vehicle Registration Details</p>
+          <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 rounded-full border-black'>1</span> Vehicle Registration Details</p>
             <div className='border-2 rounded-md p-5'>
         <div className="mb-4">
             <label htmlFor="vehicleName" className="text-sm font-medium">Vehicle Name</label><br/>
@@ -70,7 +71,7 @@ const Add = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="identificationNumber" className="text-sm font-medium">identification Number</label><br/>
+            <label htmlFor="identificationNumber" className="text-sm font-medium">Identification Number</label><br/>
             <input
               type="text"
               id="identificationNumber"
@@ -95,7 +96,7 @@ const Add = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="vehicleMake" className="text-sm font-medium">Make:</label><br/>
+            <label htmlFor="vehicleMake" className="text-sm font-medium">Make</label><br/>
             <input
               type="text"
               id="vehicleMake"
@@ -161,8 +162,8 @@ const Add = () => {
 
 
         <form onSubmit={handleSubmit} >
-        <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 circle border-black'>2</span> Operator/Driver’s Details</p>
-            <div className='border-4 rounded-md p-5'>
+        <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 rounded-full border-black'>2</span> Operator/Driver’s Details</p>
+            <div className='border-2 rounded-md p-5'>
         <div className="mb-4">
             <label htmlFor="vehicleName" className="text-sm font-medium">Name</label><br/>
             <input
@@ -216,11 +217,77 @@ const Add = () => {
           />
         </div>
             
-          </div>   
+          </div>  
+          <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
+          <div className='border-2 '>
+            <p className='ml-5 mt-2'>Upload Image of Driver/Operator</p>
+          <div className="w-20 h-20 bg-gray-200 rounded-full mx-20 my-5 flex items-center justify-center overflow-hidden">
+        {imagePreview ? (
+          <img
+            src={imagePreview}
+            alt="Vehicle Preview"
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+        ) : (
+          <label htmlFor="vehicleImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
+            <img
+              src="/path-to-your-image-icon.png" // Replace with your image icon URL
+              alt=""
+              className="h-12 w-12"
+            />
+            <span className="block text-sm mt-1"></span>
+            <input
+              type="file"
+              id="vehicleImage"
+              name="vehicleImage"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+              className="hidden"
+            />
+          </label>
+        )}
+      </div>
+      </div>
+ 
         </form>
 
         </div>
     </div>
+
+    </div>
+    <p className='font-sans font-normal ml-72 my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
+          <div className='border-2 ml-72'>
+            <p className='ml-5 mt-2'>Upload Image of Driver/Operator</p>
+          <div className="w-32 h-32 bg-gray-200 rounded-md mx-20 my-5 flex items-center justify-center overflow-hidden">
+        {imagePreview ? (
+          <img
+            src={imagePreview}
+            alt="Vehicle Preview"
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+        ) : (
+          <label htmlFor="vehicleImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
+            <img
+              src="/path-to-your-image-icon.png" // Replace with your image icon URL
+              alt=""
+              className="h-12 w-12"
+            />
+            <span className="block text-sm mt-1"></span>
+            <input
+              type="file"
+              id="vehicleImage"
+              name="vehicleImage"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+              className="hidden"
+            />
+          </label>
+        )}
+      </div>
+      </div>
+ 
     </div>
   
   );
