@@ -45,11 +45,10 @@ const Add = () => {
   };
 
   return (
-    <div>
+   
     <div className='flex'>
-    <Sidebar />
-    <div className=" h-full border-red-600 my-4"></div>
-    <div className='ml-5'>
+      <Sidebar/>
+     <div className='ml-5'>
     <p className='font-sans mt-20 font-normal'>Add vehicle</p>
     <p className='font-sans my-5 text-[#6A6A6A] font-normal'>This is a form to add a new vehicle to your fleet</p>
     
@@ -208,9 +207,9 @@ const Add = () => {
             <label htmlFor="color" className="text-sm font-medium">Email</label><br />
             <input
              type="email"
-          id="mail"
+          id="email"
           name="email"
-          value={setEmail}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
@@ -253,12 +252,9 @@ const Add = () => {
         </form>
 
         </div>
-    </div>
-
-    </div>
-    <p className='font-sans font-normal ml-72 my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
-          <div className='border-2 ml-72'>
-            <p className='ml-5 mt-2'>Upload Image of Driver/Operator</p>
+        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
+          <div className='border-2 mb-5'>
+            <p className='ml-5'>Upload Image of Driver/Operator</p>
           <div className="w-32 h-32 bg-gray-200 rounded-md mx-20 my-5 flex items-center justify-center overflow-hidden">
         {imagePreview ? (
           <img
@@ -287,9 +283,8 @@ const Add = () => {
         )}
       </div>
       </div>
- 
     </div>
-  
+   </div>
   );
 };
 
