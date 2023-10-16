@@ -115,7 +115,7 @@ const Sidebar = () => {
         <li>
           <Link href=""
               onClick={() => toggleSettingsDropdown()}
-              className={`text-2xl font-normal mb-4 flex items-center cursor-pointer ${isSettingsDropdownOpen ? 'text-blue-500' : ''}`}
+              className={`text-2xl font-normal mb-4 flex items-center cursor-pointer ${isSettingsDropdownOpen ? 'text-blue-500' : '' }`}
             >
               <img
                 className="my-5 mr-2"
