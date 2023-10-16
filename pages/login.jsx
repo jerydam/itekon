@@ -12,8 +12,8 @@ const Login = () => {
 
   return (
     
-     <div className="flex  border-2 border-solid bg-white min-h-screen flex items-center justify-center">
-     <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 mr-[150px]">
+     <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
+     <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20]">
      <p className="mt-4 text-gray-600 font-sans font-semibold">
      Welcome back,<p className="text-sm font-normal">Sign in to your account to continue</p>
     </p>
@@ -55,12 +55,8 @@ const Login = () => {
         <a href="#" className="text-[#2D6C56] hover:underline">Forget Password?</a>
       </div>
     </div>
-    <div
-      type="submit"
-      className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-    >
-      Login
-    </div><p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
+    <a type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" a href="Dashboard">Login</a>
+      <p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
     
   </form>
 </div>
