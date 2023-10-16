@@ -1,5 +1,10 @@
+'use client'
+import Sidebar from "@/components/sidebar";
+
 const Dashboard = () => {
     return (
+      <div>
+      <Sidebar/>
       <div className="sidebar">
         <h3>Quick Links</h3>
         <ul>
@@ -15,6 +20,7 @@ const Dashboard = () => {
           <p>Phone: (123) 456-7890</p>
           <p>Email: example@example.com</p>
         </address>
+      </div>
       </div>
     );
   };
