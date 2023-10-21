@@ -27,7 +27,7 @@ const Sidebar = () => {
 
       <ul className="space-y-2">
         <li>
-          <Link href=""
+          <Link href="/dashboard"
               onClick={() => handleItemClick('dashboard')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
@@ -147,6 +147,9 @@ const Sidebar = () => {
           )}
         
         </li>
+        <div className='mt-20'>
+        <button className='bg-[#2D6C56] rounded text-center p-3 '>+ Add vehicle</button>
+        </div>
         </ul>
     </div>
   );
