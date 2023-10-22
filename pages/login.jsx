@@ -55,7 +55,7 @@ const Login = () => {
         <a href="#" className="text-[#2D6C56] hover:underline">Forget Password?</a>
       </div>
     </div>
-    <a type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" a href="Dashboard">Login</a>
+    <a type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" a href="dashboard">Login</a>
       <p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
     
   </form>
@@ -76,7 +76,7 @@ const Login = () => {
         
       }}
     >
-        <div className='text-center bg-opacity-50 bg-white p-4 rounded-md mx-5 p-10 font-san font-semibold'>
+        <div className='text-center bg-opacity-50 bg-white p-4 rounded-md mx-5 font-san font-semibold'>
   <img className="mx-auto" src="/images/logo.png" alt="Logo" width="100" height="100" />
   <p className='text-lg'>
     A smart platform for <br />enterprise fleet solution.
