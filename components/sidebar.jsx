@@ -147,9 +147,7 @@ const Sidebar = () => {
           )}
         
         </li>
-        <div className='mt-20'>
-        <button className='bg-[#2D6C56] rounded text-center p-3 '>+ Add vehicle</button>
-        </div>
+        <button className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3 '>+ Add vehicle</button>
         </ul>
     </div>
   );
