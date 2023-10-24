@@ -12,6 +12,7 @@ const Add = () => {
   const [vehicleMeter, setVehicleMeter] = useState('');
   const [color, setColor] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+  const [imagePrev, setImagePrev] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [license, setLicense] = useState('');
@@ -28,7 +29,17 @@ const Add = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleImageCh = (e) => {
+    const file = e.target.files[0];
 
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePrev(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission and data upload here
@@ -40,6 +51,7 @@ const Add = () => {
       fuelType,
       color,
       imagePreview,
+      imagePrev,
     };
     console.log(formData); // You can send this data to your server
   };
@@ -240,14 +252,14 @@ const Add = () => {
         </form>
 
         </div>
-        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>3</span> Upload Car</p>
+        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>3</span> Upload Car Image</p>
           <div className='border-2 mb-5'>
-            <p className='ml-5'>Upload Image of Driver/Operator</p>
+            <p className='ml-5'>Upload Car Image</p>
           <div className="w-32 h-32 bg-gray-200 rounded-md mx-20 my-5 flex items-center justify-center overflow-hidden">
-        {imagePreview ? (
+        {imagePrev ? (
           <img
-            src={imagePreview}
-            alt="Vehicle Preview"
+            src={imagePrev}
+            alt="Vehicle Prev"
             style={{ maxWidth: '100%', maxHeight: '100%' }}
           />
         ) : (
@@ -263,7 +275,7 @@ const Add = () => {
               id="vehicleImage"
               name="vehicleImage"
               accept="image/*"
-              onChange={handleImageChange}
+              onChange={handleImageCh}
               required
               className="hidden"
             />
