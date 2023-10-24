@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Popup from '../components/popup';
 import { TiPlus, TiTimes } from 'react-icons/ti';
-import cartel from '..';
+import {cartel} from '..';
 import Sidebar from "@/components/sidebar";
 import MapComponent from "@/components/map";
 
@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   const [showPopup, setShowPopup] = useState(false);
   const [value, setValue] = useState('');
-
+  
   const handleAdd = (input) => {
     // Add your logic for handling the input here
     console.log('Adding:', input);

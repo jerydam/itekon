@@ -3,7 +3,7 @@ const cartel = [
       id: 1,
       title: 'Active Engine',
       value: '60',
-      img:'images/Carin.png '
+      img: 'images/Carin.png'
     },
     {
       id: 2,
@@ -22,9 +22,73 @@ const cartel = [
         title: 'All Engine',
         value: '40',
         img: 'images/taxi car.png'
+    },
+];
+
+const mockCars = [
+    {
+      id: 1,
+      carId: "ABC123",
+      driverName: "John Doe",
+      lastTest: "2023-10-20",
+      readyForUse: true,
+      carLocation: "Location A",
+      alerts: "No alerts",
+    },
+    {
+      id: 2,
+      carId: "DEF456",
+      driverName: "Jane Doe",
+      lastTest: "2023-10-18",
+      readyForUse: false,
+      carLocation: "Location B",
+      alerts: "Low fuel",
+    },
+    {
+        id: 2,
+        carId: "DEF456",
+        driverName: "Jane Doe",
+        lastTest: "2023-10-18",
+        readyForUse: false,
+        carLocation: "Location B",
+        alerts: "Low fuel",
       },
-   
-  ];
-  
-  export default cartel;
-  
+      {
+        id: 2,
+        carId: "DEF456",
+        driverName: "Jane Doe",
+        lastTest: "2023-10-18",
+        readyForUse: false,
+        carLocation: "Location B",
+        alerts: "Low fuel",
+      },
+      {
+        id: 2,
+        carId: "DEF456",
+        driverName: "Jane Doe",
+        lastTest: "2023-10-18",
+        readyForUse: false,
+        carLocation: "Location B",
+        alerts: "Low fuel",
+      },
+      {
+        id: 2,
+        carId: "DEF456",
+        driverName: "Jane Doe",
+        lastTest: "2023-10-18",
+        readyForUse: false,
+        carLocation: "Location B",
+        alerts: "Low fuel",
+      },
+      {
+        id: 2,
+        carId: "DEF456",
+        driverName: "Jane Doe",
+        lastTest: "2023-10-18",
+        readyForUse: false,
+        carLocation: "Location B",
+        alerts: "Low fuel",
+      },
+];
+
+export { cartel, mockCars };
