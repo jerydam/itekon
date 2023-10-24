@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Popup from '../components/popup';
 import { TiPlus, TiTimes } from 'react-icons/ti';
-
+import cartel from '..';
 import Sidebar from "@/components/sidebar";
 import MapComponent from "@/components/map";
 
@@ -24,44 +24,19 @@ const Dashboard = () => {
     <div className="flex lg:flex-row">
       <Sidebar />
       <div className="w-full">
-        <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5 ">
-          <div className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
-            <div className="flex px-4">
-              <img src="./images/Carin.png" alt="Car" />
-              <div className="text-center py-5">
-                <p>Active Engine</p>
-                <p className="text-xl font-bold ">60</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
-            <div className="flex px-4">
-              <img src="./images/Car rental.png" alt="Car" />
-              <div className="text-center py-5">
-                <p>All Drivers</p>
-                <p className="text-xl font-bold ">60</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
-            <div className="flex px-4">
-              <img src="./images/car.png" alt="Car" />
-              <div className="text-center py-5">
-                <p>Idle Engine</p>
-                <p className="text-xl font-bold ">60</p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
-            <div className="flex px-4">
-              <img src="./images/taxi car.png" alt="Car" />
-              <div className="text-center py-5">
-                <p>All Vehicle</p>
-                <p className="text-xl font-bold ">60</p>
-              </div>
+      <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5">
+      {cartel.map((item) => (
+        <div key={item.id} className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
+          <div className="flex px-4">
+            <img src={item.img} alt="Car" />
+            <div className="text-center py-5">
+              <p>{item.title}</p>
+              <p className="text-xl font-bold ">{item.value}</p>
             </div>
           </div>
         </div>
+      ))}
+     </div>
 
         <div className="w-full flex flex-col lg:flex-row justify-between gap-4 p-5 ">
           <div className="w-full lg:w-1/2 border-2 h-60 rounded">
