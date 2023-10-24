@@ -32,7 +32,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="text-gray-800 w-1/5 border-2 h-screen p-4">
+    <div className="text-gray-800 w-1/5 border-2 h-screen p-4 sidebar">
       <div className="flex items-center">
         <img
           className="my-5"
@@ -96,7 +96,7 @@ const Sidebar = () => {
             </li>
 
             <li>
-          <Link href=""
+          <Link href="vehicleDetails/vehicleRd"
             
               onClick={() => handleItemClick('drivers')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'drivers' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -164,15 +164,12 @@ const Sidebar = () => {
             </ul>
           )}
         
-        </li>
-        <li style={{ marginBottom: '200px' }}>
-          <Link href="addVehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
+        </li> 
+        <div className=''>
+      <Link href="addVehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
             + Add vehicles
           </Link>
-        </li>
-      </ul>
-
-      {/* Displaying the current user's image and name fetched from the backend */}
+      </div>
       {userData && (
         <div className="fixed bottom-0 left-0 w-1/5 bg-white p-4">
           <img
@@ -184,7 +181,10 @@ const Sidebar = () => {
           />
           <p className="text-center">{userData.name}</p> {/* Replace with the user's name fetched from the backend */}
         </div>
-      )}
+      )}       
+      </ul>
+
+      
     </div>
   );
 };

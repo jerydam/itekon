@@ -7,19 +7,9 @@
 /* 
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
-.circle{
-
-  border-radius:100%;
-}
-.hero{
-  height: 300px;
-  width: 100%;
-  backgroundImage: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/hero.jpg");
-  backgroundSize: cover;
-  backgroundPosition: center;
-  display: flex;
-  justifyContent: center;
-  alignItems: center;
-  flexDirection: column;
-  color: white;
+/* global.css */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
 }

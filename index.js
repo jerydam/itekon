@@ -45,7 +45,7 @@ const mockCars = [
       alerts: "Low fuel",
     },
     {
-        id: 2,
+        id: 3,
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -54,7 +54,7 @@ const mockCars = [
         alerts: "Low fuel",
       },
       {
-        id: 2,
+        id: 4,
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -63,7 +63,7 @@ const mockCars = [
         alerts: "Low fuel",
       },
       {
-        id: 2,
+        id: 5,
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -72,7 +72,7 @@ const mockCars = [
         alerts: "Low fuel",
       },
       {
-        id: 2,
+        id: 6,
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -81,7 +81,7 @@ const mockCars = [
         alerts: "Low fuel",
       },
       {
-        id: 2,
+        id: 7,
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
