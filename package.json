@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "heroicons": "^2.0.18",
     "leaflet": "^1.9.4",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-icons": "^4.11.0",
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {

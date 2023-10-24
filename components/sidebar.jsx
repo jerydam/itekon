@@ -14,7 +14,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="text-gray-800 w-1/5 border-2 h-screen p-4">
+    <div className="text-gray-800 w-full lg:w-1/5 border-2 h-screen p-4">
       <div className="flex items-center">
         <img
           className="my-5"
@@ -25,7 +25,7 @@ const Sidebar = () => {
         />
       </div>
 
-      <ul className="space-y-2">
+      <ul className="space-y-2 h-full">
         <li>
           <Link href="/dashboard"
               onClick={() => handleItemClick('dashboard')}
@@ -147,7 +147,11 @@ const Sidebar = () => {
           )}
         
         </li>
-        <button className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3 '>+ Add vehicle</button>
+        <li>
+          <Link href="" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>+ Add vehicles
+            
+          </Link>
+            </li>
         </ul>
     </div>
   );
