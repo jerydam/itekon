@@ -237,8 +237,8 @@ const Add = () => {
             <span className="block text-sm mt-1"></span>
             <input
               type="file"
-              id="vehicleImage"
-              name="vehicleImage"
+              id="driverImage"
+              name="driverImage"
               accept="image/*"
               onChange={handleImageChange}
               required
