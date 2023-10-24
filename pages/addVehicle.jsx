@@ -148,18 +148,6 @@ const Add = () => {
           </div>   
         </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
         <form onSubmit={handleSubmit} >
         <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 rounded-full border-black'>2</span> Operator/Driver’s Details</p>
             <div className='border-2 rounded-md p-5'>
@@ -252,7 +240,7 @@ const Add = () => {
         </form>
 
         </div>
-        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
+        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>3</span> Upload Car</p>
           <div className='border-2 mb-5'>
             <p className='ml-5'>Upload Image of Driver/Operator</p>
           <div className="w-32 h-32 bg-gray-200 rounded-md mx-20 my-5 flex items-center justify-center overflow-hidden">

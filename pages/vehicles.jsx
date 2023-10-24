@@ -25,17 +25,21 @@ const RegisteredCars = () => {
             {mockCars.map((car) => (
               <tr key={car.id}>
                 <td className="border px-4 py-2">{car.carId}</td>
-                <td className="border px-4 py-2">{car.driverName}</td>
+                <td className="border px-4 py-2"><a href="assigndriver.jsx">{car.driverName}</a></td>
                 <td className="border px-4 py-2">{car.lastTest}</td>
                 <td className="border px-4 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
                 <td className="border px-4 py-2">{car.carLocation}</td>
                 <td className="border px-4 py-2">{car.alerts}</td>
                 <td className="border px-4 py-2">
-                  <select className="border p-2">
+                <div className="border p-2 flex">
+                 <select className="">
                     <option value="select">Select</option>
-                    <option value="edit">Edit</option>
-                    <option value="delete">Delete</option>
-                  </select>
+                    <option value="car-details">Car Details</option>
+                    <option value="transit-details">Transit Details</option>
+                    <option value="driver-details">Driver Details</option>
+  </select>
+</div>
+
                 </td>
               </tr>
             ))}
