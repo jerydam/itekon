@@ -9,7 +9,6 @@ const Login = () => {
   const handleLogin = async () => {
     // Add your authentication logic here
   };
-
   return (
     
      <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">

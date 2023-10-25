@@ -89,6 +89,18 @@ const mockCars = [
         carLocation: "Location B",
         alerts: "Low fuel",
       },
-];
+    ];
 
-export { cartel, mockCars };
+    const driver =[
+      {
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        id: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+    ];
+
+export { cartel, mockCars,driver };

@@ -37,11 +37,11 @@ const RegisteredCars = () => {
               <tr key={car.id}>
                 <td className="border px-4 py-2">{car.carId}</td>
                 <td className="border px-4 py-2">
-                  <a href="assigndriver.jsx">{car.driverName}</a>
+                  <a href="vehicles/assigndriver">{car.driverName}</a>
                 </td>
                 <td className="border px-4 py-2">{car.lastTest}</td>
                 <td className="border px-4 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
-                <td className="border px-4 py-2">{car.carLocation}</td>
+                <td className="border px-4 py-2"><a href="vehicles/assignlocation">{car.carLocation}</a></td>
                 <td className="border px-4 py-2">{car.alerts}</td>
                 <td className="border px-4 py-2">
                   <div className="border p-2 flex relative">
