@@ -1,9 +1,15 @@
 import React from 'react';
 import { driver } from '@/index';
 import '/styles/global.css'; 
+import Sidebar from '@/components/sidebar';
+import Navbar from '@/components/nav';
+
 const AssignDriver = () => {
   return (
+    <div className='flex'>
+        <Sidebar/>
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <Navbar/>
       <div className="flex flex-col mt-6">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -56,8 +62,10 @@ const AssignDriver = () => {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 };
+
 
 export default AssignDriver;

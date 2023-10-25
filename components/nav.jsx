@@ -1,24 +1,16 @@
-'use client'
 import React, { useState } from 'react';
 import "/styles/global.css";
 
-const Nav = () => {
-  
+const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-
-  
   const toggleSearchVisibility = () => {
     setIsSearchVisible(!isSearchVisible);
   };
-
-  
   const [notificationCount, setNotificationCount] = useState(0);
 
   return (
-    <div className="flex justify-between items-center bg-white p-4">
-      <img className="my-5 ml-5" src="/images/logo.png" alt="Logo" width="100" height="100" />
-
-      
+    <div className="flex w-full bg-white gap-4 justify-end p-4">
+      <div className="flex-grow"></div>
       <div className="relative">
         <button
           className="text-gray-800 hover:text-blue-400"
@@ -37,7 +29,6 @@ const Nav = () => {
         )}
       </div>
 
-     
       <div className="relative">
         <button
           className="text-gray-800 hover:text-blue-400"
@@ -55,4 +46,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Navbar;

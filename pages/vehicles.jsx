@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from '@/components/sidebar';
 import { mockCars } from '..'; // Replace with the actual path to your mock data file
-import Driver from './vehicleDetails/driver';
-import VehicleRDetails from './vehicleDetails/vehicleRd';
-import Transist from './vehicleDetails/transist';
+import Driver from './vehicle/driver';
+import VehicleRDetails from './vehicle/vehicleRd';
+import Transist from './vehicle/transist';
 
 const RegisteredCars = () => {
   const [openDropdowns, setOpenDropdowns] = useState({});
@@ -41,7 +41,7 @@ const RegisteredCars = () => {
                 </td>
                 <td className="border px-4 py-2">{car.lastTest}</td>
                 <td className="border px-4 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
-                <td className="border px-4 py-2"><a href="vehicles/assignlocation">{car.carLocation}</a></td>
+                <td className="border px-4 py-2"><a href="vehicleDetails/assignlocation">{car.carLocation}</a></td>
                 <td className="border px-4 py-2">{car.alerts}</td>
                 <td className="border px-4 py-2">
                   <div className="border p-2 flex relative">

@@ -32,7 +32,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="text-gray-800 w-1/5 border-2 h-screen p-4 sidebar">
+    <div className="text-gray-800 w-1/5 border-2 h-full p-4 sidebar">
       <div className="flex items-center">
         <img
           className="my-5"
