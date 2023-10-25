@@ -284,6 +284,7 @@ const Add = () => {
       </div>
       </div>
     </div>
+          <a href="/vehicleadded">add</a>
    </div>
   );
 };

@@ -1,5 +1,7 @@
+import Navbar from '@/components/nav';
+import Sidebar from '@/components/sidebar';
 import React from 'react';
-
+import 'styles/global.css';
 const VehiclePage = () => {
   const handleShowVehicleList = () => {
     // Implement logic to show vehicle list
@@ -12,22 +14,31 @@ const VehiclePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-green-500 w-24 h-24 flex items-center justify-center rounded-full text-white text-2xl">
+    <div className='flex'>
+      <Sidebar/>
+      <div className='w-full'>
+        <Navbar/>
+    <div className="flex flex-col items-center justify-center h-full w-full">
+      <div className="bg-[#2D6C56] w-56 h-56 flex items-center justify-center rounded-full text-white text-2xl">
         &#10003;
       </div>
-      <button
-        onClick={handleShowVehicleList}
-        className="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded"
-      >
-        Show Vehicle List
-      </button>
+      <p>You have added Toyota Camry (car 5) to your fleet! <br />You also assigned driver Joe Bredan to the vehicle.</p>
       <button
         onClick={handleAddVehicle}
-        className="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded"
+        className="text-[#2D6C56]  border-[#2D6C56] border-b-4 border-2 font-semibold px-4 py-2 mt-4 rounded"
       >
-        Add Vehicle
+       + Add more Vehicle
       </button>
+      <button
+        onClick={handleShowVehicleList}
+        className=" text-[#2D6C56] font-semibold px-4 py-2 mt-4 rounded"
+      >
+        
+        See Vehicle List
+      </button>
+      
+    </div>
+    </div>
     </div>
   );
 };
