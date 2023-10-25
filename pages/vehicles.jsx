@@ -40,7 +40,7 @@ const RegisteredCars = () => {
               <tr key={car.id}>
                 <td className="border px-4 py-2">{car.carId}</td>
                 <td className="border px-4 py-2">
-                  <a href="vehicles/assigndriver">{car.driverName}</a>
+                  <a href="vehicleDetails/assigndriver">{car.driverName}</a>
                 </td>
                 <td className="border px-4 py-2">{car.lastTest}</td>
                 <td className="border px-4 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>

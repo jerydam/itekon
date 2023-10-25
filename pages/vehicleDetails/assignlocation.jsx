@@ -48,7 +48,7 @@ const AssignLocation = () => {
           onClick={handleAddAddress}
           className="bg-[#2D6C56] border-b-4 text-[#e7e6db] py-2 px-4 rounded"
         >
-          <a href="/vehicle/map">+ Add Address</a>
+          <a href="/vehicleDetails/map">+ Add Address</a>
         </button>
       </div>
       </div>
