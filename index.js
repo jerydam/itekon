@@ -93,14 +93,75 @@ const mockCars = [
 
     const driver =[
       {
+        id: 1,
         name: "jery",
         location: "lagos",
         phoneNumber:"08099999999",
         email: "jery@gmail.com",
-        id: "AD12324j",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 2,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 3,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 4,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 5,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 6,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
+        media: "@jonny",
+        device: "tecno Spark5"
+      },
+      {
+        id: 7,
+        name: "jery",
+        location: "lagos",
+        phoneNumber:"08099999999",
+        email: "jery@gmail.com",
+        iD: "AD12324j",
         media: "@jonny",
         device: "tecno Spark5"
       },
     ];
 
-export { cartel, mockCars,driver };
+export { cartel, mockCars, driver };
