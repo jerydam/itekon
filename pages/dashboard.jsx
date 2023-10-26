@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import Popup from '../components/popup';
+import Popup from '@/components/popups/popup';
 import { TiPlus, TiTimes } from 'react-icons/ti';
 import {cartel} from '..';
 import Sidebar from "@/components/sidebar";

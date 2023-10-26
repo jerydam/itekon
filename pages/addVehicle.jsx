@@ -283,8 +283,10 @@ const Add = () => {
         )}
       </div>
       </div>
+      <button className='w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5'><a href="/vehicleadded">+ Add Vehicle Details </a></button>
+      
     </div>
-          <a href="/vehicleadded">add</a>
+          
    </div>
   );
 };

@@ -99,6 +99,7 @@ const mockCars = [
         phoneNumber:"08099999999",
         email: "jery@gmail.com",
         iD: "AD12324j",
+        image: 'images/taxi car.png',
         media: "@jonny",
         device: "tecno Spark5"
       },
@@ -110,6 +111,7 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
+        image: 'images/taxi car.png',
         device: "tecno Spark5"
       },
       {
@@ -120,6 +122,7 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
+        image: 'images/taxi car.png',
         device: "tecno Spark5"
       },
       {
@@ -130,6 +133,7 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
+        image: 'images/taxi car.png',
         device: "tecno Spark5"
       },
       {
@@ -140,6 +144,7 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
+        image: 'images/taxi car.png',
         device: "tecno Spark5"
       },
       {
@@ -150,6 +155,7 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
+        image: 'images/taxi car.png',
         device: "tecno Spark5"
       },
       {
@@ -160,7 +166,8 @@ const mockCars = [
         email: "jery@gmail.com",
         iD: "AD12324j",
         media: "@jonny",
-        device: "tecno Spark5"
+        device: "tecno Spark5",
+        image: 'images/taxi car.png',
       },
     ];
 
