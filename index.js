@@ -28,6 +28,7 @@ const cartel = [
 const mockCars = [
     {
       id: 1,
+      carName: "Toyota",
       carId: "ABC123",
       driverName: "John Doe",
       lastTest: "2023-10-20",
@@ -37,6 +38,7 @@ const mockCars = [
     },
     {
       id: 2,
+      carName: "Toyota",
       carId: "DEF456",
       driverName: "Jane Doe",
       lastTest: "2023-10-18",
@@ -46,6 +48,7 @@ const mockCars = [
     },
     {
         id: 3,
+        carName: "Toyota",
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -55,6 +58,7 @@ const mockCars = [
       },
       {
         id: 4,
+        carName: "Toyota",
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -64,6 +68,7 @@ const mockCars = [
       },
       {
         id: 5,
+        carName: "Toyota",
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -73,6 +78,7 @@ const mockCars = [
       },
       {
         id: 6,
+        carName: "Toyota",
         carId: "DEF456",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
@@ -83,6 +89,7 @@ const mockCars = [
       {
         id: 7,
         carId: "DEF456",
+        carName: "Toyota",
         driverName: "Jane Doe",
         lastTest: "2023-10-18",
         readyForUse: false,

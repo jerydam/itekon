@@ -3,37 +3,10 @@ import { driver } from '@/index';
 import '/styles/global.css';
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
-import Edit from '@/components/popups/edit';
-import Remove from '@/components/popups/remove';
-import AddDriver from '@/components/popups/addDriver'; // assuming you have created an Edit component
+import { mockCars, driver } from '@/index';
 
-const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
-  const [showEdit, setShowEdit] = useState(false);
-  const [showDrive, setShowDrive] = useState(false);
-  const [showRemove, setShowRemove] = useState(false);
- 
-  const handleEdit = (id) => {
-    onEdit(id); // or perform any other necessary actions
-    setShowEdit(true);
-  };
-  const handleDrive = (id) => {
-    onDrive(id); // or perform any other necessary actions
-    setShowDrive(true);
-  };
-  const handleRemove = (id) => {
-    onRemove(id); // or perform any other necessary actions
-    setShowRemove(true);
-  };
-
-  const handleCancel = () => {
-    setShowEdit(false);
-  };
-  const handleClear = () => {
-    setShowDrive(false);
-  };
-  const handleDelete = () => {
-    setShowRemove(false);
-  };
+const DriverList = ({ onAdd }) => {
+  
 
   return (
     <div className='flex relative'>
@@ -54,30 +27,24 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
             <thead>
               <tr>
                 <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Vehicle ID</th>
                 <th className="px-4 py-2">License ID</th>
-                <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Assigned Location</th>
                 <th className="px-4 py-2">Action</th>
               </tr>
             </thead>
             <tbody>
-              {driver.map((item) => (
+              {mockCars.map((item) => (
                 <tr key={item.id}>
                   <td className="border px-4 py-2">{item.id}</td>
                   <td className="border px-4 py-2 flex items-center">
-                    <div className="mr-2">
-                      <img
-                        src={item.image}
-                        alt="Driver"
-                        className="h-5 w-5 rounded-full"
-                      />
-                    </div>
+                    
                     <div>
-                      <div>{item.name}</div>
-                      <div className="text-sm text-gray-500">{item.email}</div>
+                      <div>{item.carName}</div>
+                      <div className="text-sm text-gray-500">{item.iD}</div>
                     </div>
                   </td>
-                  <td className="border px-4 font-semibold py-2">{item.iD}</td>
+                  <td className="border px-4 font-semibold py-2">{item.carId}</td>
                   <td className="border px-4 font-semibold py-2">{item.phoneNumber}</td>
                   <td className="border font-semibold px-4 py-2">
                     <button
@@ -90,15 +57,6 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
                     <button onClick={() => setShowEdit(true)} className=" text-[#2D6C56] font-bold py-2 px-4 rounded mx-2">
            Edit Profile
         </button>
-        {showEdit && <Edit onEdit={handleEdit} onCancel={handleCancel} />}
-      
-                    <button
-                      onClick={() => setShowRemove(true)}
-                      className="border-b-[#9F9F9F] border-b-4 border-[#9F9F9F] border-2 text-[#9F9F9F] font-bold py-2 px-4 rounded mx-2"
-                    >
-                      Remove Driver
-                    </button>
-                    {showRemove && <Remove onRemove={handleRemove} onCancel={handleDelete} />}
                   </td>
                 </tr>
               ))}

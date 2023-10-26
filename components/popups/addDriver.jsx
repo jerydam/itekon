@@ -4,10 +4,13 @@ import { XIcon } from '@heroicons/react/solid';
 
 const AddDriver = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const [license, setLicense] = useState('');
+  const [num, setNum] = useState('');
+  const [mail, setMail] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleAdd = () => {
-    onAdd(inputValue);
+    onAdd(e);
     setInputValue('');
   };
 
@@ -44,25 +47,25 @@ const AddDriver = ({ onAdd, onCancel }) => {
         <p className='mt-2 mb-2'>License Number</p>
         <input
           type="text"
-          id="input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          id="iD"
+          value={license}
+          onChange={(e) => setLicense(e.target.value)}
           className="border border-[#2D6C56] px-3 py-2 mb-2 rounded-md w-full"
         />
         <p className='mt-2 mb-2'>Phone Number</p>
         <input
           type="text"
-          id="input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          id="num"
+          value={num}
+          onChange={(e) => setNum(e.target.value)}
           className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
         />
         <p className='mt-2 mb-2'>Email Address</p>
         <input
           type="email"
-          id="input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          id="mail"
+          value={mail}
+          onChange={(e) => setMail(e.target.value)}
           className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
         />
         
