@@ -81,10 +81,10 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
                   <td className="border px-4 font-semibold py-2">{item.phoneNumber}</td>
                   <td className="border font-semibold px-4 py-2">
                     <button
-                      onClick={() => onAssignVehicle(item.id)}
+                      
                       className="border-b-[#2D6C56] border-b-4 border-[#2D6C56] border-2 text-[#2D6C56] font-bold py-2 mx-2 px-4 rounded"
                     >
-                      Assign Vehicle
+                      <a href="driver/assign">Assign Vehicle</a>
                     </button>
                     
                     <button onClick={() => setShowEdit(true)} className=" text-[#2D6C56] font-bold py-2 px-4 rounded mx-2">

@@ -3,7 +3,8 @@ const cartel = [
       id: 1,
       title: 'Active Engine',
       value: '60',
-      img: 'images/Carin.png'
+      img: 'images/Carin.png',
+      imag: 'images/geomap.png'
     },
     {
       id: 2,
