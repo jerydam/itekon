@@ -11,35 +11,36 @@ const Add = () => {
   const [fuelType, setFuelType] = useState('');
   const [vehicleMeter, setVehicleMeter] = useState('');
   const [color, setColor] = useState('');
-  const [imagePreview, setImagePreview] = useState(null);
-  const [imagePrev, setImagePrev] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [license, setLicense] = useState('');
+  const [userImage, setUserImage] = useState(null);
+  const [carLogo, setCarLogo] = useState(null);
 
-
-  const handleImageChange = (e) => {
+  const handleUserImageChange = (e) => {
     const file = e.target.files[0];
-
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setUserImage(URL.createObjectURL(file));
     }
   };
-  const handleImageCh = (e) => {
-    const file = e.target.files[0];
 
+  const handleCarLogoChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagePrev(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setCarLogo(URL.createObjectURL(file));
     }
   };
+
+  const clearUserImage = () => {
+    setUserImage(null);
+  };
+
+  const clearCarLogo = () => {
+    setCarLogo(null);
+  };
+
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission and data upload here
@@ -50,8 +51,8 @@ const Add = () => {
       identificationNumber,
       fuelType,
       color,
-      imagePreview,
-      imagePrev,
+      carLogo,
+      userImage
     };
     console.log(formData); // You can send this data to your server
   };
@@ -66,7 +67,11 @@ const Add = () => {
     
     <div className='flex'>
           <form onSubmit={handleSubmit} className='mr-10'>
-          <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 rounded-full border-black'>1</span> Vehicle Registration Details</p>
+          <div className='flex items-center gap-1 mb-5'>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>1</div>
+          <p className='font-sans font-normal'>Vehicle Registration Details</p>
+          </div>
+
             <div className='border-2 rounded-md p-5'>
         <div className="mb-4">
             <label htmlFor="vehicleName" className="text-sm font-medium">Vehicle Name</label><br/>
@@ -77,7 +82,7 @@ const Add = () => {
               value={vehicleName}
               onChange={(e) => setVehicleName(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded-sm px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-[400px]"
             />
           </div>
 
@@ -90,7 +95,7 @@ const Add = () => {
               value={identificationNumber}
               onChange={(e) => setIdentificationNumber(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>
 
@@ -103,7 +108,7 @@ const Add = () => {
               value={vehicleName}
               onChange={(e) => setVehicleModel(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>
           <div className="mb-4">
@@ -115,7 +120,7 @@ const Add = () => {
               value={vehicleMake}
               onChange={(e) => setVehicleMake(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>
       
@@ -128,7 +133,7 @@ const Add = () => {
               value={vehicleMeter}
               onChange={(e) => setVehicleMeter(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>
  
@@ -142,7 +147,7 @@ const Add = () => {
           value={fuelType}
           onChange={(e) => setFuelType(e.target.value)}
           required
-          className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+          className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
           />
         </div>
           <div className="mb-4">
@@ -154,14 +159,17 @@ const Add = () => {
               value={color}
               onChange={(e) => setColor(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>   
           </div>   
         </form>
 
         <form onSubmit={handleSubmit} >
-        <p className='font-sans font-normal mb-5'><span  className='border-2 p-2 rounded-full border-black'>2</span> Operator/Driver’s Details</p>
+        <div className='flex items-center gap-1 mb-5'>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>2</div>
+          <p className='font-sans font-normal'>Operator/Driver’s Details</p>
+          </div>
             <div className='border-2 rounded-md p-5'>
         <div className="mb-4">
             <label htmlFor="vehicleName" className="text-sm font-medium">Name</label><br/>
@@ -172,7 +180,7 @@ const Add = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded-sm px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-[400px]"
             />
           </div>
 
@@ -186,22 +194,23 @@ const Add = () => {
               value={license}
               onChange={(e) => setLicense(e.target.value)}
               required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="identificationNumber" className="text-sm font-medium">Phone Number</label><br/>
-            <input
-              type="number"
-              id="number"
-              name="number"
-              value={identificationNumber}
-              onChange={(e) => setNumber(e.target.value)}
-              required
-              className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
-            />
-          </div>
+  <label htmlFor="identificationNumber" className="text-sm font-medium">Phone Number</label><br/>
+  <input
+    type="number"
+    id="number"
+    name="number"
+    value={identificationNumber}
+    onChange={(e) => setNumber(e.target.value)}
+    required
+    className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+  />
+</div>
+
          
           <div className="mb-4">
             <label htmlFor="color" className="text-sm font-medium">Email</label><br />
@@ -212,77 +221,90 @@ const Add = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="border border-[#2D6C56] rounded px-2 py-1 w-[400px]"
+          className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
           />
         </div>
             
+          </div> 
+          <div className='flex items-center gap-1 my-5'>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>4</div>
+          <p className='font-sans font-normal'>Upload Driver’s Image</p>
           </div>  
-          <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>4</span> Operator/Driver’s Details</p>
-          <div className='border-2 '>
-            <p className='ml-5 mt-2'>Upload Image of Driver/Operator</p>
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-20 my-5 flex items-center justify-center overflow-hidden">
-        {imagePreview ? (
-          <img
-            src={imagePreview}
-            alt="Vehicle Preview"
-            style={{ maxWidth: '100%', maxHeight: '100%' }}
-          />
-        ) : (
-          <label htmlFor="vehicleImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
-            <img
-              src="/path-to-your-image-icon.png" // Replace with your image icon URL
-              alt=""
-              className="h-12 w-12"
-            />
-            <span className="block text-sm mt-1"></span>
+          <div className='border-2 mt-3 rounded'> 
+          <p className='m-3'>Upload Image of Driver/Operator</p>
+        <div className="relative m-3 w-40 h-40 rounded-full border-dotted border-2 border-[#6A6A6A] overflow-hidden">
+          <label htmlFor="userImage" className="cursor-pointer block">
+            {userImage ? (
+              <img
+                src={userImage}
+                alt="User"
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              <div className="w-96 h-96  flex items-center justify-center">
+                <span className="text-gray-400">User Image</span>
+              </div>
+            )}
             <input
               type="file"
-              id="driverImage"
-              name="driverImage"
-              accept="image/*"
-              onChange={handleImageChange}
-              required
+              id="userImage"
+              name="userImage"
               className="hidden"
+              onChange={handleUserImageChange}
             />
           </label>
-        )}
-      </div>
-      </div>
- 
+          {userImage && (
+            <button
+              className="absolute top-2 right-2 p-1 bg-white rounded-full"
+              onClick={clearUserImage}
+            >
+              X
+            </button>
+          )}
+        </div>
+            </div>
         </form>
 
         </div>
-        <p className='font-sans font-normal my-5'><span  className='border-2 p-2 rounded-full border-black'>3</span> Upload Car Image</p>
-          <div className='border-2 mb-5'>
-            <p className='ml-5'>Upload Car Image</p>
-          <div className="w-32 h-32 bg-gray-200 rounded-md mx-20 my-5 flex items-center justify-center overflow-hidden">
-        {imagePrev ? (
-          <img
-            src={imagePrev}
-            alt="Vehicle Prev"
-            style={{ maxWidth: '100%', maxHeight: '100%' }}
-          />
-        ) : (
-          <label htmlFor="vehicleImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
-            <img
-              src="/path-to-your-image-icon.png" // Replace with your image icon URL
-              alt=""
-              className="h-12 w-12"
-            />
-            <span className="block text-sm mt-1"></span>
-            <input
-              type="file"
-              id="vehicleImage"
-              name="vehicleImage"
-              accept="image/*"
-              onChange={handleImageCh}
-              required
-              className="hidden"
-            />
-          </label>
-        )}
+
+        <div className='flex items-center gap-1 mb-5'>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>3</div>
+          <p className='font-sans font-normal'>Upload Vehicle Image</p>
+          </div>      
+        <div className='border-2 rounded my-5'> 
+        <p className='m-3'>Upload Image of Vehicle</p>
+        <div className="relative w-40  h-40 rounded m-3 border-dotted border-2 border-[#6A6A6A] overflow-hidden">
+  <label htmlFor="CarLogo" className="cursor-pointer block">
+    {carLogo ? (
+      <img
+        src={carLogo}
+        alt="Company Logo"
+        className="object-cover w-full h-full"
+      />
+    ) : (
+      <div className="w-96 h-96  flex items-center justify-center">
+        
       </div>
-      </div>
+    )}
+    <input
+      type="file"
+      id="CarLogo"
+      name="CarLogo"
+      className="hidden"
+      onChange={handleCarLogoChange}
+    />
+  </label>
+  {carLogo && (
+    <button
+      className="absolute top-5 right-5 p-1 bg-white rounded-full"
+      onClick={clearCarLogo}
+    >
+      X
+    </button>
+  )}
+        </div>
+        </div>
+
       <button className='w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5'><a href="/vehicleadded">+ Add Vehicle Details </a></button>
       
     </div>

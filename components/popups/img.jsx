@@ -1,19 +1,8 @@
 import { useState } from 'react';
 import CompleteEmail from './email';
-
-const CompleteImg = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [value, setValue] = useState('');
-
-  const handleAdd = (input) => {
-    // Add your logic for handling the input here
-    console.log('Adding:', input);
-    // You can add your custom logic here for adding the value to your list or state
-    setShowPopup(false); // Hide the popup after adding the value
-  };
-  const handleCancel = () => {
-    setShowPopup(false); // Hide the popup when canceled
-  };
+import { XIcon } from '@heroicons/react/solid';
+const CompleteImg = ({ onAdd, onCancel }) => {
+  
   const [userImage, setUserImage] = useState(null);
   const [companyLogo, setCompanyLogo] = useState(null);
 
@@ -42,9 +31,14 @@ const CompleteImg = () => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md">
       <div className="p-8">
+        <div className='flex justify-between items-center mb-4'>
       <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
+      <button onClick={onCancel}>
+            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+          </button>
+          </div>
       <p>2. Upload Your Profile Pictures and Company Logo</p>
-      <div className="items-center  space-x-8 my-4">
+      <div className="space-x-8 my-4">
         
         <p>Upload Company’s Logo</p>
         <div className="relative w-40 my-3 h-40 rounded-full border-dotted border-2 border-[#6A6A6A] overflow-hidden">
@@ -109,7 +103,7 @@ const CompleteImg = () => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex mt-5 items-center justify-center">
             <button
               onClick={() => setShowPopup(true)}
               className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -117,7 +111,7 @@ const CompleteImg = () => {
               Complete Profile
             </button>
           </div>
-          {showPopup && <CompleteEmail onAdd={handleAdd} onCancel={handleCancel} />}
+         
     </div>
       </div>
     </div>

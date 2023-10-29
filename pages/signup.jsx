@@ -7,8 +7,31 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignup = async () => {
-    // Add your authentication logic here
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    const userData = { email, password, confirmPassword }; // Replace with the appropriate data
+
+    try {
+      const response = await fetch('https://itekton.onrender.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        // Handle success, such as redirecting the user to a new page or showing a success message
+        console.log('User registered successfully');
+      } else {
+        // Handle errors and show appropriate messages to the user
+        const errorData = await response.json();
+        console.error('Error:', errorData.message);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   return (

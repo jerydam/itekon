@@ -32,7 +32,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="text-gray-800 w-1/5 border-2 h-full p-4 sidebar">
+    <div className="text-gray-800 w-64 border-x-2 h-screen p-4 sidebar">
       <div className="flex items-center">
         <img
           className="my-5"
@@ -131,40 +131,49 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link href=""
-              onClick={() => toggleSettingsDropdown()}
-              className={`text-2xl font-normal mb-4 flex items-center cursor-pointer ${isSettingsDropdownOpen ? 'text-blue-500' : '' }`}
-            >
-              <img
-                className="my-5 mr-2"
-                src="/images/settings.png"
-                alt="Logo"
-                width="20"
-                height="20"
-              />{' '}
-              Settings
-            
+  <div className="flex flex-col relative">
+    <div
+      onClick={() => {
+        toggleSettingsDropdown();
+        handleItemClick('setting');
+      }}
+      className={`text-2xl font-normal mb-4 flex items-center cursor-pointer ${
+        isSettingsDropdownOpen ? 'text-[#2D6C56]' : ''
+      } ${activeItem === 'setting' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+    >
+      <img
+        className="my-5 mx-5"
+        src="/images/settings.png"
+        alt="Logo"
+        width="20"
+        height="20"
+      />{' '}
+      Settings
+    </div>
+    {isSettingsDropdownOpen && (
+      <ul className="ml-4 mb-64">
+      
+        <li>
+          <Link href="" className="font-normal mb-2 flex items-center hover:text-blue-500">
+           Account
           </Link>
-          {isSettingsDropdownOpen && (
-            <ul className="ml-4">
-              {/* Dropdown content goes here */}
-              <li>
-                <Link href="" className="font-normal mb-2 flex items-center hover:text-blue-500">
-                    Dropdown Item 1
-                  
-                </Link>
-              </li>
-              <li>
-                <Link href="" className="font-normal mb-2 flex items-center hover:text-blue-500">
-                    Dropdown Item 2
-                  
-                </Link>
-              </li>
-              {/* Add more dropdown items as needed */}
-            </ul>
-          )}
-        
-        </li> 
+        </li>
+        <li>
+          <Link href="" className="font-normal mb-2 flex items-center hover:text-blue-500">
+            Billing
+          </Link>
+        </li>
+        <li>
+          <Link href="" className="font-normal mb-2 flex items-center hover:text-blue-500">
+            Help
+          </Link>
+        </li>
+       
+      </ul>
+    )}
+  </div>
+</li>
+
         <div className=''>
       <Link href="addVehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
             + Add vehicles
@@ -190,3 +199,8 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+
+
+

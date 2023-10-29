@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
-const CompleteEmail = () => {
+import { XIcon } from '@heroicons/react/solid';
+const CompleteEmail = ({onCancel, onAdd }) => {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
 
@@ -14,11 +14,14 @@ const CompleteEmail = () => {
       <div className="bg-white p-6 rounded-md">
       <div className="flex items-center justify-center h-full">
       <div className="">
-        <h1 className="text-2xl font-bold mb-6">Complete your Profile</h1>
+      <div className='flex justify-between items-center mb-4'>
+      <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
+      <button onClick={onCancel}>
+            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+          </button>
+          </div>
         <p>3. Verify your account. A one time password will be sent to your email account.</p>
-        {sent ? (
-          <p className="text-green-500 mb-4">One-time password sent to your email!</p>
-        ) : (
+        
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block my-3 text-sm font-medium text-gray-700">
@@ -40,7 +43,7 @@ const CompleteEmail = () => {
               Send OTP
             </button>
           </form>
-        )}
+        
       </div>
     </div>
       </div>
