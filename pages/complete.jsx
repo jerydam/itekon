@@ -3,8 +3,7 @@ import { useState } from 'react';
 import {cartel} from '..';
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
-import OTP from '@/components/popups/otp';
-import Added from '@/components/popups/done';
+import Pagination from '@/components/pagination';
 const Complete = () => {
 
   const [showPopup, setShowPopup] = useState(false);
@@ -43,7 +42,7 @@ const Complete = () => {
             <p>You are ready to start using iTekton! <br />Complete your profile to get started.</p>
             <button onClick={() => setShowPopup(true)} className='border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] p-3 rounded mt-3'> Complete Profile {'-->'}
         </button>
-        {showPopup && <Added onAdd={handleAdd} onCancel={handleCancel} />}
+        {showPopup && <Pagination onAdd={handleAdd} onCancel={handleCancel} />}
         </div>
         
       

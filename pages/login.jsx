@@ -10,7 +10,7 @@ const Login = () => {
     // Add your authentication logic here
   };
   return (
-    
+    <>
      <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
      <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20]">
      <p className="mt-4 text-gray-600 font-sans font-semibold">
@@ -84,7 +84,7 @@ const Login = () => {
 
     </div>
 </div>
-   
+   </>
   );
 };
 

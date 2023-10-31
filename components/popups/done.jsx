@@ -1,11 +1,15 @@
 import React from 'react'
 import { XIcon } from '@heroicons/react/solid';
 
-const Added = ({onCancel, onAdd}) => {
+const Added = ({onCancel, currentPage, onAdd}) => {
 
   const handleAddVehicle = () => {
     // Implement logic to add more vehicles
     console.log('Add Vehicle');
+  };
+  const handleCancel = () => {
+    // Implement cancel logic here
+    console.log('Cancelled');
   };
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -33,10 +37,18 @@ const Added = ({onCancel, onAdd}) => {
         <a href="/addVehicle">+ Add more Vehicle</a>
        
       </button>
-      
-      
    
     </div>
+    <div className="flex justify-center mt-3 space-x-2">
+          {[1, 2, 3, 4, 5].map((index) => (
+         <div
+          key={index}
+           className={`h-4 w-4 rounded-full ${
+           currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9]'
+           }`}
+          ></div>
+          ))}
+        </div>
       </div>
     </div>
   )

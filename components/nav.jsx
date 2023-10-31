@@ -1,48 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "/styles/global.css";
 
+
 const Navbar = () => {
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const toggleSearchVisibility = () => {
-    setIsSearchVisible(!isSearchVisible);
-  };
-  const [notificationCount, setNotificationCount] = useState(0);
-
   return (
-    <div className="flex w-full bg-white gap-4 justify-end p-4">
-      <div className="flex-grow"></div>
-      <div className="relative">
-        <button
-          className="text-gray-800 hover:text-blue-400"
-          onClick={toggleSearchVisibility}
-        >
-          Search
-        </button>
-        {isSearchVisible && (
-          <div className="absolute top-10 right-0 bg-white p-2 rounded-md shadow-md">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="border rounded-md px-2 py-1 w-40"
-            />
-          </div>
-        )}
+    <nav className="bg-white p-4 flex justify-end items-center">
+      <div className="flex items-center space-x-4">
+        <div className="relative ml-4 flex items-center">
+          <img src="images/search.png" alt="" className="w-3 h-3 mr-2 absolute" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="px-4 py-2 pr-10 rounded border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 mr-10"
+            
+          />
+        </div>
+        <div className="flex items-center gap-10">
+          <button>
+            <img src="images/day.png" alt="" className="w-6 h-6" />
+          </button>
+          <button>
+            <img src="images/bell.png" alt="" className="w-6 h-6" />
+          </button>
+        </div>
       </div>
-
-      <div className="relative">
-        <button
-          className="text-gray-800 hover:text-blue-400"
-          onClick={() => setNotificationCount(notificationCount + 1)}
-        >
-          Notification
-        </button>
-        {notificationCount > 0 && (
-          <div className="absolute top-10 right-0 bg-red-500 text-white px-2 rounded-full">
-            {notificationCount}
-          </div>
-        )}
-      </div>
-    </div>
+    </nav>
   );
 };
 

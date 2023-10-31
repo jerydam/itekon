@@ -1,16 +1,25 @@
 'use client'
-import { useState } from 'react';
-import "/styles/global.css";
+import React, { useState } from 'react';
+import '/styles/global.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const userData = { email, password, confirmPassword }; // Replace with the appropriate data
+    if (password !== confirmPassword) {
+      setPasswordMatch(false);
+      return;
+    }
+
+    // Reset password match status if the passwords match
+    setPasswordMatch(true);
+
+    const userData = { email, password }; // Replace with the appropriate data
 
     try {
       const response = await fetch('https://itekton.onrender.com', {
@@ -38,10 +47,8 @@ const Signup = () => {
     <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 ">
         <p className="mt-4 text-gray-600 font-sans font-semibold">
-          Welcome{" "}
-          <p className="text-sm font-normal">
-            Sign up here to create an account
-          </p>
+          Welcome{" "} <br />
+          <span className="text-sm font-normal">Sign up here to create an account</span>
         </p>
 
         <form onSubmit={handleSignup}>
@@ -77,10 +84,19 @@ const Signup = () => {
               type="password"
               id="confirmPassword"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="border border-[#2D6C56] px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setPasswordMatch(e.target.value === password);
+              }}
+              className={`border ${
+                !passwordMatch ? 'border-red-500' : 'border-[#2D6C56]'
+              } px-3 py-2 w-full rounded-md focus:outline-none ${
+                !passwordMatch ? 'focus:border-red-500' : 'focus:border-[#2D6C56]'
+              }`}
             />
-
+            {!passwordMatch && (
+              <p className="text-red-500 text-sm mt-1">Passwords do not match</p>
+            )}
           </div>
           <div>
         <input
@@ -124,7 +140,7 @@ const Signup = () => {
           color: 'white',
         }}
       >
-        <div className='text-center bg-opacity-50 bg-white p-4 rounded-md mx-5 p-10 font-san font-semibold'>
+        <div className='text-center bg-opacity-50 bg-white p-4 rounded-md mx-5 font-san font-semibold'>
           <img className="mx-auto" src="/images/logo.png" alt="Logo" width="100" height="100" />
           <p className='text-lg'>
             A smart platform for <br />enterprise fleet solution.

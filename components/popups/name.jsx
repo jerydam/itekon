@@ -1,27 +1,18 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
-import CompleteImg from './img';
 
-const CompleteName = ({ onAdd, onCancel }) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [value, setValue] = useState('');
 
-  const handleAdd = (input) => {
-    // Add your logic for handling the input here
-    console.log('Adding:', input);
-    // You can add your custom logic here for adding the value to your list or state
-    setShowPopup(false); // Hide the popup after adding the value
-  };
-  const handleCancel = () => {
-    setShowPopup(false); // Hide the popup when canceled
-  };
-
+const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
   const [formData, setFormData] = useState({
     companyName: '',
     registrationId: '',
     officeAddress: '',
   });
-
+  console.log('Current Page:', currentPage);
+  const handleCancel = () => {
+    // Implement cancel logic here
+    console.log('Cancelled');
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -39,6 +30,19 @@ const CompleteName = ({ onAdd, onCancel }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        {currentPage > 1 && (
+          <button onClick={handlePrevious} style={{ marginRight: '10px' }}>
+            Previous
+          </button>
+        )}
+        {currentPage < 5 && (
+          <button onClick={handleNext} style={{ marginLeft: '10px' }}>
+            Next
+          </button>
+        )}
+      </div>
+
       <div className="bg-white p-6 rounded-md">
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Complete Your Profile</p>
@@ -89,14 +93,23 @@ const CompleteName = ({ onAdd, onCancel }) => {
           </div>
           <div className="flex items-center justify-center">
             <button
-              onClick={() => setShowPopup(true)}
+              onClick={handleNext}
               className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Next {'-->'}
             </button>
           </div>
-          {showPopup && <CompleteImg onAdd={handleAdd} onCancel={handleCancel} />}
         </form>
+        <div className="flex justify-center mt-3 space-x-2">
+          {[1, 2, 3, 4, 5].map((index) => (
+         <div
+          key={index}
+           className={`h-4 w-4 rounded-full ${
+           currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9] '
+      }`}
+        ></div>
+       ))}
+</div>
       </div>
     </div>
   );
