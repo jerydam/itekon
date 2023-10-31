@@ -1,13 +1,18 @@
 import React from 'react';
 import "/styles/global.css";
 
-
 const Navbar = () => {
+  const handleSearch = () => {
+    const searchText = document.querySelector('input[type="text"]').value;
+    // Implement search functionality using the searchText value
+    console.log(`Searching for: ${searchText}`);
+  };
+
   return (
     <nav className="bg-white p-4 flex justify-end items-center">
       <div className="flex items-center space-x-4">
         <div className="relative ml-4 flex items-center">
-          <button className='ml-2 absolute'><img src="images/search.png" alt="" className="w-3 h-3" /></button>
+          <button className='ml-2 absolute' onClick={handleSearch}><img src="images/search.png" alt="" className="w-3 h-3" /></button>
           <input
             type="text"
             placeholder="Search"
