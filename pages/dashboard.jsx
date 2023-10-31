@@ -5,6 +5,7 @@ import { TiPlus, TiTimes } from 'react-icons/ti';
 import {cartel} from '..';
 import Sidebar from "@/components/sidebar";
 import MapComponent from "@/components/map";
+import Navbar from '@/components/nav';
 
 const Dashboard = () => {
 
@@ -24,6 +25,7 @@ const Dashboard = () => {
     <div className="flex lg:flex-row">
       <Sidebar />
       <div className="w-full">
+        <Navbar/>
       <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5">
       {cartel.map((item) => (
         <div key={item.id} className="w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4">
