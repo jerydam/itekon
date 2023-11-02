@@ -114,7 +114,7 @@ const Sidebar = () => {
             </li>
 
             <li>
-          <Link href=""
+          <Link href="/reports"
             
               onClick={() => handleItemClick('reports')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'reports' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}

@@ -10,29 +10,33 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setPasswordMatch(false);
       return;
     }
-
+  
     // Reset password match status if the passwords match
     setPasswordMatch(true);
-
+  
     const userData = { email, password }; // Replace with the appropriate data
-
+  
     try {
-      const response = await fetch('https://itekton.onrender.com', {
+      const response = await fetch('https://itekton.onrender.com/accounts/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
-
+  
       if (response.ok) {
         // Handle success, such as redirecting the user to a new page or showing a success message
-        console.log('User registered successfully');
+        console.log('User registered successfully', userData);
+       const res = await response.json()
+        const id = res.id;
+        // Redirect to the sign-up page
+        window.location.href = `/complete-signup/${id}`;
       } else {
         // Handle errors and show appropriate messages to the user
         const errorData = await response.json();
@@ -42,7 +46,7 @@ const Signup = () => {
       console.error('Error:', error.message);
     }
   };
-
+  
   return (
     <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 ">
@@ -109,12 +113,12 @@ const Signup = () => {
           </label>
           
         </div>
-          <div
-            type="submit"
-            className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-          >
-           <a href="/signu">Continue</a>
-          </div>
+        <div
+    className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
+    onClick={handleSignup}
+  >
+    Continue
+  </div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
             <a className="text-[#2D6C56]hover:underline" href="">

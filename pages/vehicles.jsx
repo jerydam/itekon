@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from '@/components/sidebar';
-import { mockCars } from '..'; // Replace with the actual path to your mock data file
-import Driver from './vehicleDetails/driver';
-import VehicleRDetails from './vehicleDetails/vehicleRd';
-import Transist from './vehicleDetails/transist';
+import { mockCars } from '@/index'; // Replace with the actual path to your mock data file
+import Driver from '@/app/vehicleDetails/driver';
+import VehicleRDetails from '@/app/vehicleDetails/vehicleRd';
+import Transist from '@/app/vehicleDetails/transist';
 import Navbar from '@/components/nav';
 
 const RegisteredCars = () => {

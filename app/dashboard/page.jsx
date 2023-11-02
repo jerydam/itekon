@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Popup from '@/components/popups/popup';
 import { TiPlus, TiTimes } from 'react-icons/ti';
-import {cartel} from '..';
+import { cartel } from '@/index';
 import Sidebar from "@/components/sidebar";
 import MapComponent from "@/components/map";
 import Navbar from '@/components/nav';

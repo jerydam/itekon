@@ -1,21 +1,79 @@
 'use client'
 import { useState } from 'react';
 import "/styles/global.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    // Add your authentication logic here
+    try {
+      const response = await fetch('https://itekton.onrender.com/accounts/signin/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+  
+      const data = await response.json();
+      console.log(data); // Handle the response from the server
+  
+      if (response.ok) {
+      const token = response.token; 
+        const authResponse = await fetch('https://itekton.onrender.com/authorise', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ userId: response.userId }) // Adjust this based on your backend requirements
+        });
+
+        // Redirect the user to the dashboard or appropriate page on successful login
+        window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard page URL
+      } else {
+        toast.error('Incorrect email or password. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      toast.error('An error occurred. Please try again later.');
+    }
   };
+
+  const handleForgetPassword = async () => {
+    try {
+      // Simulate the password reset request
+      // You would replace this with your actual API call
+      const response = await fetch('https://itekton.onrender.com/accounts/complete-reset-password/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      if (response.ok) {
+        toast.info('Password reset link has been sent to your email. Please check your inbox.');
+      } else {
+        toast.error('An error occurred. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error sending password reset link:', error);
+      toast.error('An error occurred. Please try again later.');
+    }
+  };
+
+  
   return (
     <>
      <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
      <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20]">
-     <p className="mt-4 text-gray-600 font-sans font-semibold">
+     <div className="mt-4 text-gray-600 font-sans font-semibold">
      Welcome back,<p className="text-sm font-normal">Sign in to your account to continue</p>
-    </p>
+    </div>
   
   <form onSubmit={handleLogin}>
     <div className=" my-5">
@@ -51,10 +109,10 @@ const Login = () => {
           </label>
           
         </div>
-        <a href="#" className="text-[#2D6C56] hover:underline">Forget Password?</a>
+        <a onClick={handleForgetPassword} className="text-[#2D6C56] hover:underline">Forget Password?</a>
       </div>
     </div>
-    <a type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" a href="dashboard">Login</a>
+    <div type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" onClick={handleLogin} >Login</div>
       <p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
     
   </form>

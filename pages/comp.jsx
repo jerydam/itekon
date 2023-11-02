@@ -3,8 +3,7 @@ import { useState } from 'react';
 import {cartel} from '..';
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
-import OTP from '@/components/popups/otp';
-import Added from '@/components/popups/done';
+
 const CompleteV = () => {
 
   
