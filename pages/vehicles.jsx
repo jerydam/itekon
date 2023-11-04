@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '@/components/sidebar';
 import { mockCars } from '@/index'; // Replace with the actual path to your mock data file
 import Driver from '@/app/vehicleDetails/driver';
@@ -6,7 +6,21 @@ import VehicleRDetails from '@/app/vehicleDetails/vehicleRd';
 import Transist from '@/app/vehicleDetails/transist';
 import Navbar from '@/components/nav';
 
+import { useRouter } from 'next/router';
+
 const RegisteredCars = () => {
+  
+  const router = useRouter();
+
+  useEffect(() => {
+    const token =  sessionStorage.getItem('token')
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
+  
+
   const [openDropdowns, setOpenDropdowns] = useState({});
 
   const toggleDropdown = (carId) => {

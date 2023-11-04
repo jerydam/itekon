@@ -9,10 +9,13 @@ import Navbar from '@/components/nav';
 import PopTest from '@/components/popups/test';
 import PopRem from '@/components/popups/reminder';
 
+    
 const Dashboard = (onCancel) => {
   
     const [alerts, setAlerts] = useState([]);
-  
+        
+    
+      
     useEffect(() => {
       // Make an API call to fetch alerts data
       fetch('your-backend-alerts-endpoint')

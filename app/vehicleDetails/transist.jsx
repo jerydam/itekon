@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "/styles/global.css";
+import { useRouter } from 'next/router';
+
 
 const Transist = ({ vehicle }) => {
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
+
   return (
     <div  className='border-2 p-5 w-96'>
       <p className='font-bold'>Transist Details</p>

@@ -1,8 +1,20 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import '/styles/global.css'; 
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
+import { useRouter } from 'next/router';
+
+
 const AssignLocation = () => {
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
   const [address, setAddress] = useState('');
   const [selectedAddress, setSelectedAddress] = useState('');
 

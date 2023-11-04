@@ -22,15 +22,8 @@ const Login = () => {
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
-      const token = response.token; 
-        const authResponse = await fetch('https://itekton.onrender.com/authorise', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({ userId: response.userId }) // Adjust this based on your backend requirements
-        });
+      const token = data.token; 
+      localStorage.setItem('authToken', token);
 
         // Redirect the user to the dashboard or appropriate page on successful login
         window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard page URL
@@ -47,7 +40,7 @@ const Login = () => {
     try {
       // Simulate the password reset request
       // You would replace this with your actual API call
-      const response = await fetch('https://itekton.onrender.com/accounts/complete-reset-password/', {
+      const response = await fetch('https://itekton.onrender.com/accounts/password_reset/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -118,7 +111,7 @@ const Login = () => {
   </form>
 </div>
 
-      <div className='ml-[200px]'
+      <div className='ml-[200px] sm:hidden'
       style={{
         height: '600px',
         width: '500px',

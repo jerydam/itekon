@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { driver } from '@/index';
 import '/styles/global.css'; 
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
+import { useRouter } from 'next/router';
+
 
 const AssignDriver = () => {
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
+
   return (
     <div className='flex'>
         <Sidebar/>

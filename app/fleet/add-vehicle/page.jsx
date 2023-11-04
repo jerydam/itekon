@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import Sidebar from "@/components/sidebar"
 import "/styles/global.css";
+import { useRouter } from 'next/router';
 
 const Add = () => {
   const [vehicleName, setVehicleName] = useState('');
@@ -18,6 +19,14 @@ const Add = () => {
   const [carLogo, setCarLogo] = useState(null);
 
   const handleUserImageChange = (e) => {
+    const router = useRouter();
+    
+  useEffect(() => {
+    const token =  sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
     const file = e.target.files[0];
     if (file) {
       setUserImage(URL.createObjectURL(file));

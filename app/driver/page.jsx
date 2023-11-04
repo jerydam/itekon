@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { driver } from '@/index';
 import '/styles/global.css';
 import Sidebar from '@/components/sidebar';
@@ -7,13 +7,21 @@ import Navbar from '@/components/nav';
 import Edit from '@/components/popups/edit';
 import Remove from '@/components/popups/remove';
 import AddDriver from '@/components/popups/addDriver'; // assuming you have created an Edit component
-
+import { useRouter } from 'next/router';
 const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDrive, setShowDrive] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
- 
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token =  sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
   const handleEdit = (id) => {
+    
     onEdit(id); // or perform any other necessary actions
     setShowEdit(true);
   };
@@ -85,7 +93,7 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
                       
                       className="border-b-[#2D6C56] border-b-4 border-[#2D6C56] border-2 text-[#2D6C56] font-bold py-2 mx-2 px-4 rounded"
                     >
-                      <a href="driver/assign">Assign Vehicle</a>
+                      <a href="/assign">Assign Vehicle</a>
                     </button>
                     
                     <button onClick={() => setShowEdit(true)} className=" text-[#2D6C56] font-bold py-2 px-4 rounded mx-2">

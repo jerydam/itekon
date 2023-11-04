@@ -1,12 +1,21 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {cartel} from '..';
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
 
 const CompleteV = () => {
 
-  
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
   return (
     <div className="flex lg:flex-row">
       <Sidebar />

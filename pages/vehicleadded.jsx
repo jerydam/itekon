@@ -1,8 +1,20 @@
 import Navbar from '@/components/nav';
 import Sidebar from '@/components/sidebar';
-import React from 'react';
+
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import 'styles/global.css';
+useRouter
 const VehiclePage = () => {
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token =  sessionStorage.getItem('token')
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
+
   const handleShowVehicleList = () => {
     // Implement logic to show vehicle list
     console.log('Show Vehicle List');

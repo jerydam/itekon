@@ -35,9 +35,20 @@
 // export default MapComponent;
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+useEffect
+const AssignDriver = () => {
+  const router = useRouter();
+    
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
 
-const map = () => {
   return (
     <div>map</div>
   )
