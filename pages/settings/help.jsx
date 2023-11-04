@@ -6,7 +6,7 @@ const help = () => {
   return (
     <div className='flex'>
       <Sidebar/>
-      <div>
+      <div className='w-full'>
       <Navbar/>
     </div>
     </div>
