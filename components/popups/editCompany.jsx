@@ -39,7 +39,7 @@ const EditDetails = ({ userDetails, onEdit }) => {
           />
         </div>
         <div className="mb-4">
-          <label>ompany Registration Number</label>
+          <label>Company Registration Number</label>
           <input
             type="text"
             value={regNumber}
