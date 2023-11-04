@@ -12,14 +12,9 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDrive, setShowDrive] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
-  const router = useRouter();
+  
     
-  useEffect(() => {
-    const token =  sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
-    }
-  }, [router]);
+  
   const handleEdit = (id) => {
     
     onEdit(id); // or perform any other necessary actions

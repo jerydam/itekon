@@ -10,17 +10,10 @@ import PopTest from '@/components/popups/test';
 import PopRem from '@/components/popups/reminder';
 import PopCri from '@/components/popups/critical';
 import PopRenew from '@/components/popups/renew';
-import { useRouter } from 'next/router';
+
 
 const Report = (onCancel) => {
-  const router = useRouter();
-    
-  useEffect(() => {
-    const token =sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
-    }
-  }, [router]);
+  
     const [alerts, setAlerts] = useState([]);
   
     useEffect(() => {
