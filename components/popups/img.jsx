@@ -5,6 +5,39 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
   const [userImage, setUserImage] = useState(null);
   const [companyLogo, setCompanyLogo] = useState(null);
 
+  const handleUpload = async () => {
+    try {
+      const userToken = localStorage.getItem('userToken');
+      const formData = new FormData();
+      if (userImage) {
+        formData.append('userImage', userImage);
+      }
+      if (companyLogo) {
+        formData.append('companyLogo', companyLogo);
+      }
+  
+      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log('Image uploaded successfully');
+        // Handle success as needed
+      } else {
+        console.error('Failed to upload image');
+        // Handle failure as needed
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      // Handle error as needed
+    }
+  };
+  
+  
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -112,7 +145,12 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
           </div>
           <div className="flex justify-center mt-8">
           <button
-            onClick={handleNext}
+            onClick={async () => {
+              await handleUpload();
+              if(response.ok){
+              await handleNext();
+              }
+                  }}
             className="border-b-4 border-2 border-[#2D6C56]  text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
             Complete Profile

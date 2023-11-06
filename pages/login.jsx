@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "/styles/global.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,24 +7,39 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [rememberMe, setRememberMe] = useState(false);
+  const [addMe, setAddMe] = useState(false);
+ 
   const handleLogin = async () => {
     try {
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+        
+      } else {
+        localStorage.removeItem('rememberedEmail');
+        
+      }
+      if (addMe) {
+        localStorage.setItem('rememberedPassword', password);
+      } else{
+        localStorage.removeItem('rememberedPassword');
+      }
+  
       const response = await fetch('https://itekton.onrender.com/accounts/signin/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
   
       const data = await response.json();
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
-      const token = data.token; 
-      localStorage.setItem('authToken', token);
-
+        const token = data.token;
+        localStorage.setItem('authToken', token);
+  
         // Redirect the user to the dashboard or appropriate page on successful login
         window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard page URL
       } else {
@@ -35,31 +50,31 @@ const Login = () => {
       toast.error('An error occurred. Please try again later.');
     }
   };
-
-  const handleForgetPassword = async () => {
-    try {
-      // Simulate the password reset request
-      // You would replace this with your actual API call
-      const response = await fetch('https://itekton.onrender.com/accounts/password_reset/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email })
-      });
-
-      if (response.ok) {
-        toast.info('Password reset link has been sent to your email. Please check your inbox.');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
-    } catch (error) {
-      console.error('Error sending password reset link:', error);
-      toast.error('An error occurred. Please try again later.');
-    }
-  };
+  
 
   
+
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    setAddMe(e.target.checked);
+  };
+
+  // Use the remembered email if available
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
+    if (rememberedEmail) {
+      setEmail(rememberedEmail);
+      setRememberMe(true);
+    }
+    if (rememberedPassword) {
+      setPassword(rememberedPassword);
+      setAddMe(true);
+    }
+  }, []);
+ 
+
+
   return (
     <>
      <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
@@ -86,7 +101,7 @@ const Login = () => {
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="border border-[#2D6C56] px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
+        className="border px-3 py-2 w-full rounded-md focus:outline-none focus:border-[#2D6C56]"
       />
     </div>
     <div className="mb-4">
@@ -95,6 +110,8 @@ const Login = () => {
         <input
             type="checkbox"
             id="remember"
+            checked={rememberMe}
+            onChange={handleRememberMe}
             className="text-[#2D6C56] form-checkbox"
           />
           <label htmlFor="remember" className="inline-block ml-2 text-gray-600">
@@ -102,7 +119,7 @@ const Login = () => {
           </label>
           
         </div>
-        <a onClick={handleForgetPassword} className="text-[#2D6C56] hover:underline">Forget Password?</a>
+        <a href='forget-password' className="text-[#2D6C56] hover:underline">Forget Password?</a>
       </div>
     </div>
     <div type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" onClick={handleLogin} >Login</div>

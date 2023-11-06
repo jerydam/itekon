@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import {cartel} from '..';
+import {cartel} from '@/index'
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
 

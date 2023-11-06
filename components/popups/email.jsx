@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
 
 const CompleteEmail = ({ onAdd, onCancel, currentPage, handleNext  }) => {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to send a one-time password to the provided email
+    try {
+      const response = await fetch('https://itekton.onrender.com/fleets/send-otp/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      if (response.ok) {
+        toast.success=("An otp code has been send to the provided account")
+        const data = await response.json();
+        console.log(data);
+      } else {
+        // Handle errors here
+        console.error('Error sending data to the server');
+      }
+    } catch (error) {
+      console.error('Error sending data to the server:', error);
+    }
     setSent(true);
   };
+  
   const handleCancel = () => {
     // Implement cancel logic here
     console.log('Cancelled');

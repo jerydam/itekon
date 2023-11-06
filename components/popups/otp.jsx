@@ -13,20 +13,31 @@ const OTP = ({ onAdd, currentPage, onCancel, handleNext }) => {
     // Implement cancel logic here
     console.log('Cancelled');
   };
-  const handleConcatenate = () => {
+  const handleConcatenate = async () => {
     const concatenatedOtp = otp.join('');
-    // Call your backend API here with the concatenated OTP string
-    console.log(concatenatedOtp);
+    const userToken = localStorage.getItem('userToken');
   
-    // Assuming you have a check here to verify the OTP
-    // If the OTP is correct, move to the next step
-    if (concatenatedOtp === '12345') {
-      handleNext(); // Move to the next step after handling the OTP
-    } else {
-      // Handle the case when the OTP is incorrect
-      console.log('Incorrect OTP');
-      // You can show an error message or perform any other action here
-      alert('Incorrect OTP. Please try again.'); // Display an error message
+    try {
+      const response = await fetch('https://itekton.onrender.com/fleets/verify-otp/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({ otp: concatenatedOtp }),
+      });
+  
+      if (response.ok) {
+        // Handle the response from the server if necessary
+        const data = await response.json();
+        console.log(data);
+        handleNext(); // Move to the next step after handling the OTP
+      } else {
+        // Handle errors here
+        console.error('Error sending data to the server');
+      }
+    } catch (error) {
+      console.error('Error sending data to the server:', error);
     }
   };
   

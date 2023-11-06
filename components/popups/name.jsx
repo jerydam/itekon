@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
 
 
 const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
@@ -21,11 +22,33 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const userToken = localStorage.getItem('userToken');
+
     e.preventDefault();
-    console.log(formData);
-    // Add logic here to handle the form submission and pass the data to the onAdd function
-    onAdd(formData);
+    try {
+
+      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success = ("hy")
+        onAdd(data);
+      } else {
+        // Handle the error if the request was not successful
+        console.error('Error adding company:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any network errors or other issues
+      console.error('Error adding company:', error);
+    }
   };
 
   return (
