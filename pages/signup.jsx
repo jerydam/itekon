@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import '/styles/global.css';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -41,6 +42,7 @@ const Signup = () => {
         // Handle errors and show appropriate messages to the user
         const errorData = await response.json();
         console.error('Error:', errorData.message);
+        toast.error=("invalid credential")
       }
     } catch (error) {
       console.error('Error:', error.message);
