@@ -3,15 +3,20 @@ import { useState, useEffect } from 'react';
 import "/styles/global.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [addMe, setAddMe] = useState(false);
+  const [loading, setLoading] = useState(false);
  
   const handleLogin = async () => {
+    const userToken = localStorage.getItem('userToken');
     try {
+      setLoading(true);
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email);
         
@@ -29,6 +34,7 @@ const Login = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -37,17 +43,26 @@ const Login = () => {
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
+        
         const token = data.token;
         localStorage.setItem('authToken', token);
   
         // Redirect the user to the dashboard or appropriate page on successful login
-        window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard page URL
+        if (userToken) {
+          window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard URL
+        }
+        else {
+          window.location.href='/welcome'
+          
+        }// Replace '/dashboard' with the appropriate dashboard page URL
       } else {
         toast.error('Incorrect email or password. Please try again.');
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false); // Set loading state to false on error
       console.error('Error logging in:', error);
-      toast.error('An error occurred. Please try again later.');
+      toast.error(response.error);
     }
   };
   
@@ -61,8 +76,11 @@ const Login = () => {
 
   // Use the remembered email if available
   useEffect(() => {
+    
     const rememberedEmail = localStorage.getItem('rememberedEmail');
     const rememberedPassword = localStorage.getItem('rememberedPassword');
+
+    
     if (rememberedEmail) {
       setEmail(rememberedEmail);
       setRememberMe(true);
@@ -77,7 +95,10 @@ const Login = () => {
 
   return (
     <>
-     <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
+     <div className="flex relative  border-2 border-solid bg-white min-h-screen items-center justify-center">
+     <div className='absolute text-[#2D6C56]'>
+     {loading && <CircularProgress />}
+     </div>
      <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20]">
      <div className="mt-4 text-gray-600 font-sans font-semibold">
      Welcome back,<p className="text-sm font-normal">Sign in to your account to continue</p>
