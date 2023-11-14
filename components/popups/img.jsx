@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
   const [userImage, setUserImage] = useState(null);
@@ -7,7 +9,7 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
 
   const handleUpload = async () => {
     try {
-      const userToken = localStorage.getItem('userToken');
+      const userToken = localStorage.getItem('authToken');
       const formData = new FormData();
       if (userImage) {
         formData.append('userImage', userImage);
@@ -21,22 +23,23 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-        body: formData,
+        
       });
-  
+      const data = await response.json();
+      console.log(data);
       if (response.ok) {
         console.log('Image uploaded successfully');
-        // Handle success as needed
+        toast.success=('image upload successfully')
+        await handleNext(); // Call handleNext if the upload is successful
       } else {
         console.error('Failed to upload image');
         // Handle failure as needed
       }
     } catch (error) {
       console.error('Error uploading image:', error);
-      // Handle error as needed
+      toast.error=('Error uploading image');
     }
   };
-  
   
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
@@ -145,16 +148,27 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
           </div>
           <div className="flex justify-center mt-8">
           <button
-            onClick={async () => {
-              await handleUpload();
-              if(response.ok){
-              await handleNext();
-              }
-                  }}
-            className="border-b-4 border-2 border-[#2D6C56]  text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-            Complete Profile
-          </button>
+  onClick={async () => {
+    try {
+      const response = await handleUpload();
+      if (response && response.ok) {
+        await handleNext();
+      } else {
+        // Handle the case where response is not OK
+        console.error('Failed to upload image or response is not OK');
+        toast.error('Failed to upload image or response is not OK');
+      }
+    } catch (error) {
+      // Handle errors that occur during the handleUpload function
+      console.error('Error uploading image:', error);
+    }
+  }}
+  className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+>
+  Complete Profile
+</button>
+
+
         </div>
           <div className="flex justify-center mt-3 space-x-2">
           {[1, 2, 3, 4, 5].map((index) => (

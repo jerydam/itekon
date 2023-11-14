@@ -15,14 +15,14 @@ const OTP = ({ onAdd, currentPage, onCancel, handleNext }) => {
   };
   const handleConcatenate = async () => {
     const concatenatedOtp = otp.join('');
-    const userToken = localStorage.getItem('userToken');
+    const userToken = localStorage.getItem('authToken');
   
     try {
       const response = await fetch('https://itekton.onrender.com/fleets/verify-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Token ${userToken}`,
         },
         body: JSON.stringify({ otp: concatenatedOtp }),
       });

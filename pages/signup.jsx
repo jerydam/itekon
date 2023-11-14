@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import '/styles/global.css';
 import { toast } from 'react-toastify';
+import { CircularProgress } from '@mui/material';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ const Signup = () => {
     const userData = { email, password }; // Replace with the appropriate data
   
     try {
+      setLoading(true);
       const response = await fetch('https://itekton.onrender.com/accounts/signup/', {
         method: 'POST',
         headers: {
@@ -36,21 +39,28 @@ const Signup = () => {
         console.log('User registered successfully', userData);
        const res = await response.json()
         const id = res.id;
-        // Redirect to the sign-up page
+        toast.success=('success')
         window.location.href = `/complete-signup/${id}`;
       } else {
         // Handle errors and show appropriate messages to the user
         const errorData = await response.json();
         console.error('Error:', errorData.message);
-        toast.error=("invalid credential")
+        toast.error=(errorData.message)
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error('Error:', error.message);
+      toast.error=(errorData.message)
+      
     }
   };
   
   return (
-    <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
+    <div className="flex relative border-2 border-solid bg-white min-h-screen items-center justify-center">
+       <div className='absolute text-[#2D6C56]'>
+        {loading && <CircularProgress />}
+      </div>
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 ">
         <p className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "} <br />

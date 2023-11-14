@@ -1,20 +1,11 @@
 'use client'
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import {cartel} from '@/index'
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
 
 const CompleteV = () => {
 
-  const router = useRouter();
-    
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
-    }
-  }, [router]);
+  
 
   return (
     <div className="flex lg:flex-row">
@@ -38,7 +29,7 @@ const CompleteV = () => {
           <div className='flex flex-col justify-center items-center'>
             <img className='h-64 w-80' src="images/geomap.png" alt="" />
             <p>You are ready to start using iTekton! <br />Complete your profile to get started.</p>
-            <button  className='border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] p-3 rounded mt-3'> <a href="/addVehicle">+ Add Vehicle</a>
+            <button  className='border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] p-3 rounded mt-3'> <a href="/fleet/addVehicle">+ Add Vehicle</a>
         </button>
        
         </div>

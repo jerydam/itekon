@@ -13,6 +13,7 @@ const CompleteEmail = ({ onAdd, onCancel, currentPage, handleNext  }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Token ${userToken}`
         },
         body: JSON.stringify({ email }),
       });

@@ -34,7 +34,7 @@ const userid = params?.id;
       // Redirect the user to the login page after successful sign-up
       if (response.ok) {
         toast.success('Sign up successful');
-        window.location.href = '/login';
+        window.location.href ='/login';
       } else {
         toast.error('Sign up failed. Please try again.');
       }setLoading(false);

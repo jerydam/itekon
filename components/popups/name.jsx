@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
   const [formData, setFormData] = useState({
@@ -23,18 +23,23 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
   };
 
   const handleSubmit = async (e) => {
-    const userToken = localStorage.getItem('userToken');
+    const userToken = localStorage.getItem('authToken');
+    console.log('User Token:', userToken);
 
     e.preventDefault();
     try {
 
+      const formData = new FormData();
+    formData.append('company_name', formData.companyName);
+    formData.append('registration_id', formData.registrationId);
+    formData.append('address', formData.officeAddress);
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Token ${userToken}`,
         },
-        body: JSON.stringify(formData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -116,11 +121,26 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
           </div>
           <div className="flex items-center justify-center">
             <button
-              onClick={handleNext}
-              className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Next {'-->'}
-            </button>
+  onClick={async () => {
+    try {
+      const response = await handleSubmit();
+      if (response && response.ok) {
+        await handleNext();
+      } else {
+        // Handle the case where response is not OK
+        console.error('Failed to add name or response is not OK');
+        toast.error('Failed to add name or response is not OK');
+      }
+    } catch (error) {
+      // Handle errors that occur during the handleUpload function
+      console.error('Error company name not added:', error);
+      toast.error(error);
+    }
+  }}
+  className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+>
+Next {'-->'}
+</button>
           </div>
         </form>
         <div className="flex justify-center mt-3 space-x-2">

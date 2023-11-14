@@ -14,7 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
  
   const handleLogin = async () => {
-    const userToken = localStorage.getItem('userToken');
+    const userToken = localStorage.getItem('authToken');
     try {
       setLoading(true);
       if (rememberMe) {
@@ -45,14 +45,16 @@ const Login = () => {
       if (response.ok) {
         
         const token = data.token;
-        localStorage.setItem('authToken', token);
+        
+        const authToken = localStorage.setItem('authToken', token);
+
   
         // Redirect the user to the dashboard or appropriate page on successful login
-        if (userToken) {
+        if (userToken === authToken) {
           window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard URL
         }
         else {
-          window.location.href='/welcome'
+          window.location.href='/complete-profile';
           
         }// Replace '/dashboard' with the appropriate dashboard page URL
       } else {
@@ -60,9 +62,10 @@ const Login = () => {
       }
       setLoading(false);
     } catch (error) {
+      
       setLoading(false); // Set loading state to false on error
       console.error('Error logging in:', error);
-      toast.error(response.error);
+      toast.error(error);
     }
   };
   
