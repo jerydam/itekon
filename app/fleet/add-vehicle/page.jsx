@@ -50,22 +50,46 @@ const Add = () => {
 
   
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission and data upload here
-    const formData = {
-      vehicleName,
-      vehicleMake,
-      vehicleModel,
-      identificationNumber,
-      fuelType,
-      color,
-      carLogo,
-      userImage
-    };
-    console.log(formData); // You can send this data to your server
+  
+    // Create a FormData object to handle file uploads
+    const formData = new FormData();
+  
+    // Append data to the FormData object
+    formData.append('vehicleName', vehicleName);
+    formData.append('vehicleMake', vehicleMake);
+    formData.append('vehicleModel', vehicleModel);
+    formData.append('identificationNumber', identificationNumber);
+    formData.append('fuelType', fuelType);
+    formData.append('color', color);
+    formData.append('carLogo', carLogo);
+    formData.append('userImage', userImage);
+    formData.append('name', name);
+    formData.append('license', license);
+    formData.append('number', number);
+    formData.append('email', email);
+  
+    try {
+      // Make a POST request to your backend endpoint
+      const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log('Vehicle added successfully');
+        // Redirect or show success message as needed
+      } else {
+        console.error('Error adding vehicle:', await response.text());
+        // Handle error, show error message, etc.
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle unexpected errors
+    }
   };
-
+  
   return (
    
     <div className='flex'>

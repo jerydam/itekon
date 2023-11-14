@@ -1,8 +1,9 @@
 'use client'
-import React, { useState } from 'react';
-import '/styles/global.css';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '/styles/global.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -32,27 +33,24 @@ const Signup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
-      });
-  
+      });     
+      const data = await response.json();
       if (response.ok) {
-        // Handle success, such as redirecting the user to a new page or showing a success message
+        
+        const id = data.id;
+    
+        alert ('Registration successful proceed to next page'); // Updated this line
         console.log('User registered successfully', userData);
-       const res = await response.json()
-        const id = res.id;
-        toast.success=('success')
         window.location.href = `/complete-signup/${id}`;
       } else {
-        // Handle errors and show appropriate messages to the user
-        const errorData = await response.json();
-        console.error('Error:', errorData.message);
-        toast.error=(errorData.message)
+         
+        console.log('Error:', data.email);
+        alert(data.email);
       }
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error('Error:', error.message);
-      toast.error=(errorData.message)
-      
+          
     }
   };
   
@@ -133,7 +131,7 @@ const Signup = () => {
   </div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
-            <a className="text-[#2D6C56]hover:underline" href="">
+            <a className="text-[#2D6C56]hover:underline" href="login">
               Sign in here
             </a>
           </p>
