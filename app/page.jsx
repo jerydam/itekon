@@ -1,6 +1,6 @@
 'use client'
 import "/styles/global.css";
-import Login from "@/pages/login";
+import Login from "@/app/login/page";
 
 const Home = () => (
   <div>
