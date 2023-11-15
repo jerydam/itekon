@@ -97,12 +97,22 @@ const userid = params?.id;
 
           </div>
          
-          <div
-  
-  className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-  onClick={handleSignu} // Add the onClick event handler for the sign-up action
->
-  Sign Up
+          <div className="mb-4">
+  {loading ? (
+    // Render the styled loading spinner
+    <CircularProgress
+      className="text-[#2D6C56] mx-auto block " // Apply Tailwind classes
+      size={40} // Set the size of the loader (adjust as needed)
+    />
+  ) : (
+    // Render the signup button
+    <div
+      className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
+      onClick={handleSignup}
+    >
+      Sign Up
+    </div>
+  )}
 </div>
 
           <p className="text-sm font-normal my-2">
