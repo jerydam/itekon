@@ -46,10 +46,8 @@ const userid = params?.id;
   };
   
   return (
-    <div className="flex relative border-2 border-solid bg-white min-h-screen items-center justify-center">
-      <div className='absolute text-[#2D6C56]'>
-        {loading && <CircularProgress />}
-      </div>
+    <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
+      
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 mr-[150px]">
         <div className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "}
