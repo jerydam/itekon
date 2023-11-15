@@ -55,10 +55,8 @@ const Signup = () => {
   };
   
   return (
-    <div className="flex relative border-2 border-solid bg-white min-h-screen items-center justify-center">
-       <div className='absolute text-[#2D6C56]'>
-        {loading && <CircularProgress />}
-      </div>
+    <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
+       
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 ">
         <p className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "} <br />
@@ -123,12 +121,23 @@ const Signup = () => {
           </label>
           
         </div>
-        <div
-    className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-    onClick={handleSignup}
-  >
-    Continue
-  </div>
+        <div className="mb-4">
+  {loading ? (
+    // Render the styled loading spinner
+    <CircularProgress
+      className="text-[#2D6C56] mx-auto block " // Apply Tailwind classes
+      size={40} // Set the size of the loader (adjust as needed)
+    />
+  ) : (
+    // Render the signup button
+    <div
+      className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
+      onClick={handleSignup}
+    >
+      Continue 
+    </div>
+  )}
+</div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
             <a className="text-[#2D6C56]hover:underline" href="login">

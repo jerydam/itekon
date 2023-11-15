@@ -108,7 +108,7 @@ const userid = params?.id;
     // Render the signup button
     <div
       className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-      onClick={handleSignup}
+      onClick={handleSignu}
     >
       Sign Up
     </div>
