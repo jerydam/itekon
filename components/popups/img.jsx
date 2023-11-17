@@ -21,7 +21,7 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Token ${userToken}`,
         },
         
       });
@@ -36,8 +36,8 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
         // Handle failure as needed
       }
     } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error=('Error uploading image');
+      console.log('Error uploading image:', error);
+      toast.error('Error uploading image');
     }
   };
   

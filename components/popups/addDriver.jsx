@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddDriver = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
@@ -9,10 +11,43 @@ const AddDriver = ({ onAdd, onCancel }) => {
   const [mail, setMail] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleAdd = () => {
-    onAdd(e);
-    setInputValue('');
+  const handleAdd = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('name', inputValue);
+      formData.append('license_number', license);
+      formData.append('phone_number', num);
+      formData.append('email', mail);
+      formData.append('driver_image', imagePreview);
+  
+      const userToken = localStorage.getItem('authToken');
+  
+      const response = await fetch('https://itekton.onrender.com/fleets/fleet/drivers-vehicles/', {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        // Handle success, e.g., update the UI or close the modal
+        console.log('Driver added successfully:', data);
+        toast.success(data)
+        onAdd(data); // Assuming onAdd is a callback to update the driver list or perform any other action
+      } else {
+        // Handle the case where the request was not successful
+        console.log('Error adding driver:', response.statusText);
+        toast.success(data)
+
+      }
+    } catch (error) {
+      // Handle any network errors or other issues
+      console.error('Error adding driver:', error);
+    } 
   };
+  
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -70,33 +105,34 @@ const AddDriver = ({ onAdd, onCancel }) => {
         />
         
             <p className='ml-5 mt-2'>Upload Image of Driver/Operator</p>
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-20 my-5 flex items-center justify-center overflow-hidden">
-        {imagePreview ? (
-          <img
-            src={imagePreview}
-            alt="Vehicle Preview"
-            style={{ maxWidth: '100%', maxHeight: '100%' }}
-          />
-        ) : (
-          <label htmlFor="vehicleImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
-            <img
-              src="/path-to-your-image-icon.png" // Replace with your image icon URL
-              alt=""
-              className="h-12 w-12"
-            />
-            <span className="block text-sm mt-1"></span>
-            <input
-              type="file"
-              id="driverImage"
-              name="driverImage"
-              accept="image/*"
-              onChange={handleImageChange}
-              required
-              className="hidden"
-            />
-          </label>
-        )}
-      </div>
+            <div className="w-20 h-20 bg-gray-200 rounded-full mx-20 my-5 flex items-center justify-center overflow-hidden">
+  {imagePreview ? (
+    <img
+      src={imagePreview}
+      alt="Driver Preview"
+      style={{ maxWidth: '100%', maxHeight: '100%' }}
+    />
+  ) : (
+    <label htmlFor="driverImage" className="text-gray-500 cursor-pointer hover:text-gray-600">
+      <img
+        src="/path-to-your-image-icon.png" // Replace with your image icon URL
+        alt=""
+        className="h-12 w-12"
+      />
+      <span className="block text-sm mt-1">Upload Image</span>
+      <input
+        type="file"
+        id="driverImage"
+        name="driverImage"
+        accept="image/*"
+        onChange={handleImageChange}
+        required
+        className="hidden" // Make sure this is not set to "hidden"
+      />
+    </label>
+  )}
+</div>
+
       
         <div className="flex justify-center">
           <button

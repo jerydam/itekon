@@ -39,13 +39,13 @@ const Signup = () => {
         
         const id = data.id;
     
-        alert ('Registration successful proceed to next page'); // Updated this line
+        atoast.success('Registration successful proceed to next page'); // Updated this line
         console.log('User registered successfully', userData);
         window.location.href = `/complete-signup/${id}`;
       } else {
          
         console.log('Error:', data.email);
-        alert(data.email);
+        toast.success(data.email);
       }
       setLoading(false);
     } catch (error) {

@@ -6,13 +6,22 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState(null); // State to store user data
+  const userToken = localStorage.getItem('authToken');
+  console.log('User Token:', userToken);
 
   // Simulating fetching user data from the backend
   useEffect(() => {
     // Replace this with actual fetching logic
     const fetchUserData = async () => {
       try {
-        const response = await fetch('YOUR_BACKEND_API_ENDPOINT');
+        const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Token ${userToken}`,
+  },
+  
+});
+        
         const data = await response.json();
         setUserData(data);
       } catch (error) {
