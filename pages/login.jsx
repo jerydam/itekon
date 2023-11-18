@@ -51,6 +51,7 @@ const Login = () => {
   
         // Redirect the user to the dashboard or appropriate page on successful login
         if (userToken === authToken) {
+          toast.success("login successfully")
           window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard URL
         }
         else {
@@ -58,7 +59,8 @@ const Login = () => {
           
         }// Replace '/dashboard' with the appropriate dashboard page URL
       } else {
-        toast.error('Incorrect email or password. Please try again.');
+       alert(data.error)
+        toast.error(data.error);
       }
       setLoading(false);
     } catch (error) {

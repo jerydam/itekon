@@ -17,9 +17,10 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
       if (companyLogo) {
         formData.append('companyLogo', companyLogo);
       }
-  
-      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
-        method: 'POST',
+      const id = localStorage.getItem('id') || localStorage.getItem('duplicateKeyId') || '';
+
+      const response = await fetch(`https://itekton.onrender.com/fleets/fleets/${id}/`, {
+        method: 'PUT',
         headers: {
           Authorization: `Token ${userToken}`,
         },
@@ -29,15 +30,18 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
       console.log(data);
       if (response.ok) {
         console.log('Image uploaded successfully');
-        toast.success=('image upload successfully')
+        toast.success('image upload successfully')
         await handleNext(); // Call handleNext if the upload is successful
-      } else {
+      }
+      
+      else {
+        
         console.error('Failed to upload image');
         // Handle failure as needed
       }
     } catch (error) {
       console.log('Error uploading image:', error);
-      toast.error('Error uploading image');
+      alert(error);
     }
   };
   
@@ -148,21 +152,8 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
           </div>
           <div className="flex justify-center mt-8">
           <button
-  onClick={async () => {
-    try {
-      const response = await handleUpload();
-      if (response && response.ok) {
-        await handleNext();
-      } else {
-        // Handle the case where response is not OK
-        console.error('Failed to upload image or response is not OK');
-        toast.error('Failed to upload image or response is not OK');
-      }
-    } catch (error) {
-      // Handle errors that occur during the handleUpload function
-      console.error('Error uploading image:', error);
-    }
-  }}
+  onClick={handleUpload}
+  
   className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 >
   Complete Profile

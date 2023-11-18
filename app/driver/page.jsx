@@ -18,7 +18,7 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com//vehicles/drivers/`, {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers-vehicles/${userid}/`, {
         method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`,

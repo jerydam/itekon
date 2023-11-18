@@ -22,7 +22,7 @@ const AddDriver = ({ onAdd, onCancel }) => {
   
       const userToken = localStorage.getItem('authToken');
   
-      const response = await fetch('https://itekton.onrender.com/fleets/fleet/drivers-vehicles/', {
+      const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
         method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`,

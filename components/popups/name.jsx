@@ -12,14 +12,6 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
     officeAddress: '',
   });
 
-  const handleCancel = () => {
-    setFormData({
-      companyName: '',
-      registrationId: '',
-      officeAddress: '',
-    });
-    onCancel();
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,16 +23,16 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const userToken = localStorage.getItem('authToken');
     console.log('User Token:', userToken);
-
+  
     try {
       const formDataObj = new FormData();
       formDataObj.append('company_name', formData.companyName);
       formDataObj.append('registration_id', formData.registrationId);
       formDataObj.append('address', formData.officeAddress);
-
+  
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
@@ -48,32 +40,35 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
         },
         body: formDataObj,
       });
-
+  
       const responseData = await response.json();
-
+  
       if (response.ok) {
-        const data = responseData.data; // Adjust based on your API response structure
-        toast.success("Successfully added company");
-        onAdd(data);
-      } else {
+        const id = responseData.id;
+        alert(id);
+        localStorage.setItem('id', id);
+         // Adjust based on your API response structure
+        toast.success('Successfully added company');
+        handleNext();
+      }
+      else if (response.status === 400 && responseData.error.includes('duplicate key value violates unique constraint')) {
         
-        console.log('Error adding company:', data);
-        toast.error(`Failed to add company: ${data}`);
+        console.log('Company already exists:', responseData.error);
+        toast.error('Company already exists');
+        handleNext();
+        // Add additional logic if needed
+      }
+      else {
+        // Adjust this block to handle error appropriately
+        console.log('Error adding company:', responseData.error);
+        toast.error(`Failed to add company: ${responseData.error}`);
       }
     } catch (error) {
-      
+      console.error('Error adding company:', error);
+      toast.error(`Failed to add company: ${error.message}`);
     }
   };
-
-  const handleNextClick = async () => {
-    try {
-      await handleSubmit();
-      handleNext();
-    } catch (error) {
-      console.error('Failed to add company or response is not OK:', error);
-      toast.error('Failed to add company or response is not OK: ' + error.message);
-    }
-  };
+  
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -140,7 +135,7 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
           </div>
           <div className="flex items-center justify-center">
           <button
-  onClick={handleNextClick}
+  onClick={handleSubmit}
   className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 >
   Next {'-->'}

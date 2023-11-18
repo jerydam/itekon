@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,8 +11,26 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [addMe, setAddMe] = useState(false);
 
   const handleSignup = async (e) => {
+    const userToken = localStorage.getItem('authToken');
+    try {
+      setLoading(true);
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+        
+      } else {
+        localStorage.removeItem('rememberedEmail');
+        
+      }
+      if (addMe) {
+        localStorage.setItem('rememberedPassword', password);
+      } else{
+        localStorage.removeItem('rememberedPassword');
+      }
+
     e.preventDefault();
   
     if (password !== confirmPassword) {
@@ -25,7 +43,6 @@ const Signup = () => {
   
     const userData = { email, password }; // Replace with the appropriate data
   
-    try {
       setLoading(true);
       const response = await fetch('https://itekton.onrender.com/accounts/signup/', {
         method: 'POST',
@@ -39,13 +56,13 @@ const Signup = () => {
         
         const id = data.id;
     
-        atoast.success('Registration successful proceed to next page'); // Updated this line
+        toast.success('Registration successful proceed to next page'); // Updated this line
         console.log('User registered successfully', userData);
         window.location.href = `/complete-signup/${id}`;
       } else {
          
         console.log('Error:', data.email);
-        toast.success(data.email);
+        toast.error(data.email);
       }
       setLoading(false);
     } catch (error) {
@@ -53,7 +70,27 @@ const Signup = () => {
           
     }
   };
-  
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    setAddMe(e.target.checked);
+  };
+  useEffect(() => {
+    
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
+
+    
+    if (rememberedEmail) {
+      setEmail(rememberedEmail);
+      setRememberMe(true);
+    }
+    if (rememberedPassword) {
+      setPassword(rememberedPassword);
+      setAddMe(true);
+    }
+  }, []);
+ 
+
   return (
     <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
        
@@ -111,10 +148,12 @@ const Signup = () => {
             )}
           </div>
           <div>
-        <input
+          <input
             type="checkbox"
             id="remember"
-            className="text-blue-500 form-checkbox"
+            checked={rememberMe}
+            onChange={handleRememberMe}
+            className="text-[#2D6C56] form-checkbox"
           />
           <label htmlFor="remember" className="inline-block ml-2 text-gray-600">
             Remember Me
