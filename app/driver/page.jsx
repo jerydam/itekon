@@ -11,29 +11,30 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDrive, setShowDrive] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
+
   const userToken = localStorage.getItem('authToken');
   console.log(userToken);
-
+  const userId = localStorage.getItem('id');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers-vehicles/${userid}/`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-        body: formDataObj,
-      });
+        const response = await fetch(`https://itekton.onrender.com//vehicles/drivers/${userId}/`, {
+          method: 'GET',  // Change to GET
+          headers: {
+            Authorization: `Token ${userToken}`,
+          },
+        });
         const data = await response.json();
         setDrivers(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData();
-  }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+  }, [userId, userToken]);
+   // The empty dependency array ensures that this effect runs once when the component mounts
 
   const handleEdit = (id) => {
     onEdit(id);

@@ -17,8 +17,7 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
       if (companyLogo) {
         formData.append('companyLogo', companyLogo);
       }
-      const id = localStorage.getItem('id') || localStorage.getItem('duplicateKeyId') || '';
-
+      const id = localStorage.getItem('id') ;
       const response = await fetch(`https://itekton.onrender.com/fleets/fleets/${id}/`, {
         method: 'PUT',
         headers: {
