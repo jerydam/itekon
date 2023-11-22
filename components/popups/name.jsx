@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CompleteImg from './img';
 
 
 const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
@@ -12,63 +13,23 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
     officeAddress: '',
   });
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  
-    const userToken = localStorage.getItem('authToken');
-    console.log('User Token:', userToken);
-  
-    try {
-      const formDataObj = new FormData();
-      formDataObj.append('company_name', formData.companyName);
-      formDataObj.append('registration_id', formData.registrationId);
-      formDataObj.append('address', formData.officeAddress);
-  
-      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-        body: formDataObj,
-      });
-  
-      const responseData = await response.json();
-  
-      if (response.ok) {
-        const id = responseData.id;
-        alert(id);
-        localStorage.setItem('id', id);
-         // Adjust based on your API response structure
-        toast.success('Successfully added company');
-        handleNext();
-      }
-      else if (response.status === 400 && responseData.error.includes('duplicate key value violates unique constraint')) {
-        
-        console.log('Company already exists:', responseData.error);
-        toast.error('Company already exists');
-        handleNext();
-        // Add additional logic if needed
-      }
-      else {
-        // Adjust this block to handle error appropriately
-        console.log('Error adding company:', responseData.error);
-        toast.error(`Failed to add company: ${responseData.error}`);
-      }
-    } catch (error) {
-      console.error('Error adding company:', error);
-      toast.error(`Failed to add company: ${error.message}`);
-    }
+    // Add validation logic if needed
+
+    // Notify the parent component about the form data
+    onAdd(formData);
+   
   };
-  
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

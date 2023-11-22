@@ -43,7 +43,8 @@ const Login = () => {
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
-        
+        const id = data.id;
+        alert(id)
         const token = data.token;
         
         const authToken = localStorage.setItem('authToken', token);

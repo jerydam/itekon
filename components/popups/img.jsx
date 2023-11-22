@@ -1,49 +1,61 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import Image from 'next/image'; // Import Next.js Image component
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
+const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
+  // Access formData fields
+  const { companyName, registrationId, officeAddress } = formData;
+
   const [userImage, setUserImage] = useState(null);
   const [companyLogo, setCompanyLogo] = useState(null);
 
   const handleUpload = async () => {
     try {
-      const userToken = localStorage.getItem('authToken');
+      // Create a new FormData object and append form data
       const formData = new FormData();
+      formData.append('company_name', companyName || '');
+      formData.append('registration_id', registrationId || '');
+      formData.append('address', officeAddress || '');
+
+      // Append image data
       if (userImage) {
-        formData.append('userImage', userImage);
+        formData.append('profile_picture', userImage);
       }
       if (companyLogo) {
-        formData.append('companyLogo', companyLogo);
+        formData.append('company_logo', companyLogo, 'companyLogo.jpg');
       }
-      const id = localStorage.getItem('id') ;
-      const response = await fetch(`https://itekton.onrender.com/fleets/fleets/${id}/`, {
-        method: 'PUT',
+
+      const userToken = localStorage.getItem('authToken');
+
+      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+        method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`,
         },
-        
+        body: formData,
       });
+
       const data = await response.json();
-      console.log(data);
+
       if (response.ok) {
+        const id = data.id;
+        localStorage.setItem('userId', id);
+        alert(id);
         console.log('Image uploaded successfully');
-        toast.success('image upload successfully')
+        toast.success('Image uploaded successfully');
         await handleNext(); // Call handleNext if the upload is successful
-      }
-      
-      else {
-        
+      } else {
         console.error('Failed to upload image');
+        toast.error(data.details);
         // Handle failure as needed
       }
     } catch (error) {
       console.log('Error uploading image:', error);
-      alert(error);
     }
   };
-  
+
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -56,10 +68,6 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
     if (file) {
       setCompanyLogo(URL.createObjectURL(file));
     }
-  };
-  const handleCancel = () => {
-    // Implement cancel logic here
-    console.log('Cancelled');
   };
 
   const clearUserImage = () => {
@@ -87,10 +95,12 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
               <div className="w-40 h-40 relative rounded-full border-dotted border-2 border-[#6A6A6A] overflow-hidden">
                 <label htmlFor="companyLogo" className="cursor-pointer block">
                   {companyLogo ? (
-                    <img
+                    <Image
                       src={companyLogo}
                       alt="Company Logo"
                       className="object-cover w-full h-full"
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
@@ -120,10 +130,12 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
               <div className="w-40 h-40 relative rounded border-dotted border-2 border-[#6A6A6A] overflow-hidden">
                 <label htmlFor="userImage" className="cursor-pointer block">
                   {userImage ? (
-                    <img
+                    <Image
                       src={userImage}
                       alt="User"
                       className="object-cover w-full h-full"
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
@@ -150,27 +162,23 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
             </div>
           </div>
           <div className="flex justify-center mt-8">
-          <button
-  onClick={handleUpload}
-  
-  className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
->
-  Complete Profile
-</button>
-
-
-        </div>
+            <button
+              onClick={handleUpload}
+              className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Complete Profile
+            </button>
+          </div>
           <div className="flex justify-center mt-3 space-x-2">
-          {[1, 2, 3, 4, 5].map((index) => (
-         <div
-          key={index}
-           className={`h-4 w-4 rounded-full ${
-           currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9]'
-           }`}
-          ></div>
-          ))}
-        </div>
-
+            {[1, 2, 3, 4, 5].map((index) => (
+              <div
+                key={index}
+                className={`h-4 w-4 rounded-full ${
+                  currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9]'
+                }`}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
