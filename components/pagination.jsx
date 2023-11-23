@@ -36,7 +36,8 @@ const Pagination = ({ onCancel }) => {
       case 1:
         return <CompleteName onAdd={handleNext} onCancel={handleCancel} currentPage={currentPage} />;
       case 2:
-        return <CompleteImg onAdd={handleNext} onCancel={handleCancel} formData={formData} />;
+        return <CompleteImg onCancel={handleCancel} currentPage={currentPage} handleNext={handleNext} formData={formData} />
+
       case 3:
         return <CompleteEmail onAdd={handleNext} onCancel={handleCancel} currentPage={currentPage} />;
       case 4:

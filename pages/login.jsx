@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import "/styles/global.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Login = () => {
@@ -148,19 +147,17 @@ const Login = () => {
       </div>
     </div>
     <div className="mb-4">
-              {loading ? (
-                // Render the loading spinner
-                <CircularProgress className="text-[#2D6C56] mx-auto block " // Apply Tailwind classes
-                size={40} />
-              ) : (
-                // Render the login button
-                <div
-                  className="hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-                  onClick={handleLogin}
-                >
-                  Login
-                </div>
-              )}
+    <div className="mb-4">
+    <button
+      onClick={handleLogin} // Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
+    >
+      {loading ? 'Logging in...' : 'Login'}
+    </button>
+  </div>
             </div>
       <p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
     

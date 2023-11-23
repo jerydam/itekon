@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'next/navigation';
@@ -96,21 +95,15 @@ const userid = params?.id;
           </div>
          
           <div className="mb-4">
-  {loading ? (
-    // Render the styled loading spinner
-    <CircularProgress
-      className="text-[#2D6C56] mx-auto block " // Apply Tailwind classes
-      size={40} // Set the size of the loader (adjust as needed)
-    />
-  ) : (
-    // Render the signup button
-    <div
-      className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-      onClick={handleSignu}
+          <button
+      onClick={handleSignu}// Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
     >
-      Sign Up
-    </div>
-  )}
+      {loading ? 'Signing Up...' : 'Sign Up'}
+    </button>
 </div>
 
           <p className="text-sm font-normal my-2">

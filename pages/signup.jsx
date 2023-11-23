@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '/styles/global.css';
@@ -56,13 +55,13 @@ const Signup = () => {
         
         const id = data.id;
     
-        toast.success('Registration successful proceed to next page'); // Updated this line
+         alert(data.email);
         console.log('User registered successfully', userData);
         window.location.href = `/complete-signup/${id}`;
       } else {
          
         console.log('Error:', data.email);
-        toast.error(data.email);
+        alert(data.email );
       }
       setLoading(false);
     } catch (error) {
@@ -161,22 +160,16 @@ const Signup = () => {
           
         </div>
         <div className="mb-4">
-  {loading ? (
-    // Render the styled loading spinner
-    <CircularProgress
-      className="text-[#2D6C56] mx-auto block " // Apply Tailwind classes
-      size={40} // Set the size of the loader (adjust as needed)
-    />
-  ) : (
-    // Render the signup button
-    <div
-      className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-      onClick={handleSignup}
+        <button
+      onClick={handleSignup}// Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
     >
-      Continue 
-    </div>
-  )}
-</div>
+      {loading ? 'continue sign up...' : 'Continue'}
+    </button>
+      </div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
             <a className="text-[#2D6C56]hover:underline" href="login">

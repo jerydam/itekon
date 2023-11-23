@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
-import Image from 'next/image'; // Import Next.js Image component
+import Image from 'next/image';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
-  // Access formData fields
   const { companyName, registrationId, officeAddress } = formData;
 
   const [userImage, setUserImage] = useState(null);
   const [companyLogo, setCompanyLogo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
     try {
-      // Create a new FormData object and append form data
+      setLoading(true);
+
       const formData = new FormData();
       formData.append('company_name', companyName || '');
       formData.append('registration_id', registrationId || '');
       formData.append('address', officeAddress || '');
 
-      // Append image data
       if (userImage) {
-        formData.append('profile_picture', userImage);
+        const userImageFile = await fetch(userImage).then(res => res.blob());
+        formData.append('profile_picture', userImageFile, 'profilePicture.jpg');
       }
+  
       if (companyLogo) {
-        formData.append('company_logo', companyLogo, 'companyLogo.jpg');
+        const companyLogoFile = await fetch(companyLogo).then(res => res.blob());
+        formData.append('company_logo', companyLogoFile, 'companyLogo.jpg');
       }
-
+        alert('hy')
       const userToken = localStorage.getItem('authToken');
-
+      alert(userToken)
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
@@ -45,14 +48,42 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
         alert(id);
         console.log('Image uploaded successfully');
         toast.success('Image uploaded successfully');
-        await handleNext(); // Call handleNext if the upload is successful
-      } else {
-        console.error('Failed to upload image');
-        toast.error(data.details);
-        // Handle failure as needed
+        handleNext(formData); // Call handleNext with the formData
+      
+      }
+      
+       else {
+        handleErrorResponse(response, data);
       }
     } catch (error) {
-      console.log('Error uploading image:', error);
+      
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleErrorResponse = (response, data) => {
+    if (response.status === 400) {
+      const isDuplicateKeyError =
+        data.error &&
+        data.error
+          .toLowerCase()
+          .includes('duplicate key value violates unique constraint "fleets_fleet_user_id_key"');
+
+      if (isDuplicateKeyError) {
+        console.warn('Duplicate user_id. Proceeding with handleNext.');
+        handleNext(formData); // Call handleNext with the formData for other 400 errors
+      } else {
+        console.error('Other 400 error:', data.details);
+        toast.error(data.details);
+        // Handle other 400 errors as needed
+      }
+    } else {
+      console.error('Failed to upload image. HTTP Status:', response.status);
+      toast.error('Failed to upload image. Please try again later.');
+      // Handle other status codes as needed
     }
   };
 
@@ -163,10 +194,12 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
           </div>
           <div className="flex justify-center mt-8">
             <button
-              onClick={handleUpload}
-              className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={handleUpload}      disabled={loading} // Disable the button while uploading
+              className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                loading ? 'opacity-50 cursor-not-allowed' : '' // Apply opacity and disable cursor if loading
+              }`}
             >
-              Complete Profile
+              {loading ? 'Uploading...' : 'Complete Profile'}
             </button>
           </div>
           <div className="flex justify-center mt-3 space-x-2">
