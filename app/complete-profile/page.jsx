@@ -7,7 +7,7 @@ import Pagination from '@/components/pagination';
 const Complete = () => {
 
   const [showPopup, setShowPopup] = useState(false);
-  const [value, setValue] = useState('');
+  
   
   const handleAdd = (input) => {
     // Add your logic for handling the input here

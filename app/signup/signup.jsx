@@ -1,8 +1,8 @@
 'use client'
-import React, { useState } from 'react';
-import '/styles/global.css';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { CircularProgress } from '@mui/material';
+import 'react-toastify/dist/ReactToastify.css';
+import '/styles/global.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +10,26 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [addMe, setAddMe] = useState(false);
 
   const handleSignup = async (e) => {
+    const userToken = localStorage.getItem('authToken');
+    try {
+      setLoading(true);
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+        
+      } else {
+        localStorage.removeItem('rememberedEmail');
+        
+      }
+      if (addMe) {
+        localStorage.setItem('rememberedPassword', password);
+      } else{
+        localStorage.removeItem('rememberedPassword');
+      }
+
     e.preventDefault();
   
     if (password !== confirmPassword) {
@@ -24,7 +42,6 @@ const Signup = () => {
   
     const userData = { email, password }; // Replace with the appropriate data
   
-    try {
       setLoading(true);
       const response = await fetch('https://itekton.onrender.com/accounts/signup/', {
         method: 'POST',
@@ -32,35 +49,50 @@ const Signup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
-      });
-  
+      });     
+      const data = await response.json();
       if (response.ok) {
-        // Handle success, such as redirecting the user to a new page or showing a success message
+        
+        const id = data.id;
+    
+         alert(data.email);
         console.log('User registered successfully', userData);
-       const res = await response.json()
-        const id = res.id;
-        toast.success=('success')
         window.location.href = `/complete-signup/${id}`;
       } else {
-        // Handle errors and show appropriate messages to the user
-        const errorData = await response.json();
-        console.error('Error:', errorData.message);
-        toast.error=(errorData.message)
+         
+        console.log('Error:', data.email);
+        alert(data.email );
       }
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.error('Error:', error.message);
-      toast.error=(errorData.message)
-      
+          
     }
   };
-  
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    setAddMe(e.target.checked);
+  };
+  useEffect(() => {
+    
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
+
+    
+    if (rememberedEmail) {
+      setEmail(rememberedEmail);
+      setRememberMe(true);
+    }
+    if (rememberedPassword) {
+      setPassword(rememberedPassword);
+      setAddMe(true);
+    }
+  }, []);
+ 
+
   return (
-    <div className="flex relative border-2 border-solid bg-white min-h-screen items-center justify-center">
-       <div className='absolute text-[#2D6C56]'>
-        {loading && <CircularProgress />}
-      </div>
+    <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
+       
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 ">
         <p className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "} <br />
@@ -115,25 +147,32 @@ const Signup = () => {
             )}
           </div>
           <div>
-        <input
+          <input
             type="checkbox"
             id="remember"
-            className="text-blue-500 form-checkbox"
+            checked={rememberMe}
+            onChange={handleRememberMe}
+            className="text-[#2D6C56] form-checkbox"
           />
           <label htmlFor="remember" className="inline-block ml-2 text-gray-600">
             Remember Me
           </label>
           
         </div>
-        <div
-    className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-    onClick={handleSignup}
-  >
-    Continue
-  </div>
+        <div className="mb-4">
+        <button
+      onClick={handleSignup}// Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
+    >
+      {loading ? 'continue sign up...' : 'Continue'}
+    </button>
+      </div>
           <p className="text-sm font-normal my-2">
             Already have an account?{" "}
-            <a className="text-[#2D6C56]hover:underline" href="">
+            <a className="text-[#2D6C56]hover:underline" href="login">
               Sign in here
             </a>
           </p>

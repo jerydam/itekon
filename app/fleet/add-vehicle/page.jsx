@@ -3,6 +3,7 @@ import { useState ,useEffect} from 'react';
 import Sidebar from "@/components/sidebar"
 import "/styles/global.css";
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 const Add = () => {
   const [vehicleName, setVehicleName] = useState('');
@@ -13,20 +14,14 @@ const Add = () => {
   const [vehicleMeter, setVehicleMeter] = useState('');
   const [color, setColor] = useState('');
   const [name, setName] = useState('');
+  const [num, setNum] = useState('');
   const [email, setEmail] = useState('');
   const [license, setLicense] = useState('');
   const [userImage, setUserImage] = useState(null);
   const [carLogo, setCarLogo] = useState(null);
 
+ 
   const handleUserImageChange = (e) => {
-    const router = useRouter();
-    
-  useEffect(() => {
-    const token =  sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
-    }
-  }, [router]);
     const file = e.target.files[0];
     if (file) {
       setUserImage(URL.createObjectURL(file));
@@ -49,23 +44,55 @@ const Add = () => {
   };
 
   
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission and data upload here
-    const formData = {
-      vehicleName,
-      vehicleMake,
-      vehicleModel,
-      identificationNumber,
-      fuelType,
-      color,
-      carLogo,
-      userImage
-    };
-    console.log(formData); // You can send this data to your server
-  };
+  
+    // Create a FormData object to handle file uploads
+    const formData = new FormData();
+    const userToken = localStorage.getItem('authToken');
+    console.log('User Token:', userToken);
 
+    // Append data to the FormData object
+    formData.append('vehicleName', vehicleName);
+    formData.append('vehicleMake', vehicleMake);
+    formData.append('vehicleModel', vehicleModel);
+    formData.append('identificationNumber', identificationNumber);
+    formData.append('fuelType', fuelType);
+    formData.append('color', color);
+    formData.append('carLogo', carLogo);
+    formData.append('userImage', userImage);
+    formData.append('name', name);
+    formData.append('license', license);
+    formData.append('number', number);
+    formData.append('email', email);
+  
+    try {
+      // Make a POST request to your backend endpoint
+      const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+        body: formData,
+      });
+        const responseData = await response.json();
+
+      if (response.ok) {
+        const data = await responseData.data
+        console.log('Vehicle added successfully');
+        toast.success(data)
+        // Redirect or show success message as needed
+      } else {
+        console.log('Error adding vehicle:', await response.text());
+        toast.success(data)
+        // Handle error, show error message, etc.
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle unexpected errors
+    }
+  };
+  
   return (
    
     <div className='flex'>
@@ -114,7 +141,7 @@ const Add = () => {
               type="text"
               id="vehicleModel"
               name="vehicleModel"
-              value={vehicleName}
+              value={vehicleModel}
               onChange={(e) => setVehicleModel(e.target.value)}
               required
               className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
@@ -213,8 +240,8 @@ const Add = () => {
     type="number"
     id="number"
     name="number"
-    value={identificationNumber}
-    onChange={(e) => setNumber(e.target.value)}
+    value={num}
+    onChange={(e) => setNum(e.target.value)}
     required
     className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
   />
@@ -314,7 +341,7 @@ const Add = () => {
         </div>
         </div>
 
-      <button className='w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5'><a href="/vehicleadded">+ Add Vehicle Details </a></button>
+      <button onClick={handleSubmit} className='w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5'>+ Add Vehicle Details </button>
       
     </div>
           

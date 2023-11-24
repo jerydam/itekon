@@ -1,7 +1,10 @@
+
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CompleteImg from './img';
+
 
 const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
   const [formData, setFormData] = useState({
@@ -9,52 +12,24 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
     registrationId: '',
     officeAddress: '',
   });
-  console.log('Current Page:', currentPage);
-  const handleCancel = () => {
-    // Implement cancel logic here
-    console.log('Cancelled');
-  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
-    const userToken = localStorage.getItem('authToken');
-    console.log('User Token:', userToken);
-
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
+    // Add validation logic if needed
 
-      const formData = new FormData();
-    formData.append('company_name', formData.companyName);
-    formData.append('registration_id', formData.registrationId);
-    formData.append('address', formData.officeAddress);
-      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${userToken}`,
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        toast.success = ("hy")
-        onAdd(data);
-      } else {
-        // Handle the error if the request was not successful
-        console.error('Error adding company:', response.statusText);
-      }
-    } catch (error) {
-      // Handle any network errors or other issues
-      console.error('Error adding company:', error);
-    }
+    // Notify the parent component about the form data
+    onAdd(formData);
+   
   };
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -120,26 +95,11 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
             />
           </div>
           <div className="flex items-center justify-center">
-            <button
-  onClick={async () => {
-    try {
-      const response = await handleSubmit();
-      if (response && response.ok) {
-        await handleNext();
-      } else {
-        // Handle the case where response is not OK
-        console.error('Failed to add name or response is not OK');
-        toast.error('Failed to add name or response is not OK');
-      }
-    } catch (error) {
-      // Handle errors that occur during the handleUpload function
-      console.error('Error company name not added:', error);
-      toast.error(error);
-    }
-  }}
+          <button
+  onClick={handleSubmit}
   className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 >
-Next {'-->'}
+  Next {'-->'}
 </button>
           </div>
         </form>

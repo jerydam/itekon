@@ -5,15 +5,47 @@ const MapWithLocation = () => {
   const [longitude, setLongitude] = useState(null);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
+    const fetchLocation = async () => {
+      try {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+
+            // Send latitude and longitude to your backend
+            sendLocationToBackend(position.coords.latitude, position.coords.longitude);
+          });
+        } else {
+          console.log("Geolocation is not supported by this browser.");
+        }
+      } catch (error) {
+        console.error("Error fetching location:", error.message);
+      }
+    };
+
+    fetchLocation();
   }, []);
+
+  const sendLocationToBackend = async (lat, lon) => {
+    try {
+      const response = await fetch(`https://itekton.onrender.com/vehicles/${userid}/location/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ latitude: lat, longitude: lon }),
+      });
+
+      if (response.ok) {
+        console.log("Location sent to backend successfully");
+      } else {
+        const errorData = await response.json();
+        console.error("Error sending location to backend:", errorData.message);
+      }
+    } catch (error) {
+      console.error("Error sending location to backend:", error.message);
+    }
+  };
 
   return (
     <div className="w-full border-2 h-60 rounded">

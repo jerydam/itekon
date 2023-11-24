@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'next/navigation';
@@ -46,10 +45,8 @@ const userid = params?.id;
   };
   
   return (
-    <div className="flex relative border-2 border-solid bg-white min-h-screen items-center justify-center">
-      <div className='absolute text-[#2D6C56]'>
-        {loading && <CircularProgress />}
-      </div>
+    <div className="flex border-2 border-solid bg-white min-h-screen items-center justify-center">
+      
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20 mr-[150px]">
         <div className="mt-4 text-gray-600 font-sans font-semibold">
           Welcome{" "}
@@ -97,12 +94,16 @@ const userid = params?.id;
 
           </div>
          
-          <div
-  
-  className="hover:border-[#2D6C56] text-center border-emerald-100 border-x-2 border-b-4 mt-8 text-[#2D6C56] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40"
-  onClick={handleSignu} // Add the onClick event handler for the sign-up action
->
-  Sign Up
+          <div className="mb-4">
+          <button
+      onClick={handleSignu}// Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
+    >
+      {loading ? 'Signing Up...' : 'Sign Up'}
+    </button>
 </div>
 
           <p className="text-sm font-normal my-2">

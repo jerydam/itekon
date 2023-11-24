@@ -1,46 +1,92 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
+const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
+  const { companyName, registrationId, officeAddress } = formData;
+
   const [userImage, setUserImage] = useState(null);
   const [companyLogo, setCompanyLogo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
     try {
-      const userToken = localStorage.getItem('authToken');
+      setLoading(true);
+
       const formData = new FormData();
+      formData.append('company_name', companyName || '');
+      formData.append('registration_id', registrationId || '');
+      formData.append('address', officeAddress || '');
+
       if (userImage) {
-        formData.append('userImage', userImage);
-      }
-      if (companyLogo) {
-        formData.append('companyLogo', companyLogo);
+        const userImageFile = await fetch(userImage).then(res => res.blob());
+        formData.append('profile_picture', userImageFile, 'profilePicture.jpg');
       }
   
+      if (companyLogo) {
+        const companyLogoFile = await fetch(companyLogo).then(res => res.blob());
+        formData.append('company_logo', companyLogoFile, 'companyLogo.jpg');
+      }
+        alert('hy')
+      const userToken = localStorage.getItem('authToken');
+      alert(userToken)
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Token ${userToken}`,
         },
-        
+        body: formData,
       });
+
       const data = await response.json();
-      console.log(data);
+
       if (response.ok) {
+        const id = data.id;
+        localStorage.setItem('userId', id);
+        alert(id);
         console.log('Image uploaded successfully');
-        toast.success=('image upload successfully')
-        await handleNext(); // Call handleNext if the upload is successful
-      } else {
-        console.error('Failed to upload image');
-        // Handle failure as needed
+        toast.success('Image uploaded successfully');
+        handleNext(formData); // Call handleNext with the formData
+      
+      }
+      
+       else {
+        handleErrorResponse(response, data);
       }
     } catch (error) {
+      
       console.error('Error uploading image:', error);
-      toast.error=('Error uploading image');
+      toast.error('Failed to upload image. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
-  
+
+  const handleErrorResponse = (response, data) => {
+    if (response.status === 400) {
+      const isDuplicateKeyError =
+        data.error &&
+        data.error
+          .toLowerCase()
+          .includes('duplicate key value violates unique constraint "fleets_fleet_user_id_key"');
+
+      if (isDuplicateKeyError) {
+        console.warn('Duplicate user_id. Proceeding with handleNext.');
+        handleNext(formData); // Call handleNext with the formData for other 400 errors
+      } else {
+        console.error('Other 400 error:', data.details);
+        toast.error(data.details);
+        // Handle other 400 errors as needed
+      }
+    } else {
+      console.error('Failed to upload image. HTTP Status:', response.status);
+      toast.error('Failed to upload image. Please try again later.');
+      // Handle other status codes as needed
+    }
+  };
+
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -53,10 +99,6 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
     if (file) {
       setCompanyLogo(URL.createObjectURL(file));
     }
-  };
-  const handleCancel = () => {
-    // Implement cancel logic here
-    console.log('Cancelled');
   };
 
   const clearUserImage = () => {
@@ -84,10 +126,12 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
               <div className="w-40 h-40 relative rounded-full border-dotted border-2 border-[#6A6A6A] overflow-hidden">
                 <label htmlFor="companyLogo" className="cursor-pointer block">
                   {companyLogo ? (
-                    <img
+                    <Image
                       src={companyLogo}
                       alt="Company Logo"
                       className="object-cover w-full h-full"
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
@@ -117,10 +161,12 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
               <div className="w-40 h-40 relative rounded border-dotted border-2 border-[#6A6A6A] overflow-hidden">
                 <label htmlFor="userImage" className="cursor-pointer block">
                   {userImage ? (
-                    <img
+                    <Image
                       src={userImage}
                       alt="User"
                       className="object-cover w-full h-full"
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
@@ -147,40 +193,25 @@ const CompleteImg = ({onCancel, currentPage, handleNext  }) => {
             </div>
           </div>
           <div className="flex justify-center mt-8">
-          <button
-  onClick={async () => {
-    try {
-      const response = await handleUpload();
-      if (response && response.ok) {
-        await handleNext();
-      } else {
-        // Handle the case where response is not OK
-        console.error('Failed to upload image or response is not OK');
-        toast.error('Failed to upload image or response is not OK');
-      }
-    } catch (error) {
-      // Handle errors that occur during the handleUpload function
-      console.error('Error uploading image:', error);
-    }
-  }}
-  className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
->
-  Complete Profile
-</button>
-
-
-        </div>
+            <button
+              onClick={handleUpload}      disabled={loading} // Disable the button while uploading
+              className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                loading ? 'opacity-50 cursor-not-allowed' : '' // Apply opacity and disable cursor if loading
+              }`}
+            >
+              {loading ? 'Uploading...' : 'Complete Profile'}
+            </button>
+          </div>
           <div className="flex justify-center mt-3 space-x-2">
-          {[1, 2, 3, 4, 5].map((index) => (
-         <div
-          key={index}
-           className={`h-4 w-4 rounded-full ${
-           currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9]'
-           }`}
-          ></div>
-          ))}
-        </div>
-
+            {[1, 2, 3, 4, 5].map((index) => (
+              <div
+                key={index}
+                className={`h-4 w-4 rounded-full ${
+                  currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9]'
+                }`}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

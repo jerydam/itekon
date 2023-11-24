@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import "/styles/global.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Login = () => {
@@ -43,7 +42,8 @@ const Login = () => {
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
-        
+        const id = data.id;
+        alert(id)
         const token = data.token;
         
         const authToken = localStorage.setItem('authToken', token);
@@ -51,6 +51,7 @@ const Login = () => {
   
         // Redirect the user to the dashboard or appropriate page on successful login
         if (userToken === authToken) {
+          toast.success("login successfully")
           window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard URL
         }
         else {
@@ -58,7 +59,8 @@ const Login = () => {
           
         }// Replace '/dashboard' with the appropriate dashboard page URL
       } else {
-        toast.error('Incorrect email or password. Please try again.');
+       alert(data.error)
+        toast.error(data.error);
       }
       setLoading(false);
     } catch (error) {
@@ -98,10 +100,8 @@ const Login = () => {
 
   return (
     <>
-     <div className="flex relative  border-2 border-solid bg-white min-h-screen items-center justify-center">
-     <div className='absolute text-[#2D6C56]'>
-     {loading && <CircularProgress />}
-     </div>
+     <div className="flex  border-2 border-solid bg-white min-h-screen items-center justify-center">
+     
      <div className="bg-white p-8 rounded-lg shadow-lg border-2 w-96 ml-20]">
      <div className="mt-4 text-gray-600 font-sans font-semibold">
      Welcome back,<p className="text-sm font-normal">Sign in to your account to continue</p>
@@ -146,7 +146,19 @@ const Login = () => {
         <a href='forget-password' className="text-[#2D6C56] hover:underline">Forget Password?</a>
       </div>
     </div>
-    <div type="submit" className=" hover:border-[#2D6C56] border-emerald-100 border-x-2 border-b-4 text-[#2D6C56]font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 w-40" onClick={handleLogin} >Login</div>
+    <div className="mb-4">
+    <div className="mb-4">
+    <button
+      onClick={handleLogin} // Keep this line
+      className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+        loading ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      disabled={loading}
+    >
+      {loading ? 'Logging in...' : 'Login'}
+    </button>
+  </div>
+            </div>
       <p className="text-sm font-normal my-2">Do not have an account yet? <a className="text-[#2D6C56] hover:underline" href="signup">Sign up here</a></p>
     
   </form>
