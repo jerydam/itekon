@@ -3,7 +3,7 @@ import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteEmail = ({ onAdd, onCancel, currentPage, handleNext }) => {
+const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -25,13 +25,16 @@ const CompleteEmail = ({ onAdd, onCancel, currentPage, handleNext }) => {
 
       if (response.ok) {
         toast.success('An OTP code has been sent to the provided account');
+        handleNext(FormData);
         const data = await response.json();
         console.log(data);
       } else {
+        handleNext(FormData);
         console.error('Error sending data to the server');
         toast.error('Failed to send OTP. Please try again.');
       }
     } catch (error) {
+      handleNext(FormData);
       console.error('Error sending data to the server:', error);
       toast.error('Failed to send OTP. Please try again.');
     } finally {

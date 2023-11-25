@@ -39,7 +39,7 @@ const Pagination = ({ onCancel }) => {
         return <CompleteImg onCancel={handleCancel} currentPage={currentPage} handleNext={handleNext} formData={formData} />
 
       case 3:
-        return <CompleteEmail onAdd={handleNext} onCancel={handleCancel} currentPage={currentPage} />;
+        return <CompleteEmail handleNext={handleNext} onCancel={handleCancel} currentPage={currentPage} />;
       case 4:
         return <OTP onCancel={handleCancel} currentPage={currentPage} onAdd={handleNext} />;
       case 5:

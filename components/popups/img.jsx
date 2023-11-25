@@ -20,18 +20,17 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       formData.append('registration_id', registrationId || '');
       formData.append('address', officeAddress || '');
 
+      // Assuming userImage and companyLogo are file objects
       if (userImage) {
-        const userImageFile = await fetch(userImage).then(res => res.blob());
-        formData.append('profile_picture', userImageFile, 'profilePicture.jpg');
+        formData.append('profile_picture', userImage);
       }
   
       if (companyLogo) {
-        const companyLogoFile = await fetch(companyLogo).then(res => res.blob());
-        formData.append('company_logo', companyLogoFile, 'companyLogo.jpg');
+        formData.append('company_logo', companyLogo);
       }
-        alert('hy')
+  
       const userToken = localStorage.getItem('authToken');
-      alert(userToken)
+  
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
@@ -45,9 +44,8 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       if (response.ok) {
         const id = data.id;
         localStorage.setItem('userId', id);
-        alert(id);
-        console.log('Image uploaded successfully');
-        toast.success('Image uploaded successfully');
+        console.log('Fleet created/updated successfully');
+        toast.success('Fleet created/updated successfully');
         handleNext(formData); // Call handleNext with the formData
       
       }
@@ -55,10 +53,9 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
        else {
         handleErrorResponse(response, data);
       }
-    } catch (error) {
-      
-      console.error('Error uploading image:', error);
-      toast.error('Failed to upload image. Please try again later.');
+    }catch (error) {
+      console.error('Error creating/updating fleet:', error);
+      toast.error('Failed to create/update fleet. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -66,14 +63,8 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
 
   const handleErrorResponse = (response, data) => {
     if (response.status === 400) {
-      const isDuplicateKeyError =
-        data.error &&
-        data.error
-          .toLowerCase()
-          .includes('duplicate key value violates unique constraint "fleets_fleet_user_id_key"');
-
-      if (isDuplicateKeyError) {
-        console.warn('Duplicate user_id. Proceeding with handleNext.');
+      if (data.error && data.error.toLowerCase() === 'user already has a fleet') {
+        console.warn('User already has a fleet. Proceeding with handleNext.');
         handleNext(formData); // Call handleNext with the formData for other 400 errors
       } else {
         console.error('Other 400 error:', data.details);
@@ -86,6 +77,7 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       // Handle other status codes as needed
     }
   };
+  
 
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
