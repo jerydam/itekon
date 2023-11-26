@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
+const CompleteEmail = ({ onCancel, currentPage, handleNext, startCountdown }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userToken = localStorage.getItem('authToken');
-    
+    const userToken = sessionStorage.getItem('authToken');
+
     try {
       setLoading(true);
 
@@ -25,22 +25,21 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
 
       if (response.ok) {
         toast.success('An OTP code has been sent to the provided account');
-        handleNext(FormData);
+        startCountdown(); // Start the countdown
+        handleNext();
         const data = await response.json();
         console.log(data);
       } else {
-        handleNext(FormData);
         console.error('Error sending data to the server');
         toast.error('Failed to send OTP. Please try again.');
       }
     } catch (error) {
-      handleNext(FormData);
       console.error('Error sending data to the server:', error);
-      toast.error('Failed to send OTP. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md">
@@ -52,7 +51,7 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
                 <XIcon className="h-5 w-5 text-[#2D6C56]" />
               </button>
             </div>
-            <p>3. Verify your account. A one time password will be sent to your email account.</p>
+            <p>3. Verify your account. A one-time password will be sent to your email account.</p>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -72,27 +71,27 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
                 />
               </div>
               <button
-            onClick={handleSubmit}
-            type="submit"
-            className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-              loading ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={loading}
-          >
-            {loading ? 'Sending...' : 'Send OTP'}
-          </button>
+                onClick={handleSubmit}
+                type="submit"
+                className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={loading}
+              >
+                {loading ? 'Sending...' : 'Send OTP'}
+              </button>
             </form>
 
             <div className="flex justify-center mt-3 space-x-2">
-          {[1, 2, 3, 4, 5].map((index) => (
-         <div
-          key={index}
-           className={`h-4 w-4 rounded-full ${
-           currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9] '
-           }`}
-          ></div>
-          ))}
-        </div>
+              {[1, 2, 3, 4, 5].map((index) => (
+                <div
+                  key={index}
+                  className={`h-4 w-4 rounded-full ${
+                    currentPage === index ? 'bg-[#2D6C56]' : 'bg-[#D9D9D9] '
+                  }`}
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

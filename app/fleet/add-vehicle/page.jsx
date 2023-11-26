@@ -49,7 +49,7 @@ const Add = () => {
   
     // Create a FormData object to handle file uploads
     const formData = new FormData();
-    const userToken = localStorage.getItem('authToken');
+    const userToken = sessionStorage.getItem('authToken');
     console.log('User Token:', userToken);
 
     // Append data to the FormData object

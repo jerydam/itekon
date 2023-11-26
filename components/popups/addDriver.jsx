@@ -20,7 +20,7 @@ const AddDriver = ({ onAdd, onCancel }) => {
       formData.append('email', mail);
       formData.append('driver_image', imagePreview);
   
-      const userToken = localStorage.getItem('authToken');
+      const userToken = sessionStorage.getItem('authToken');
   
       const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
         method: 'POST',

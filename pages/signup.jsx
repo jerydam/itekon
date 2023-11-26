@@ -14,20 +14,20 @@ const Signup = () => {
   const [addMe, setAddMe] = useState(false);
 
   const handleSignup = async (e) => {
-    const userToken = localStorage.getItem('authToken');
+    const userToken = sessionStorage.getItem('authToken');
     try {
       setLoading(true);
       if (rememberMe) {
-        localStorage.setItem('rememberedEmail', email);
+        sessionStorage.setItem('rememberedEmail', email);
         
       } else {
-        localStorage.removeItem('rememberedEmail');
+        sessionStorage.removeItem('rememberedEmail');
         
       }
       if (addMe) {
-        localStorage.setItem('rememberedPassword', password);
+        sessionStorage.setItem('rememberedPassword', password);
       } else{
-        localStorage.removeItem('rememberedPassword');
+        sessionStorage.removeItem('rememberedPassword');
       }
 
     e.preventDefault();
@@ -75,8 +75,8 @@ const Signup = () => {
   };
   useEffect(() => {
     
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-    const rememberedPassword = localStorage.getItem('rememberedPassword');
+    const rememberedEmail = sessionStorage.getItem('rememberedEmail');
+    const rememberedPassword = sessionStorage.getItem('rememberedPassword');
 
     
     if (rememberedEmail) {
