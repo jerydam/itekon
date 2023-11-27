@@ -16,10 +16,10 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   let userToken;
 
   useEffect(() => {
-    if (typeof sessionStorage !== 'undefined') {
-      const userToken = sessionStorage.getItem('authToken');
+    if (typeof localStorage !== 'undefined') {
+      const userToken = localStorage.getItem('authToken');
       console.log(userToken);
-      const userId = sessionStorage.getItem('id');
+      const userId = localStorage.getItem('id');
     }
   }, []);
 

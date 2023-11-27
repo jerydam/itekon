@@ -9,7 +9,7 @@ const VehiclePage = () => {
   const router = useRouter();
     
   useEffect(() => {
-    const token =  sessionStorage.getItem('token')
+    const token =  localStorage.getItem('token')
     if (!token) {
       router.push('/login'); // Replace '/login' with the appropriate login page URL
     }

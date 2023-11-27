@@ -6,7 +6,7 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState(null); // State to store user data
-  const userToken = typeof window !== 'undefined' ? sessionStorage.getItem('authToken') : null;
+  const userToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
   console.log('User Token:', userToken);
 
   // Simulating fetching user data from the backend

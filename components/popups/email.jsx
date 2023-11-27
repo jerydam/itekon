@@ -9,7 +9,7 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext, startCountdown }) =>
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userToken = sessionStorage.getItem('authToken');
+    const userToken = localStorage.getItem('authToken');
 
     try {
       setLoading(true);

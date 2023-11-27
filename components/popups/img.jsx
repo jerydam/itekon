@@ -29,7 +29,7 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
         formData.append('company_logo', companyLogo);
       }
   
-      const userToken = sessionStorage.getItem('authToken');
+      const userToken = localStorage.getItem('authToken');
   
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
@@ -43,7 +43,7 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
 
       if (response.ok) {
         const id = data.id;
-        sessionStorage.setItem('userId', id);
+        localStorage.setItem('userId', id);
         console.log('Fleet created/updated successfully');
         toast.success('Fleet created/updated successfully');
         handleNext(formData); // Call handleNext with the formData
