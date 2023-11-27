@@ -13,20 +13,20 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
  
   const handleLogin = async () => {
-    const userToken = sessionStorage.getItem('authToken');
+    const userToken = localStorage.getItem('authToken');
     try {
       setLoading(true);
       if (rememberMe) {
-        sessionStorage.setItem('rememberedEmail', email);
+        localStorage.setItem('rememberedEmail', email);
         
       } else {
-        sessionStorage.removeItem('rememberedEmail');
+        localStorage.removeItem('rememberedEmail');
         
       }
       if (addMe) {
-        sessionStorage.setItem('rememberedPassword', password);
+        localStorage.setItem('rememberedPassword', password);
       } else{
-        sessionStorage.removeItem('rememberedPassword');
+        localStorage.removeItem('rememberedPassword');
       }
   
       const response = await fetch('https://itekton.onrender.com/accounts/signin/', {
@@ -46,7 +46,7 @@ const Login = () => {
         
         const token = data.token;
         
-        const authToken = sessionStorage.setItem('authToken', token);
+        const authToken = localStorage.setItem('authToken', token);
 
   
         // Redirect the user to the dashboard or appropriate page on successful login
@@ -82,8 +82,8 @@ const Login = () => {
   // Use the remembered email if available
   useEffect(() => {
     
-    const rememberedEmail = sessionStorage.getItem('rememberedEmail');
-    const rememberedPassword = sessionStorage.getItem('rememberedPassword');
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
 
     
     if (rememberedEmail) {
