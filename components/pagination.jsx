@@ -5,6 +5,7 @@ import CompleteImg from '@/components/popups/img';
 import Added from '@/components/popups/done';
 import OTP from '@/components/popups/otp';
 import { toast } from 'react-toastify';
+import { useRef } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Pagination = ({ onCancel }) => {
@@ -16,8 +17,10 @@ const Pagination = ({ onCancel }) => {
   });
   const [countdown, setCountdown] = useState(300); // 5 minutes in seconds
   const [disableResend, setDisableResend] = useState(false);
+  const intervalRef = useRef(null);
 
   const startCountdown = () => {
+    clearInterval(intervalRef.current); // Clear the previous interval
     const interval = setInterval(() => {
       setCountdown((prevCountdown) => {
         if (prevCountdown === 0) {
@@ -28,7 +31,9 @@ const Pagination = ({ onCancel }) => {
         return prevCountdown - 1;
       });
     }, 1000);
+    intervalRef.current = interval; // Store the new interval reference
   };
+  
 
   const handleNext = (input) => {
     // Add a check to ensure that the input is not empty
@@ -73,7 +78,7 @@ const Pagination = ({ onCancel }) => {
       {renderPopup(currentPage)}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         {currentPage < 5 && (
-          <button onClick={() => handleNext(formData)} style={{ marginLeft: '10px' }}>
+          <button onClick={() => handleNext()} style={{ marginLeft: '10px' }}>
             {"Next-->"}
           </button>
         )}

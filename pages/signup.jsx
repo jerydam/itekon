@@ -14,7 +14,7 @@ const Signup = () => {
   const [addMe, setAddMe] = useState(false);
 
   const handleSignup = async (e) => {
-    const userToken = localStorage.getItem('authToken');
+    
     try {
       setLoading(true);
       if (rememberMe) {

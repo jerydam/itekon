@@ -32,6 +32,8 @@ const userid = params?.id;
   
       // Redirect the user to the login page after successful sign-up
       if (response.ok) {
+        const userToken = data.token;
+        localStorage.setItem(userToken,'authToken');
         toast.success('Sign up successful');
         window.location.href ='/login';
       } else {

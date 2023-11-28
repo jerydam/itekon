@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CompleteImg from './img';
+
 
 
 const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {

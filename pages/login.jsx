@@ -33,7 +33,6 @@ const Login = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Token ${userToken}`,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -43,7 +42,7 @@ const Login = () => {
   
       if (response.ok) {
         const id = data.id;
-        
+        localStorage.setItem('userId', id);
         const token = data.token;
         
         const authToken = localStorage.setItem('authToken', token);
