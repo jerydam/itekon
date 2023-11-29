@@ -1,14 +1,36 @@
 'use client'
 import { useState } from 'react';
-import {XIcon } from '@heroicons/react/solid';
-
+import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Popup = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const userToken = localStorage.getItem('authToken')
+  const handleAdd = async () => {
+    try {
+     
+      const response = await fetch(`https://itekton.onrender.com//reports/transit-reports/${vehicle_id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${userToken}`,
+        },
+        body: JSON.stringify({ description: inputValue }),
+      });
 
-  const handleAdd = () => {
-    onAdd(inputValue);
-    setInputValue('');
+      if (response.ok) {
+         onAdd();
+         toast.success('Report added successfully')
+        setInputValue(''); // Clear the input value
+      } else {
+        console.error('Failed to add report. Please try again.');
+        toast.error(data.error)
+        // Handle the case where the request was not successful
+      }
+    } catch (error) {
+      console.error('Error adding report:', error);
+    }
   };
 
   return (
