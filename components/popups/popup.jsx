@@ -1,15 +1,14 @@
-'use client'
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { BsX } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Popup = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
-  const userToken = localStorage.getItem('authToken')
+  const userToken = localStorage.getItem('authToken');
+
   const handleAdd = async () => {
     try {
-     
       const response = await fetch(`https://itekton.onrender.com//reports/transit-reports/${vehicle_id}/`, {
         method: 'POST',
         headers: {
@@ -20,12 +19,12 @@ const Popup = ({ onAdd, onCancel }) => {
       });
 
       if (response.ok) {
-         onAdd();
-         toast.success('Report added successfully')
+        onAdd();
+        toast.success('Report added successfully');
         setInputValue(''); // Clear the input value
       } else {
         console.error('Failed to add report. Please try again.');
-        toast.error(data.error)
+        toast.error(data.error);
         // Handle the case where the request was not successful
       }
     } catch (error) {
@@ -39,11 +38,11 @@ const Popup = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Add Report</p>
           <button onClick={onCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <BsX className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>You can add a vehicle report here to keep track of transits and vehicle movement</p>
-        <p className='mt-5 mb-3'>Write your Report</p>
+        <p className="mt-5 mb-3">Write your Report</p>
         <input
           type="text"
           id="input"
@@ -56,7 +55,7 @@ const Popup = ({ onAdd, onCancel }) => {
             onClick={handleAdd}
             className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded"
           >
-           Save Report
+            Save Report
           </button>
         </div>
       </div>

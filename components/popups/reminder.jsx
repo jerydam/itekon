@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { BsX } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Reminder from '../reminder';
@@ -24,11 +24,11 @@ const PopRem = ({ onAdd, onCancel }) => {
 
       if (response.ok) {
         onAdd(data);
-        toast.success('Reminder added')
+        toast.success('Reminder added');
         setInputValue('');
       } else {
         console.error('Error adding reminder:', data.error);
-        toast.error(data.error)
+        toast.error(data.error);
       }
     } catch (error) {
       console.error('Error adding reminder:', error);
@@ -45,7 +45,7 @@ const PopRem = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Vehicle Maintenance Reminder</p>
           <button onClick={handleCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <BsX className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>You can add a vehicle maintenance reminder here to get notified.</p>
