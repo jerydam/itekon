@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { BsX } from 'react-icons/bs';
 
 const PopRenew = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
@@ -19,7 +19,7 @@ const PopRenew = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Registration Renewal Reminder</p>
           <button onClick={handleCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <BsX className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Add reminders for the renewal of your vehicle documents</p>

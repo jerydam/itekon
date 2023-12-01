@@ -1,7 +1,5 @@
-'use client'
 import { useState } from 'react';
-import {XIcon } from '@heroicons/react/solid';
-
+import { BsX } from 'react-icons/bs';
 
 const Remove = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
@@ -17,11 +15,11 @@ const Remove = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-2">
           <p className="block mb-2 text-lg font-medium">Remove Driver</p>
           <button onClick={onCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <BsX className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p className='mb-2 font-medium'>Remove driver from your fleet</p>
-        <p className='mb-2 font-medium'>You are about to remove id.name form your driver list</p>
+        <p className='mb-2 font-medium'>You are about to remove id.name from your driver list</p>
        
         <div className="flex justify-center">
           <button
