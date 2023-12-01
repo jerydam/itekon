@@ -14,24 +14,23 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
   const handleUpload = async () => {
     try {
       setLoading(true);
-
+  
       const formData = new FormData();
       formData.append('company_name', companyName || '');
       formData.append('registration_id', registrationId || '');
       formData.append('address', officeAddress || '');
-
+  
+      // Assuming userImage and companyLogo are file objects
       if (userImage) {
-        const userImageFile = await fetch(userImage).then(res => res.blob());
-        formData.append('profile_picture', userImageFile, 'profilePicture.jpg');
+        formData.append('profile_picture', userImage);
       }
   
       if (companyLogo) {
-        const companyLogoFile = await fetch(companyLogo).then(res => res.blob());
-        formData.append('company_logo', companyLogoFile, 'companyLogo.jpg');
+        formData.append('company_logo', companyLogo);
       }
-        alert('hy')
+  
       const userToken = localStorage.getItem('authToken');
-      alert(userToken)
+  
       const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
@@ -39,30 +38,25 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
         },
         body: formData,
       });
-
+  
       const data = await response.json();
-
       if (response.ok) {
         const id = data.id;
         localStorage.setItem('userId', id);
-        alert(id);
-        console.log('Image uploaded successfully');
-        toast.success('Image uploaded successfully');
-        handleNext(formData); // Call handleNext with the formData
-      
-      }
-      
-       else {
+        console.log('Fleet created/updated successfully');
+        toast.success('Fleet created/updated successfully');
+        handleNext(formData);
+      } else {
         handleErrorResponse(response, data);
       }
     } catch (error) {
-      
-      console.error('Error uploading image:', error);
-      toast.error('Failed to upload image. Please try again later.');
+      console.error('Error creating/updating fleet:', error);
+      toast.error('Failed to create/update fleet. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
+  
 
   const handleErrorResponse = (response, data) => {
     if (response.status === 400) {
