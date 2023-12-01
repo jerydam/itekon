@@ -8,12 +8,12 @@ useRouter
 const VehiclePage = () => {
   const router = useRouter();
     
-  // useEffect(() => {
-  //   const token =  sessionStorage.getItem('token')
-  //   if (!token) {
-  //     router.push('/login'); // Replace '/login' with the appropriate login page URL
-  //   }
-  // }, [router]);
+  useEffect(() => {
+    const token =  localStorage.getItem('token')
+    if (!token) {
+      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    }
+  }, [router]);
 
   const handleShowVehicleList = () => {
     // Implement logic to show vehicle list

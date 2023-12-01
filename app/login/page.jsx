@@ -33,7 +33,6 @@ const Login = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -42,24 +41,25 @@ const Login = () => {
       console.log(data); // Handle the response from the server
   
       if (response.ok) {
-        const id = data.id;
-        alert(id)
+        const id = data.user.id;
+        localStorage.setItem('userId', id);
         const token = data.token;
         
         const authToken = localStorage.setItem('authToken', token);
 
   
         // Redirect the user to the dashboard or appropriate page on successful login
-        if (userToken === authToken) {
-          toast.success("login successfully")
-          window.location.href = '/dashboard'; // Replace '/dashboard' with the appropriate dashboard URL
+        if (data.user.verification == true) {
+          toast.success("login successful")
+          window.location.href = '/dashboard'; 
         }
         else {
+          toast.success("login successful, please complete your profile and verify your account")
           window.location.href='/complete-profile';
           
-        }// Replace '/dashboard' with the appropriate dashboard page URL
+        }
       } else {
-       alert(data.error)
+       
         toast.error(data.error);
       }
       setLoading(false);

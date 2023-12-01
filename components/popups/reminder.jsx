@@ -1,12 +1,38 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Reminder from '../reminder';
 
 const PopRem = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleAdd = () => {
-    onAdd(inputValue);
-    setInputValue('');
+  const handleAdd = async () => {
+    try {
+      const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          reminderText: inputValue,
+          // Add any other relevant data you want to send to the backend
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        onAdd(data);
+        toast.success('Reminder added')
+        setInputValue('');
+      } else {
+        console.error('Error adding reminder:', data.error);
+        toast.error(data.error)
+      }
+    } catch (error) {
+      console.error('Error adding reminder:', error);
+    }
   };
 
   const handleCancel = () => {

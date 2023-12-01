@@ -1,12 +1,45 @@
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PopTest = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const userToken = localStorage.getItem('authToken')
+  const handleAdd = async () => {
+    try {
+      // Perform validation on inputValue if needed
 
-  const handleAdd = () => {
-    onAdd(inputValue);
-    setInputValue('');
+      // Make a fetch request to send data to the backend
+      const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${userToken}`,
+        },
+        body: JSON.stringify({ testDescription: inputValue }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+       
+        onAdd(data);
+        toast.success('you successfully add a test')
+        // Clear the input field
+        setInputValue('');
+
+        // Close the PopTest component
+        onCancel();
+      } else {
+        console.error('Error adding test:', data.error);
+        toast.error(data.error)
+        // Handle the error, show a message, etc.
+      }
+    } catch (error) {
+      console.error('Error adding test:', error);
+      // Handle the error, show a message, etc.
+    }
   };
 
   const handleCancel = () => {

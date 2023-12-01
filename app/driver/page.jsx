@@ -12,9 +12,16 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [showDrive, setShowDrive] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
 
-  const userToken = localStorage.getItem('authToken');
-  console.log(userToken);
-  const userId = localStorage.getItem('id');
+  let userId;
+  let userToken;
+
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      const userToken = localStorage.getItem('authToken');
+      console.log(userToken);
+      const userId = localStorage.getItem('id');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

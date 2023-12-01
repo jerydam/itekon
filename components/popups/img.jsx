@@ -19,7 +19,6 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       formData.append('company_name', companyName || '');
       formData.append('registration_id', registrationId || '');
       formData.append('address', officeAddress || '');
-  
       // Assuming userImage and companyLogo are file objects
       if (userImage) {
         formData.append('profile_picture', userImage);
@@ -45,11 +44,14 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
         localStorage.setItem('userId', id);
         console.log('Fleet created/updated successfully');
         toast.success('Fleet created/updated successfully');
-        handleNext(formData);
-      } else {
+        handleNext(formData); // Call handleNext with the formData
+      
+      }
+      
+       else {
         handleErrorResponse(response, data);
       }
-    } catch (error) {
+    }catch (error) {
       console.error('Error creating/updating fleet:', error);
       toast.error('Failed to create/update fleet. Please try again later.');
     } finally {
@@ -60,14 +62,8 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
 
   const handleErrorResponse = (response, data) => {
     if (response.status === 400) {
-      const isDuplicateKeyError =
-        data.error &&
-        data.error
-          .toLowerCase()
-          .includes('duplicate key value violates unique constraint "fleets_fleet_user_id_key"');
-
-      if (isDuplicateKeyError) {
-        console.warn('Duplicate user_id. Proceeding with handleNext.');
+      if (data.error && data.error.toLowerCase() === 'user already has a fleet') {
+        console.warn('User already has a fleet. Proceeding with handleNext.');
         handleNext(formData); // Call handleNext with the formData for other 400 errors
       } else {
         console.error('Other 400 error:', data.details);
@@ -80,6 +76,7 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       // Handle other status codes as needed
     }
   };
+  
 
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
