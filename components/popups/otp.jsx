@@ -12,10 +12,7 @@ const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, star
     setOtp(updatedOtp);
   };
 
-  const handleCancel = () => {
-    // Implement cancel logic here
-    console.log('Cancelled');
-  };
+ 
 
   const handleConcatenate = async () => {
     const concatenatedOtp = otp.join('');
@@ -34,13 +31,13 @@ const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, star
       if (response.ok) {
         // Handle the response from the server if necessary
         const data = await response.json();
-        toast.success('Verification successful')
+        toast.success('Verification successful');
         console.log(data);
         handleNext(formData); // Move to the next step after handling the OTP
       } else {
         // Handle errors here
         console.error('Error sending data to the server');
-        toast.error(data.error)
+        toast.error(data.error);
       }
     } catch (error) {
       console.error('Error sending data to the server:', error);

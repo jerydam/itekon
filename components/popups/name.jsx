@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious }) => {
+const CompleteName = ({ handleNext, onCancel, currentPage }) => {
   const [formData, setFormData] = useState({
     companyName: '',
     registrationId: '',
@@ -26,26 +26,13 @@ const CompleteName = ({ onAdd, onCancel, currentPage, handleNext, handlePrevious
     // Add validation logic if needed
 
     // Notify the parent component about the form data
-    onAdd(formData);
+    handleNext(formData);
    
   };
 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        {currentPage > 1 && (
-          <button onClick={handlePrevious} style={{ marginRight: '10px' }}>
-            Previous
-          </button>
-        )}
-        {currentPage < 5 && (
-          <button onClick={handleNext} style={{ marginLeft: '10px' }}>
-            Next
-          </button>
-        )}
-      </div>
-
       <div className="bg-white p-6 rounded-md">
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Complete Your Profile</p>
