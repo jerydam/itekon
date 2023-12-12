@@ -23,10 +23,10 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext, startCountdown }) =>
         body: JSON.stringify({ email }),
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
+        handleNext();
         toast.success('An OTP code has been sent to the provided account');
         startCountdown(); // Start the countdown
-        handleNext();
         const data = await response.json();
         console.log(data);
       } else {

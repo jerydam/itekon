@@ -34,11 +34,7 @@ const TestReports = () => {
   }, []);
 
   const handleAdd = () => {
-    // Implement the logic for adding a test
-    // ...
-
-    // Update the testedCars and readyCars values accordingly
-    // For example:
+   
     setTestedCars((prevValue) => prevValue + 1);
     setReadyCars((prevValue) => prevValue + 1);
 

@@ -1,17 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import Popup from '@/components/popups/popup';
-import { TiPlus, TiTimes } from 'react-icons/ti';
 import { cartel } from '@/index';
 import Sidebar from "@/components/sidebar";
 import Map from "@/components/map";
 import Navbar from '@/components/nav';
-import PopTest from '@/components/popups/test';
-import PopRem from '@/components/popups/reminder';
 import TransitReports from '@/components/transist';
 import TestReports from '@/components/test';
 import Reminder from '@/components/reminder';
 import Alert from '@/components/alert';
+import Vehicles from '@/components/vehicledata';
 
     
 const Dashboard = (onCancel) => {
@@ -54,8 +51,8 @@ const Dashboard = (onCancel) => {
         </div>
           
         <div className="w-full flex flex-col lg:flex-row justify-between gap-4 p-5 ">
-         <Alert/>
-          <div className="w-full lg:w-1/2 border-2 h-60 rounded"></div>
+          <Vehicles/>
+          <Alert/>
         </div>
       </div>
     </div>

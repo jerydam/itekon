@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const CompleteName = ({ handleNext, onCancel, currentPage }) => {
+const CompleteName = ({ onAdd, onCancel, currentPage }) => {
   const [formData, setFormData] = useState({
     companyName: '',
     registrationId: '',
@@ -26,7 +26,7 @@ const CompleteName = ({ handleNext, onCancel, currentPage }) => {
     // Add validation logic if needed
 
     // Notify the parent component about the form data
-    handleNext(formData);
+    onAdd(formData);
    
   };
 
