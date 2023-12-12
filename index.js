@@ -25,7 +25,13 @@ const cartel = [
         img: 'images/taxi car.png'
     },
 ];
-
+const idColorMap = {
+  1: 'hover:bg-blue-500',
+  2: 'hover:bg-green-500',
+  3: 'hover:bg-yellow-500',
+  4: 'hover:bg-red-500',
+  // Add more mappings as needed
+};
 const mockCars = [
     {
       id: 1,
@@ -179,4 +185,4 @@ const mockCars = [
       },
     ];
 
-export { cartel, mockCars, driver };
+export { cartel, mockCars, driver, idColorMap };
