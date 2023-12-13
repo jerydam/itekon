@@ -189,15 +189,15 @@ const Sidebar = () => {
           </Link>
       </div>
       {userData && (
-        <div className="fixed bottom-0 left-0 w-1/5 bg-white p-4">
+        <div className="static bottom-0 left-0 w-1/2 bg-white p-4">
           <img
             className="my-5"
-            src={userData.image} // Replace with the path to the user's image fetched from the backend
+            src={userData.image} 
             alt="User"
             width="50"
             height="50"
           />
-          <p className="text-center">{userData.name}</p> {/* Replace with the user's name fetched from the backend */}
+          <p className="text-center">{userData.name}</p>
         </div>
       )}       
       </ul>

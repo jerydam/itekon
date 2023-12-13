@@ -1,7 +1,71 @@
 // pages/Dashboard.js
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 
 const Engine = () => {
+  // State variables to store data
+  const [activeEngineCount, setActiveEngineCount] = useState(0);
+  const [allDriverCount, setAllDriverCount] = useState(0);
+  const [idleEngineCount, setIdleEngineCount] = useState(0);
+  const [allEngineCount, setAllEngineCount] = useState(0);
+
+  useEffect(() => {
+    // Fetch data for Active Engine count
+    const fetchActiveEngineCount = async () => {
+      try {
+        const response = await fetch('https://itekton.onrender.com/');
+          const data = await response.json();
+          const activeCount = data.length;
+          setActiveEngineCount(activeCount);
+        } catch (error) {
+        console.log('Error fetching Active Engine count:', error);
+      }
+    };
+
+    // Fetch data for All Driver count
+    const fetchAllDriverCount = async () => {
+        try {
+          const response = await fetch('https://itekton.onrender.com/vehicles/drivers/');
+          const data = await response.json();
+          const driverCount = data.length;
+          setAllDriverCount(driverCount);
+        } catch (error) {
+          console.log('Error fetching All Driver count:', error);
+        }
+      };
+      
+
+    // Fetch data for Idle Engine count
+    const fetchIdleEngineCount = async () => {
+      try {
+        const response = await fetch('https://itekton.onrender.com');
+        const data = await response.json();
+        const idleCount = data.length;
+        setIdleEngineCount(idleCount);
+      } catch (error) {
+        console.log('Error fetching Idle Engine count:', error);
+      }
+    };
+
+    // Fetch data for All Engine count
+    const fetchAllEngineCount = async () => {
+      try {
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
+        const data = await response.json();
+          const engineCount = data.length;
+          setAllEngineCount(engineCount);
+        } catch (error) {
+        console.log('Error fetching All Engine count:', error);
+      }
+    };
+
+    // Call the fetch functions when the component mounts
+    fetchActiveEngineCount();
+    fetchAllDriverCount();
+    fetchIdleEngineCount();
+    fetchAllEngineCount();
+  }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
   return (
     <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5">
       <div className='w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4 hover:border-[#2D6C56]'>
@@ -9,7 +73,7 @@ const Engine = () => {
           <img src='images/Carin.png' alt="Car" />
           <div className="text-center py-5">
             <p>Active Engine</p>
-            <p className="text-xl font-bold">30</p>
+            <p className="text-xl font-bold">{activeEngineCount}</p>
           </div>
         </div>
       </div>
@@ -18,7 +82,7 @@ const Engine = () => {
           <img src='images/Car rental.png' alt="Car" />
           <div className="text-center py-5">
             <p>All Driver</p>
-            <p className="text-xl font-bold">10</p>
+            <p className="text-xl font-bold">{allDriverCount}</p>
           </div>
         </div>
       </div>
@@ -27,7 +91,7 @@ const Engine = () => {
           <img src='images/car.png' alt="Car" />
           <div className="text-center py-5">
             <p>Idle Engine</p>
-            <p className="text-xl font-bold">1</p>
+            <p className="text-xl font-bold">{idleEngineCount}</p>
           </div>
         </div>
       </div>
@@ -36,7 +100,7 @@ const Engine = () => {
           <img src='images/taxi car.png' alt="Car" />
           <div className="text-center py-5">
             <p>All Engine</p>
-            <p className="text-xl font-bold">60</p>
+            <p className="text-xl font-bold">{allEngineCount}</p>
           </div>
         </div>
       </div>
