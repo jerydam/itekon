@@ -3,43 +3,50 @@ import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteEmail = ({ onCancel, currentPage, handleNext, startCountdown }) => {
+const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const userToken = localStorage.getItem('authToken');
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userToken = localStorage.getItem('authToken');
+
+    // Your API endpoint URL
+    const apiUrl = 'https://itekton.onrender.com/fleets/send-otp/';
 
     try {
       setLoading(true);
 
-      const response = await fetch('https://itekton.onrender.com/fleets/send-otp/', {
+      // Make a POST request to the backend
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Token ${userToken}`,
+          'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
         },
         body: JSON.stringify({ email }),
       });
 
-      if (response.status === 200) {
-        handleNext();
-        toast.success('An OTP code has been sent to the provided account');
-        startCountdown(); // Start the countdown
-        const data = await response.json();
+      const data = await response.json();
+
+      // Handle the response from the backend
+      if (response.ok) {
+        // Data was successfully submitted
         console.log(data);
+        // Add any further actions you want to perform upon successful submission
+        toast.success('OTP sent successfully');
+        handleNext(); // Assuming this function moves to the next step/page
       } else {
-        console.error('Error sending data to the server');
-        toast.error('Failed to send OTP. Please try again.');
+        // Handle error cases
+        console.error(data.message); // Adjust based on your backend response structure
+        toast.error('Error sending OTP. Please try again.');
       }
     } catch (error) {
-      console.error('Error sending data to the server:', error);
+      console.error('An error occurred:', error);
+      toast.error('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md">

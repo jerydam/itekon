@@ -8,12 +8,19 @@ const Engine = () => {
   const [allDriverCount, setAllDriverCount] = useState(0);
   const [idleEngineCount, setIdleEngineCount] = useState(0);
   const [allEngineCount, setAllEngineCount] = useState(0);
-
+ 
   useEffect(() => {
+    const userToken = localStorage.getItem('authToken');
     // Fetch data for Active Engine count
     const fetchActiveEngineCount = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+          method: 'GET',  // Specify the HTTP method (GET in this case)
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+          },
+        });
         const data = await response.json();
         
         // Assuming each engine object has a 'driver' property
@@ -27,8 +34,15 @@ const Engine = () => {
 
     // Fetch data for All Driver count
     const fetchAllDriverCount = async () => {
+      const userToken = localStorage.getItem('authToken');
         try {
-          const response = await fetch('https://itekton.onrender.com/vehicles/drivers/');
+          const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
+            method: 'GET',  // Specify the HTTP method (GET in this case)
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+            },
+          });
           const data = await response.json();
           const driverCount = data.length;
           setAllDriverCount(driverCount);
@@ -40,8 +54,16 @@ const Engine = () => {
 
     // Fetch data for Idle Engine count   
     const fetchIdleEngineCount = async () => {
+      const userToken = localStorage.getItem('authToken');
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+          method: 'GET',  // Specify the HTTP method (GET in this case)
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+          },
+        });
+    
         const data = await response.json();
         
         // Assuming each engine object has a 'driver' property
@@ -56,8 +78,15 @@ const Engine = () => {
 
     // Fetch data for All Engine count
     const fetchAllEngineCount = async () => {
+      const userToken = localStorage.getItem('authToken');
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+          method: 'GET',  // Specify the HTTP method (GET in this case)
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+          },
+        });
         const data = await response.json();
           const engineCount = data.length;
           setAllEngineCount(engineCount);

@@ -36,21 +36,28 @@ const Pagination = ({ onCancel }) => {
   
 
   const handleNext = (input) => {
-    // Add a check to ensure that the input is not empty
-    if (Object.values(input).every((value) => value !== '')) {
-      setFormData((prevFormData) => ({ ...prevFormData, ...input }));
-      setCurrentPage(currentPage + 1);
-
-      // Start countdown on certain steps
-      if (currentPage === 3) {
-        startCountdown();
+    // Check if input is an object and not null/undefined
+    if (input && typeof input === 'object') {
+      // Check if all values in the object are not empty
+      if (Object.values(input).every((value) => value !== '')) {
+        setFormData((prevFormData) => ({ ...prevFormData, ...input }));
+        setCurrentPage((prevPage) => prevPage + 1);
+    
+        // Start countdown on certain steps
+        if (currentPage === 3) {
+          startCountdown();
+        }
+      } else {
+        toast.error('Please fill in all fields.');
       }
     } else {
-      // Handle the case where input is empty (you can show an error message or take appropriate action)
-      console.log('Input is empty. Please fill in all fields.');
-      toast.error('Cannot be empty');
+      // Handle the case where input is not an object or is null/undefined
+      console.error('Invalid input:', input);
+      toast.error('Invalid input. Please try again.');
     }
   };
+  
+  
 
   const handleCancel = () => {
     onCancel(); // Call the onCancel function passed as a prop

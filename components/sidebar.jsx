@@ -42,7 +42,7 @@ const Sidebar = () => {
 
   return (
     <div className="text-gray-800 w-64 border-x-2 h-screen p-4 sidebar">
-      <div className="flex items-center">
+      <Link href="/page.jsx"className="flex items-center">
         <img
           className="my-5"
           src="/images/logo.png"
@@ -50,7 +50,7 @@ const Sidebar = () => {
           width="100"
           height="100"
         />
-      </div>
+      </Link>
 
       <ul className="space-y-2 h-full">
         <li>
