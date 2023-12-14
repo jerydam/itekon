@@ -13,12 +13,15 @@ const Engine = () => {
     // Fetch data for Active Engine count
     const fetchActiveEngineCount = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/');
-          const data = await response.json();
-          const activeCount = data.length;
-          setActiveEngineCount(activeCount);
-        } catch (error) {
-        console.log('Error fetching Active Engine count:', error);
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
+        const data = await response.json();
+        
+        // Assuming each engine object has a 'driver' property
+        const activeEngines = data.filter(engine => engine.driver !== null);
+        
+        setActiveEngineCount(activeEngines.length);
+      } catch (error) {
+        console.error('Error fetching Active Engine count:', error);
       }
     };
 
@@ -35,17 +38,21 @@ const Engine = () => {
       };
       
 
-    // Fetch data for Idle Engine count
+    // Fetch data for Idle Engine count   
     const fetchIdleEngineCount = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com');
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
         const data = await response.json();
-        const idleCount = data.length;
-        setIdleEngineCount(idleCount);
+        
+        // Assuming each engine object has a 'driver' property
+        const idleEngines = data.filter(engine => engine.driver === null);
+        
+        setIdleEngineCount(idleEngines.length);
       } catch (error) {
-        console.log('Error fetching Idle Engine count:', error);
+        console.error('Error fetching Idle Engine count:', error);
       }
     };
+    
 
     // Fetch data for All Engine count
     const fetchAllEngineCount = async () => {

@@ -1,3 +1,4 @@
+'use client'
 import MapComponent from '@/components/map'
 import React from 'react'
 

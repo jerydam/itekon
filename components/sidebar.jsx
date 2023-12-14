@@ -70,7 +70,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link href=""
+          <Link href="/track-vehicle"
             
               onClick={() => handleItemClick('track-vehicles')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -184,7 +184,7 @@ const Sidebar = () => {
 </li>
 
         <div className=''>
-      <Link href="addVehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
+      <Link href="/fleet/add-vehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
             + Add vehicles
           </Link>
       </div>
