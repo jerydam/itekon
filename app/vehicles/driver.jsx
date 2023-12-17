@@ -2,20 +2,9 @@ import React, { useEffect } from 'react';
 import '/styles/global.css'; 
 
 import { driver } from '@/index';
-import { useRouter } from 'next/router';
 
 
-const Driver = () => {
-  const router = useRouter();
-    
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
-    }
-  }, [router]);
-
-  
+const Driver = () => {  
   return (
     <div className='border-2 p-5 w-96'>
       <div className='flex justify-between'>

@@ -81,6 +81,8 @@ const Add = () => {
         const data = await responseData.data
         console.log('Vehicle added successfully');
         toast.success('Vehicle added successfully')
+        const vehicleId = data.id;
+        localStorage.setItem(vehicleId,"fleetId");
         // Redirect or show success message as needed
       } else {
         console.log('Error adding vehicle:', await response.text());
