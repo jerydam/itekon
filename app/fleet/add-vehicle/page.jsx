@@ -80,11 +80,11 @@ const Add = () => {
       if (response.ok) {
         const data = await responseData.data
         console.log('Vehicle added successfully');
-        toast.success(data)
+        toast.success('Vehicle added successfully')
         // Redirect or show success message as needed
       } else {
         console.log('Error adding vehicle:', await response.text());
-        toast.success(data)
+        toast.success(data.details)
         // Handle error, show error message, etc.
       }
     } catch (error) {

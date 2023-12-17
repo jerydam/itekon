@@ -36,26 +36,24 @@ const Pagination = ({ onCancel }) => {
   
 
   const handleNext = (input) => {
-    // Check if input is an object and not null/undefined
-    if (input && typeof input === 'object') {
-      // Check if all values in the object are not empty
-      if (Object.values(input).every((value) => value !== '')) {
-        setFormData((prevFormData) => ({ ...prevFormData, ...input }));
-        setCurrentPage((prevPage) => prevPage + 1);
-    
-        // Start countdown on certain steps
-        if (currentPage === 3) {
-          startCountdown();
-        }
-      } else {
-        toast.error('Please fill in all fields.');
+    // Check if input is an object and all values are not empty
+    if (!input || (typeof input === 'object' && Object.values(input).every((value) => value !== ''))) {
+      setFormData((prevFormData) => ({ ...prevFormData, ...(input || {}) }));
+      setCurrentPage((prevPage) => prevPage + 1);
+  
+      // Start countdown on certain steps
+      if (currentPage === 3) {
+        startCountdown();
       }
     } else {
-      // Handle the case where input is not an object or is null/undefined
-      console.error('Invalid input:', input);
-      toast.error('Invalid input. Please try again.');
+      console.log('Invalid input:', input);
+      toast.error('Please fill in all fields.');
     }
   };
+  
+  
+  
+  
   
   
 

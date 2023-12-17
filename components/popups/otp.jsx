@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, startResendCountdown }) => {
+const OTP = ({ currentPage, onCancel, handleNext }) => {
   const [otp, setOtp] = useState(['', '', '', '', '']);
+  const inputRefs = Array(5).fill(null).map(() => useRef(null));
 
   const handleInputChange = (index, value) => {
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
-  };
 
- 
+    // Move to the next input if the current input is not empty
+    if (value !== '' && index < otp.length - 1) {
+      inputRefs[index + 1].current.focus();
+    }
+  };
 
   const handleConcatenate = async () => {
     const concatenatedOtp = otp.join('');
-    const userToken = sessionStorage.getItem('authToken');
-
+    console.log('this is the otp code ' + ' ' + concatenatedOtp);
+    const userToken = localStorage.getItem('authToken');
+  
     try {
       const response = await fetch('https://itekton.onrender.com/fleets/verify-otp/', {
         method: 'POST',
@@ -27,46 +32,18 @@ const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, star
         },
         body: JSON.stringify({ otp: concatenatedOtp }),
       });
-
       if (response.ok) {
-        // Handle the response from the server if necessary
         const data = await response.json();
         toast.success('Verification successful');
         console.log(data);
-        handleNext(formData); // Move to the next step after handling the OTP
+        handleNext(/* formData */); // Ensure formData is defined or replace it with the actual data you want to pass
       } else {
-        // Handle errors here
         console.error('Error sending data to the server');
-        toast.error(data.error);
+        toast.error('Verification failed'); // Display a generic error message for unsuccessful verification
       }
     } catch (error) {
       console.error('Error sending data to the server:', error);
-    }
-  };
-
-  const handleResend = async () => {
-    const userToken = sessionStorage.getItem('authToken');
-
-    try {
-      const response = await fetch('https://itekton.onrender.com/fleets/send-otp/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${userToken}`,
-        },
-        body: JSON.stringify({ /* Include any necessary data for resend */ }),
-      });
-
-      if (response.ok) {
-        toast.success('An OTP code has been resent to the provided account');
-        startResendCountdown(); // Start the countdown
-      } else {
-        console.error('Error resending OTP');
-        toast.error('Failed to resend OTP. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error resending OTP:', error);
-      toast.error('Failed to resend OTP. Please try again.');
+      toast.error('An unexpected error occurred'); // Display a generic error message for unexpected errors
     }
   };
 
@@ -89,21 +66,19 @@ const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, star
                   key={index}
                   type="text"
                   maxLength="1"
-                  className="border border-gray-300 rounded-md w-10 h-12 text-center text-2xl focus:outline-none focus:ring-2focus:ring-[#2D6C56] focus:border-[#2D6C56]"
+                  className="border border-gray-300 rounded-md w-10 h-12 text-center text-2xl focus:outline-none focus:ring-2 focus:ring-[#2D6C56] focus:border-[#2D6C56]"
                   value={value}
                   onChange={(e) => handleInputChange(index, e.target.value)}
+                  ref={inputRefs[index]}
                 />
               ))}
             </div>
             <div className="flex justify-center items-center mt-5">
               <button
                 onClick={handleConcatenate}
-                className={`border-b-4 border-2 ${
-                  disableResend ? 'border-[#2D6C56] text-[#2D6C56]' : 'border-gray-300 text-gray-300'
-                } font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-                disabled={!disableResend}
+                className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                {disableResend ? 'Verify Account' : 'Resend OTP'}
+                Verify Account
               </button>
             </div>
             <div className="flex justify-center mt-3 space-x-2">
@@ -116,10 +91,6 @@ const OTP = ({ currentPage, onCancel, handleNext, countdown, disableResend, star
                 ></div>
               ))}
             </div>
-
-            {disableResend ? (
-              <p className="mt-3">Resend OTP in {countdown} seconds</p>
-            ) : null}
           </div>
         </div>
       </div>

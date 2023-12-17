@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react';
-import {cartel} from '@/index'
 import Sidebar from "@/components/sidebar";
 import Navbar from '@/components/nav';
 import Pagination from '@/components/pagination';

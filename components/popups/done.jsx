@@ -34,7 +34,7 @@ const Added = ({onCancel, currentPage, onAdd}) => {
         
         className="text-[#2D6C56]  border-[#2D6C56] border-b-4 border-2 font-semibold px-4 py-2 mt-4 rounded"
       >
-        <a href="/addVehicle">+ Add more Vehicle</a>
+        <a href="/fleet/add-vehicle">+ Add more Vehicle</a>
        
       </button>
    

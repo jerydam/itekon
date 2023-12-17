@@ -9,7 +9,14 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
   const userToken = localStorage.getItem('authToken');
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const handleBoth = (e) => {
+      if (handleNext) {
+        handleNext(e);
+      }
+      if (handleSubmit) {
+        handleSubmit(e);
+      }
+    };
     // Your API endpoint URL
     const apiUrl = 'https://itekton.onrender.com/fleets/send-otp/';
 
@@ -34,9 +41,9 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
         console.log(data);
         // Add any further actions you want to perform upon successful submission
         toast.success('OTP sent successfully');
-        handleNext(); // Assuming this function moves to the next step/page
+        handle();
+      // Assuming this function moves to the next step/page
       } else {
-        // Handle error cases
         console.error(data.message); // Adjust based on your backend response structure
         toast.error('Error sending OTP. Please try again.');
       }
@@ -86,6 +93,16 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
                 disabled={loading}
               >
                 {loading ? 'Sending...' : 'Send OTP'}
+              </button>
+              <button
+                onClick={handleNext}
+                type=""
+                className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={loading}
+              >
+                Next
               </button>
             </form>
 
