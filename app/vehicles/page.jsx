@@ -12,11 +12,12 @@ const RegisteredCars = () => {
   const [openDropdowns, setOpenDropdowns] = useState({});
   const [cars, setCars] = useState([]); // Add this line to define the cars state
   const userToken = localStorage.getItem('authToken');
-  const id = localStorage.getItem('fleetId');
+  
+  const fleet_id = localStorage.getItem('fleet_id');
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ const RegisteredCars = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

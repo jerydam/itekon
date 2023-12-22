@@ -42,6 +42,9 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
       if (response.ok) {
         const id = data.id;
         localStorage.setItem('userId', id);
+        const fleet_id = data.id;
+        localStorage.setItem('fleet_id', fleet_id);
+        console.log(data.id);
         console.log('Fleet created/updated successfully');
         toast.success('Fleet created/updated successfully');
         handleNext(formData); // Call handleNext with the formData

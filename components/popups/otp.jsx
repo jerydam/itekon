@@ -36,6 +36,9 @@ const OTP = ({ currentPage, onCancel, handleNext }) => {
         const data = await response.json();
         toast.success('Verification successful');
         console.log(data);
+       
+         
+
         handleNext(/* formData */); // Ensure formData is defined or replace it with the actual data you want to pass
       } else {
         console.error('Error sending data to the server');

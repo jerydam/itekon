@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar"
 import "/styles/global.css";
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Add = () => {
   const [vehicleName, setVehicleName] = useState('');
@@ -47,6 +48,34 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+      // Check for empty fields
+      const emptyFields = [
+        { field: 'vehicleName', value: vehicleName, label: 'Vehicle Name' },
+        { field: 'vehicleMake', value: vehicleMake, label: 'Vehicle Make' },
+        { field: 'vehicleModel', value: vehicleModel, label: 'Vehicle Model' },
+        { field: 'identificationNumber', value: identificationNumber, label: 'Identification Number' },
+        { field: 'fuelType', value: fuelType, label: 'Fuel Type' },
+        { field: 'vehicleMeter', value: vehicleMeter, label: 'Vehicle Meter' },
+        { field: 'color', value: color, label: 'Color' },
+        { field: 'name', value: name, label: 'Name' },
+        { field: 'license', value: license, label: 'License Number' },
+        { field: 'num', value: num, label: 'Phone Number' },
+        { field: 'email', value: email, label: 'Email' },
+        
+      ];
+      
+
+  const emptyField = emptyFields.find((field) => !field.value);
+
+  if (emptyField) {
+    // Highlight the empty field with a red border
+    document.getElementById(emptyField.field).classList.add('border-red-500');
+
+    // Display an error message
+    // You may want to replace this with a more user-friendly way of showing errors
+    toast.error(`Please provide a value for ${emptyField.label}`);
+    return; // Prevent further execution
+  }
     // Create a FormData object to handle file uploads
     const formData = new FormData();
     const userToken = localStorage.getItem('authToken');
@@ -77,18 +106,22 @@ const Add = () => {
       });
         const responseData = await response.json();
 
-      if (response.ok) {
-        const data = await responseData.data
-        console.log('Vehicle added successfully');
-        toast.success('Vehicle added successfully')
-        const vehicleId = data.id;
-        localStorage.setItem(vehicleId,"fleetId");
-        // Redirect or show success message as needed
-      } else {
-        console.log('Error adding vehicle:', await response.text());
-        toast.success(data.details)
-        // Handle error, show error message, etc.
-      }
+     // Assuming `data` is an object with an `id` property representing the vehicle ID
+
+if (response.ok) {
+  const responseData = await response.json();
+  const data = responseData.data;
+  console.log('Vehicle added successfully');
+  toast.success('Vehicle added successfully');
+  const existingVehicleIds = JSON.parse(localStorage.getItem("vehicleIds")) || [];
+  existingVehicleIds.push(data.id);
+  localStorage.setItem("vehicleIds", JSON.stringify(existingVehicleIds));
+} else {
+  console.error('Error adding vehicle:', await response.text());
+  toast.error('Error adding vehicle');
+  // Handle error, show error message, etc.
+}
+
     } catch (error) {
       console.error('Error:', error.message);
       // Handle unexpected errors

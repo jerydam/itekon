@@ -8,13 +8,13 @@ const Engine = () => {
   const [allDriverCount, setAllDriverCount] = useState(0);
   const [idleEngineCount, setIdleEngineCount] = useState(0);
   const [allEngineCount, setAllEngineCount] = useState(0);
- 
+  
   useEffect(() => {
     const userToken = localStorage.getItem('authToken');
-    // Fetch data for Active Engine count
+    const fleet_id = localStorage.getItem('fleet_id');
     const fetchActiveEngineCount = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
@@ -35,8 +35,9 @@ const Engine = () => {
     // Fetch data for All Driver count
     const fetchAllDriverCount = async () => {
       const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
         try {
-          const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
+          const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers/${fleet_id}/`, {
             method: 'GET',  // Specify the HTTP method (GET in this case)
             headers: {
               'Content-Type': 'application/json',
@@ -55,8 +56,9 @@ const Engine = () => {
     // Fetch data for Idle Engine count   
     const fetchIdleEngineCount = async () => {
       const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
@@ -79,8 +81,9 @@ const Engine = () => {
     // Fetch data for All Engine count
     const fetchAllEngineCount = async () => {
       const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
