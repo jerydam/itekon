@@ -11,8 +11,38 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [addMe, setAddMe] = useState(false);
   const [loading, setLoading] = useState(false);
- 
+
+   const [fleet_id, setfleet_id] = useState(null);
+
+  
+    const fetchFleet_id = async () => {
+      try {
+        const userToken = localStorage.getItem('authToken'); // Assuming you have a user token
+
+        const response = await fetch('https://itekton.onrender.com/fleets/get_user_fleet/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${userToken}`,
+          },
+        });
+        const data = await response.json()
+        if (response.ok) {
+          const fetched_fleet_id = data.id;
+          setfleet_id(fetched_fleet_id);
+          console.log(data)
+          // Store the fetched fleet ID in local storage
+          localStorage.setItem('fleet_id', fetched_fleet_id);
+        } else {
+          console.error('Error fetching fleet ID:', data?.error || 'Invalid data format');
+        }
+      } catch (error) {
+        console.error('Error fetching fleet ID:', error.message);
+      }
+    };
+
   const handleLogin = async () => {
+    
     const userToken = localStorage.getItem('authToken');
     try {
       setLoading(true);
@@ -47,7 +77,7 @@ const Login = () => {
         
         const authToken = localStorage.setItem('authToken', token);
 
-  
+        fetchFleet_id();
         // Redirect the user to the dashboard or appropriate page on successful login
         if (data.user.verification == true) {
           toast.success("login successful")

@@ -11,7 +11,13 @@ const Alert = () => {
     const fetchAlerts = async () => {
       try {
         // Fetch data from the backend (replace with your actual endpoint)
-        const response = await fetch('https://itekton.onrender.com/reports/alerts/');
+        const response = await fetch('https://itekton.onrender.com/reports/alerts/' ,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${userToken}`,
+          },
+        });
         const data = await response.json();
 
         // Update state based on fetched data
@@ -39,7 +45,7 @@ const Alert = () => {
   
   const handleCancel = () => {
     setAlert(false); 
-  };
+  };  
   
 
   return (

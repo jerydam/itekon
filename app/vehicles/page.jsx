@@ -11,11 +11,12 @@ const RegisteredCars = () => {
   
   const [openDropdowns, setOpenDropdowns] = useState({});
   const [cars, setCars] = useState([]); // Add this line to define the cars state
-  const userToken = localStorage.getItem('authToken');
-  
-  const fleet_id = localStorage.getItem('fleet_id');
+ 
   useEffect(() => {
     const fetchCars = async () => {
+      const userToken = localStorage.getItem('authToken');
+  
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
         const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
@@ -37,9 +38,12 @@ const RegisteredCars = () => {
     };
 
     fetchCars();
-  }, [userToken]);
+  },);
   useEffect(() => {
     const fetchCars = async () => {
+      const userToken = localStorage.getItem('authToken');
+  
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
         const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
@@ -70,6 +74,9 @@ const RegisteredCars = () => {
     };
 
     const fetchAlerts = async (vehicleId) => {
+      const userToken = localStorage.getItem('authToken');
+  
+      const id = localStorage.getItem('alert_id');
       const alert_id= id;
       try {
         const response = await fetch(`https://itekton.onrender.com/reports/alerts/${alert_id}/`, {
@@ -95,9 +102,10 @@ const RegisteredCars = () => {
     };
 
     fetchCars();
-  }, [userToken]);
+  }, );
 
   const assignLocation = async (vehicleId, locationData) => {
+    const userToken = localStorage.getItem('authToken');
     const vehicle_id = id;
     try {
       const response = await fetch(`https://itekton.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
@@ -120,6 +128,35 @@ const RegisteredCars = () => {
     }
   };
   
+  const fetchDriverDetails = async (driverId) => {
+  
+    const fleet_id = localStorage.getItem('fleet_id');
+    try {
+      const userToken = localStorage.getItem('authToken');
+      const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers-vehicles/${fleet_id}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${userToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        const driverData = await response.json();
+        console.log('Driver details:', driverData);
+        // Handle the driver data as needed
+        return driverData;
+      } else {
+        console.error('Error fetching driver details:', await response.text());
+        // Handle error, show error message, etc.
+        return null;
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle unexpected errors
+      return null;
+    }
+  };
   
   const toggleDropdown = (carId) => {
     setOpenDropdowns((prev) => ({
@@ -152,7 +189,7 @@ const RegisteredCars = () => {
                 <tr key={car.id}>
                   <td className="border px-4 py-2">{car.id}</td>
                   <td className="border px-4 py-2">
-                    <a href={`vehicleDetails/assigndriver/${car.driver}`}>{car.driver.name}</a>
+                    {/* <a href={`vehicles/assign-driver/${car.driver}`}>{car.driver.name}</a> */}
                   </td>
                   <td className="border px-4 py-2">{car.lastTest}</td>
                   <td className="border px-4 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>

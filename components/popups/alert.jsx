@@ -5,10 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const PopAlert = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
-  const userToken = localStorage.getItem('authToken')
+  const [loading, setLoading] = useState(false); // Add loading state
+  const userToken = localStorage.getItem('authToken');
+
   const handleAdd = async () => {
     try {
-      // Perform validation on inputValue if needed
+      setLoading(true); // Set loading to true during the fetch operation
 
       // Make a fetch request to send data to the backend
       const response = await fetch('https://itekton.onrender.com/reports/alerts/', {
@@ -17,15 +19,24 @@ const PopAlert = ({ onAdd, onCancel }) => {
           'Content-Type': 'application/json',
           Authorization: `Token ${userToken}`,
         },
-        body: JSON.stringify({ testDescription: inputValue }),
+        body: JSON.stringify({ description: inputValue }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-       
+        const responseData = await response.json();
+        const data = responseData.data;
+
+        // Add the alert ID to local storage
+        const existingAlertIds = JSON.parse(localStorage.getItem('alertIds')) || [];
+        existingAlertIds.push(data.id);
+        localStorage.setItem('alertIds', JSON.stringify(existingAlertIds));
+
+        // Perform other actions
         onAdd(data);
-        toast.success('you successfully add a test')
+        toast.success('You successfully added an alert');
+
         // Clear the input field
         setInputValue('');
 
@@ -33,12 +44,14 @@ const PopAlert = ({ onAdd, onCancel }) => {
         onCancel();
       } else {
         console.error('Error adding test:', data.error);
-        toast.error(data.error)
+        toast.error(data.error);
         // Handle the error, show a message, etc.
       }
     } catch (error) {
       console.error('Error adding test:', error);
       // Handle the error, show a message, etc.
+    } finally {
+      setLoading(false); // Reset loading to false after the fetch operation
     }
   };
 
@@ -67,9 +80,13 @@ const PopAlert = ({ onAdd, onCancel }) => {
         <div className="flex justify-center">
           <button
             onClick={handleAdd}
-            className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded"
+            type="submit"
+            className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
           >
-            Add Alert
+            {loading ? 'Adding Alert...' : 'Add Alert'}
           </button>
         </div>
       </div>
