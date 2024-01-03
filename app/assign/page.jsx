@@ -10,9 +10,9 @@ const DriverList = ({ onAdd }) => {
   const router = useRouter();
     
   useEffect(() => {
-    const token =  localStorage.getItem('token');
+    const token =  localStorage.getItem('authToken');
     if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
+      router.push('/login');
     }
   }, [router]);
 
