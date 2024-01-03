@@ -6,7 +6,7 @@ import AddDriver from '@/components/popups/addDriver';
 import Remove from '@/components/popups/remove';
 import Edit from '@/components/popups/edit';
 
-const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
+const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [drivers, setDrivers] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
   const [showDrive, setShowDrive] = useState(false);
@@ -147,4 +147,4 @@ const DriverList = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   );
 };
 
-export default DriverList;
+export default Page;

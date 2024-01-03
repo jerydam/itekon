@@ -1,12 +1,13 @@
+"use client"
 import { useEffect,useState } from 'react';
-    import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import '/styles/global.css';
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
 import { mockCars } from '@/index';
 
 
-const DriverList = ({ onAdd }) => {
+const Page = ({ onAdd }) => {
   const router = useRouter();
     
   useEffect(() => {
@@ -72,5 +73,5 @@ const DriverList = ({ onAdd }) => {
   );
 };
 
-export default DriverList;
+export default Page;
 

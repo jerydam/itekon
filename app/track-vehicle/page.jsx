@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Map, Marker, Popup, NavigationControl, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaCar } from 'react-icons/fa';
-import classes from "./map.module.css";
+import classes from '../../components/map.module.css'
+
 
 const Track = () => {
   const [vehicleLocations, setVehicleLocations] = useState([]);

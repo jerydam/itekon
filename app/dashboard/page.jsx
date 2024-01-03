@@ -10,7 +10,7 @@ import Alert from '@/components/alert';
 import Vehicles from '@/components/vehicledata';
 import Engine from '@/components/engine';
 
-const Dashboard = (onCancel) => {
+const Dashboard = ({onCancel}) => {
   return (
     <div className="flex lg:flex-row">
       <Sidebar />
