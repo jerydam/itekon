@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -38,7 +38,8 @@ const CompleteName = ({ onAdd, onCancel, currentPage }) => {
           <p className="block mb-2 text-lg font-medium">Complete Your Profile</p>
 
           <button onClick={onCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p className="mb-4">1. Enter details about your company here.</p>

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -58,7 +58,8 @@ const OTP = ({ currentPage, onCancel, handleNext }) => {
             <div className="flex justify-between items-center mb-4">
               <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
               <button onClick={onCancel}>
-                <XIcon className="h-5 w-5 text-[#2D6C56]" />
+                <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
               </button>
             </div>
             <p>A one-time password (OTP) has been sent to your email account</p>

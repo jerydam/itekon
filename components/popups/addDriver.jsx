@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -67,7 +67,8 @@ const AddDriver = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center my-4">
           <p className="block mb-2 text-lg font-medium">Add New Driver</p>
           <button onClick={onCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Add new driver to your fleet</p>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -62,7 +62,8 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
             <div className="flex justify-between items-center mb-4">
               <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
               <button onClick={onCancel}>
-                <XIcon className="h-5 w-5 text-[#2D6C56]" />
+                <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
               </button>
             </div>
             <p>3. Verify your account. A one-time password will be sent to your email account.</p>

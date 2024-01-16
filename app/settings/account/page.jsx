@@ -50,6 +50,37 @@ const SettingsPage = () => {
       console.error('Error fetching user details:', error);
     }
   };
+  const handleDelete = async () => {
+    try {
+      // Get the user ID from localStorage or any other source
+      const userId = localStorage.getItem('userId');
+  
+      // Make a DELETE request to the server
+      const response = await fetch(`https://itekton.onrender.com/accounts/users/${userId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${localStorage.getItem('authToken')}`,
+        },
+      });
+  
+      // Check the response status
+      if (response.status === 204) {
+        // User successfully deleted
+        toast.success('User deleted successfully');
+        // Implement any additional logic or redirect as needed
+      } else {
+        // Handle other response statuses (e.g., error)
+        const data = await response.json();
+        toast.error(data.error || 'Failed to delete user');
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error deleting user:', error);
+      toast.error('Error deleting user');
+    }
+  };
+  
 
   const handleNotificationToggle = () => {
     setPreference((prev) => ({
@@ -168,7 +199,7 @@ const SettingsPage = () => {
           
         </label>
         <div className='text-red-800 p-5 font-bold'>
-          <a href="">Delete Account</a>
+          <button onClick={handleDelete}>Delete Account</button>
         </div>
       </div>
       </div>

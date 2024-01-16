@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 
 const PopCri = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
@@ -80,7 +80,8 @@ const PopCri = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Critical Faults</p>
           <button onClick={handleCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Note critical faults for each vehicle</p>

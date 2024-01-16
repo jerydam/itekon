@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -83,7 +83,8 @@ const PopTest = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Add Test</p>
           <button onClick={handleCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <
+FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Take records of tested and fit-for-transit vehicles</p>

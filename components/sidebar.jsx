@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import "/styles/global.css";
@@ -54,7 +55,7 @@ const Sidebar = () => {
 
       <ul className="space-y-2 h-full">
         <li>
-          <Link href="/dashboard/"
+          <Link href="/dashboard"
               onClick={() => handleItemClick('dashboard')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >

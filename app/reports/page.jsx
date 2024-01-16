@@ -18,7 +18,7 @@ const Report = (onCancel) => {
   
     useEffect(() => {
       // Make an API call to fetch alerts data
-      fetch('your-backend-alerts-endpoint')
+      fetch('https://itekton.onrender.com/reports/alerts/')
         .then((response) => response.json())
         .then((data) => {
           setAlerts(data);
@@ -42,7 +42,8 @@ const [dueSoon, setDueSoon] = useState(0);
 const [completed, setCompleted] = useState(0);
 
 useEffect(() => {
-  fetch('your-backend-maintenance-reminders-endpoint')
+  const fleet_id = localStorage.getItem('fleet_id')
+  fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`)
     .then((response) => response.json())
     .then((data) => {
       // Update state with the fetched data
