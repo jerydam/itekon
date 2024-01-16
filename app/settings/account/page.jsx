@@ -76,7 +76,7 @@ const SettingsPage = () => {
       <div className=" mb-4 border-2 rounded h-full p-5 ">
         <div className='justify-between flex w-full'>
         <p className="text-2xl font-semibold">Profile</p>
-        <p className='text-[#2D6C56]' onClick={setShowPopup}>Edit profile</p>
+        <button className='text-[#2D6C56]' onClick={setShowPopup}>Edit profile</button>
         </div>
         {showPopup && <EditDetails onAdd={handleAdd} onCancel={handleCancel} />}
         <p className='my-3'>Full Name: {userDetails.fullName}</p>
@@ -93,6 +93,10 @@ const SettingsPage = () => {
         <p className="text-2xl font-semibold">Notifications</p>
         <p className='text-sm my-5'>You do not have any notification at the moment.</p>
       </div>
+      <button
+    className="border-b-4 border-2 bg-[#cecf9e] text-[#eb4157] font-bold mt-10 py-2 px-4 rounded focus:outline-none focus:shadow-outline"><a href="/login
+  ">Logout</a></button>
+
       </div>
       <div  className=" border-2 rounded h-full p-5 w-1/2">
         <p className="text-2xl font-semibold">Preferences</p>

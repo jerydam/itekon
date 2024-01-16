@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react';
-import { XIcon } from '@heroicons/react/solid';
+import { FaTimes } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Edit = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
@@ -8,10 +10,46 @@ const Edit = ({ onAdd, onCancel }) => {
   const [mail, setMail] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleAdd = (e) => {
-    onAdd(e);
-    setInputValue('');
+  const handleAdd = async () => {
+    try {
+      setLoading(true);
+  
+      const id = localStorage.getItem('userId');
+      const response = await fetch(`https://itekton.onrender.com/accounts/users/${id}/`, {
+        method: 'PATCH', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${localStorage.getItem('authToken')}`,
+        },
+        body: JSON.stringify({
+          // Your data to be updated
+          licenseNumber: inputValue,
+          phoneNumber: num,
+          emailAddress: mail,
+          // Add other fields as needed
+        }),
+      });
+  
+      const data = await response.json();
+      console.log(data); // Handle the response from the server
+  
+      if (response.ok) {
+        // Your success logic goes here
+        toast.success("Update successful");
+      } else {
+        // Your error handling logic goes here
+        toast.error(data.error);
+      }
+  
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error('Error updating data:', error);
+      toast.error(error);
+    }
   };
+  
+  
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -31,7 +69,7 @@ const Edit = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Edit Profile</p>
           <button onClick={onCancel}>
-            <XIcon className="h-5 w-5 text-[#2D6C56]" />
+            <FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Edit driver's profile</p>

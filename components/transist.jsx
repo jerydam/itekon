@@ -17,7 +17,7 @@ const TransitReports = () => {
   };
 
   useEffect(() => {
-    // Fetch transit reports from the backend
+    
     const fetchTransitReports = async () => {
       try {
         const response = await fetch(`https://itekton.onrender.com/reports/transit-reports/${vehicle_id}/`);

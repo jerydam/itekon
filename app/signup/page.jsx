@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '/styles/global.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -55,13 +54,13 @@ const Signup = () => {
         
         const id = data.id;
     
-         alert(data.email);
+         toast.success('details registered, proceed to complete signup');
         console.log('User registered successfully', userData);
         window.location.href = `/complete-signup/${id}`;
       } else {
          
         console.log('Error:', data.email);
-        alert(data.email );
+        toast.error(data.details );
       }
       setLoading(false);
     } catch (error) {

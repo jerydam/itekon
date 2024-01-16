@@ -34,6 +34,7 @@ const userid = params?.id;
       if (response.ok) {
         const userToken = data.token;
         localStorage.setItem(userToken,'authToken');
+        sessionStorage.setItem(userToken,'authToken');
         toast.success('Sign up successful');
         window.location.href ='/login';
       } else {

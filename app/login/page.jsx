@@ -17,7 +17,7 @@ const Login = () => {
   
     const fetchFleet_id = async () => {
       try {
-        const userToken = localStorage.getItem('authToken'); // Assuming you have a user token
+        const userToken = localStorage.getItem('authToken'); 
 
         const response = await fetch('https://itekton.onrender.com/fleets/get_user_fleet/', {
           method: 'GET',
