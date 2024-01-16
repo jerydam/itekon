@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import Navbar from '@/components/nav';
 import Sidebar from '@/components/sidebar';
-import React from 'react';
 
 const Billing = () => {
   const [currentSubscription, setCurrentSubscription] = useState(null);

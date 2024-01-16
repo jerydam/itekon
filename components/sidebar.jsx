@@ -164,17 +164,17 @@ const Sidebar = () => {
       <ul className="ml-4 mb-64">
       
         <li>
-          <Link href="settings/account" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <Link href="/settings/account" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
            Account
           </Link>
         </li>
         <li>
-          <Link href="settings/billing" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <Link href="/settings/billing" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
             Billing
           </Link>
         </li>
         <li>
-          <Link href="settings/help" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <Link href="/settings/help" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
             Help
           </Link>
         </li>
