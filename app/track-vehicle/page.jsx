@@ -4,7 +4,8 @@ import { Map, Marker, Popup, NavigationControl, GeolocateControl } from 'react-m
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaCar } from 'react-icons/fa';
 import classes from '../../components/map.module.css'
-
+import Sidebar from '@/components/sidebar';
+import Navbar from '@/components/nav';
 
 const Track = () => {
   const [vehicleLocations, setVehicleLocations] = useState([]);
@@ -40,6 +41,10 @@ const Track = () => {
   }, []);
 
   return (
+    <div className='flex'>
+    <Sidebar/>
+<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <Navbar/>
     <main id='map' className="flex h-full rounded-md">
    			<Map
 				mapboxAccessToken={accessToken}
@@ -88,6 +93,8 @@ const Track = () => {
         ) : null}
       </Map>
     </main>
+    </div>
+    </div>
   );
 };
 

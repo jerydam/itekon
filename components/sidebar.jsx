@@ -54,7 +54,7 @@ const Sidebar = () => {
 
       <ul className="space-y-2 h-full">
         <li>
-          <Link href="/dashboard"
+          <Link href="/dashboard/"
               onClick={() => handleItemClick('dashboard')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
@@ -87,7 +87,7 @@ const Sidebar = () => {
           </Link>
           </li>
           <li>
-          <Link href="vehicles"
+          <Link href="/vehicles"
             
               onClick={() => handleItemClick('vehicles')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -105,7 +105,7 @@ const Sidebar = () => {
             </li>
 
             <li>
-          <Link href="driver"
+          <Link href="/driver"
             
               onClick={() => handleItemClick('drivers')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'drivers' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
