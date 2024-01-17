@@ -2,7 +2,6 @@
 import { useState ,useEffect} from 'react';
 import Sidebar from "@/components/sidebar"
 import "/styles/global.css";
-import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -108,14 +107,14 @@ const Add = () => {
 
      // Assuming `data` is an object with an `id` property representing the vehicle ID
 
-if (response.ok) {
+if (response.status === 201) {
   const responseData = await response.json();
   const data = responseData.data;
   console.log('Vehicle added successfully');
   toast.success('Vehicle added successfully');
-  const existingVehicleIds = JSON.parse(localStorage.getItem("vehicleIds")) || [];
+  const existingVehicleIds = JSON.parse(localStorage.getItem('vehicle_id')) || [];
   existingVehicleIds.push(data.id);
-  localStorage.setItem("vehicleIds", JSON.stringify(existingVehicleIds));
+  localStorage.setItem('vehicle_id', JSON.stringify(existingVehicleIds));
 } else {
   console.error('Error adding vehicle:', await response.text());
   toast.error('Error adding vehicle');
