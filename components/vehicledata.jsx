@@ -10,10 +10,15 @@ const Vehicles = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        // Fetch data from the backend (replace with your actual endpoint)
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/');
-        const data = await response.json();
-
+        const userToken = localStorage.getItem('authToken');
+        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${userToken}`,
+          },
+          body: JSON.stringify({ testDescription: inputValue }),
+        });
         // Update state based on fetched data
         if (response.ok && Array.isArray(data)) {
           setVehicles(data);

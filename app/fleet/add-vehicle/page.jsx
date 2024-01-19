@@ -47,55 +47,53 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-      // Check for empty fields
-      const emptyFields = [
-        { field: 'vehicleName', value: vehicleName, label: 'Vehicle Name' },
-        { field: 'vehicleMake', value: vehicleMake, label: 'Vehicle Make' },
-        { field: 'vehicleModel', value: vehicleModel, label: 'Vehicle Model' },
-        { field: 'identificationNumber', value: identificationNumber, label: 'Identification Number' },
-        { field: 'fuelType', value: fuelType, label: 'Fuel Type' },
-        { field: 'vehicleMeter', value: vehicleMeter, label: 'Vehicle Meter' },
-        { field: 'color', value: color, label: 'Color' },
-        { field: 'name', value: name, label: 'Name' },
-        { field: 'license', value: license, label: 'License Number' },
-        { field: 'num', value: num, label: 'Phone Number' },
-        { field: 'email', value: email, label: 'Email' },
-        
-      ];
-      
-
-  const emptyField = emptyFields.find((field) => !field.value);
-
-  if (emptyField) {
-    // Highlight the empty field with a red border
-    document.getElementById(emptyField.field).classList.add('border-red-500');
-
-    // Display an error message
-    // You may want to replace this with a more user-friendly way of showing errors
-    toast.error(`Please provide a value for ${emptyField.label}`);
-    return; // Prevent further execution
-  }
-    // Create a FormData object to handle file uploads
+    const emptyFields = [
+      { field: 'vehicleName', value: vehicleName, label: 'Vehicle Name' },
+      { field: 'identificationNumber', value: identificationNumber, label: 'Identification Number' },
+      { field: 'vehicleModel', value: vehicleModel, label: 'Model' },
+      { field: 'vehicleMake', value: vehicleMake, label: 'Make' },
+      { field: 'vehicleMeter', value: vehicleMeter, label: 'Meter' },
+      { field: 'fuelType', value: fuelType, label: 'Fuel Type' },
+      { field: 'color', value: color, label: 'Color' },
+      { field: 'name', value: name, label: 'Name' },
+      { field: 'license', value: license, label: 'License Number' },
+      { field: 'num', value: num, label: 'Phone Number' },
+      { field: 'email', value: email, label: 'Email' },
+    ];
+  
+    const emptyField = emptyFields.find((field) => !field.value);
+  
+    if (emptyField) {
+      document.getElementById(emptyField.field).classList.add('border-red-500');
+      toast.error(`Please provide a value for ${emptyField.label}`);
+      return;
+    }
+  
     const formData = new FormData();
     const userToken = localStorage.getItem('authToken');
-    console.log('User Token:', userToken);
-
-    // Append data to the FormData object
+  
     formData.append('vehicleName', vehicleName);
-    formData.append('vehicleMake', vehicleMake);
-    formData.append('vehicleModel', vehicleModel);
     formData.append('identificationNumber', identificationNumber);
+    formData.append('vehicleModel', vehicleModel);
+    formData.append('vehicleMake', vehicleMake);
+    formData.append('vehicleMeter', vehicleMeter);
     formData.append('fuelType', fuelType);
     formData.append('color', color);
-    formData.append('carLogo', carLogo);
-    formData.append('userImage', userImage);
     formData.append('name', name);
     formData.append('license', license);
-    formData.append('number', number);
+    formData.append('number', num);
     formData.append('email', email);
   
+    // Append userImage and carLogo if they are not null
+    if (userImage) {
+      formData.append('userImage', userImage);
+    }
+  
+    if (carLogo) {
+      formData.append('carLogo', carLogo);
+    }
+  
     try {
-      // Make a POST request to your backend endpoint
       const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
         method: 'POST',
         headers: {
@@ -103,29 +101,30 @@ const Add = () => {
         },
         body: formData,
       });
+  
+      if (response.status === 201) {
         const responseData = await response.json();
-
-     // Assuming `data` is an object with an `id` property representing the vehicle ID
-
-if (response.status === 201) {
-  const responseData = await response.json();
-  const data = responseData.data;
-  console.log('Vehicle added successfully');
-  toast.success('Vehicle added successfully');
-  const existingVehicleIds = JSON.parse(localStorage.getItem('vehicle_id')) || [];
-  existingVehicleIds.push(data.id);
-  localStorage.setItem('vehicle_id', JSON.stringify(existingVehicleIds));
-} else {
-  console.error('Error adding vehicle:', await response.text());
-  toast.error('Error adding vehicle');
-  // Handle error, show error message, etc.
-}
-
+        console.log('Vehicle added successfully');
+        toast.success('Vehicle added successfully');
+        console.log(responseData)
+        const existingVehicleIds = JSON.parse(localStorage.getItem('vehicle_id')) || [];
+        existingVehicleIds.push(responseData.id);
+        localStorage.setItem('vehicle_id', JSON.stringify(existingVehicleIds));
+      
+        // Proceed with the next steps after adding a vehicle
+        alert('hy');
+        // Additional logic or navigation can be added here
+      
+      } else {
+        console.error('Error adding vehicle:', await response.text());
+        toast.error('Error adding vehicle');
+      }
+      
     } catch (error) {
       console.error('Error:', error.message);
-      // Handle unexpected errors
     }
   };
+  
   
   return (
    

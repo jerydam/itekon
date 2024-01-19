@@ -2,26 +2,37 @@ import { useState } from 'react';
 import { BsX } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Reminder from '../reminder';
 
 const PopRem = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleAdd = async () => {
+    const fleet_id = localStorage.getItem('fleet_id');
+    const authToken = localStorage.getItem('authToken');
     try {
+      setLoading(true);
+  
+      const payload = {
+        remDescription: inputValue,
+        // Add any other relevant data you want to send to the backend
+      };
+  
+      console.log('Request Payload:', JSON.stringify(payload));
+  
       const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Token ${authToken}`,
         },
-        body: JSON.stringify({
-          reminderText: inputValue,
-          // Add any other relevant data you want to send to the backend
-        }),
+        body: JSON.stringify(payload),
       });
-
+  
       const data = await response.json();
-
+  
+      console.log('Response body:', data);
+  
       if (response.ok) {
         onAdd(data);
         toast.success('Reminder added');
@@ -32,6 +43,8 @@ const PopRem = ({ onAdd, onCancel }) => {
       }
     } catch (error) {
       console.error('Error adding reminder:', error);
+    } finally {
+      setLoading(false); // Reset loading to false after the fetch operation
     }
   };
 
@@ -60,9 +73,12 @@ const PopRem = ({ onAdd, onCancel }) => {
         <div className="flex justify-center">
           <button
             onClick={handleAdd}
-            className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded"
+            className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
           >
-            Add Reminder
+            {loading ? 'Adding Reminder...' : 'Add Reminder'}
           </button>
         </div>
       </div>

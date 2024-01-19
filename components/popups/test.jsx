@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,7 +7,7 @@ const PopTest = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-
+  const [selectedOutcome, setSelectedOutcome] = useState(true);
   useEffect(() => {
     const fleet_id = localStorage.getItem('fleet_id');
 
@@ -20,13 +20,14 @@ const PopTest = ({ onAdd, onCancel }) => {
             'Content-Type': 'application/json',
             Authorization: `Token ${userToken}`,
           },
-          body: JSON.stringify({ testDescription: inputValue }),
         });
         const data = await response.json();
 
+        console.log('Fetched Vehicles:', data);
+
         if (response.ok) {
           setVehicles(data);
-          setSelectedVehicle(data[0]?.id); // Select the first vehicle by default
+          setSelectedVehicle(data[0]?.id);
         } else {
           console.error('Error fetching vehicles:', data?.error || 'Invalid data format');
         }
@@ -36,20 +37,22 @@ const PopTest = ({ onAdd, onCancel }) => {
     };
 
     fetchVehicles();
-  }, [setSelectedVehicle]);
+  }, []); 
 
   const handleAdd = async () => {
     try {
       const vehicle_id = selectedVehicle;
       const userToken = localStorage.getItem('authToken');
-      // Make a fetch request to send data to the backend
       const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${userToken}`,
         },
-        body: JSON.stringify({ testDescription: inputValue }),
+        body: JSON.stringify({
+          testDescription: inputValue,
+          outcome: selectedOutcome,
+        }),
       });
 
       const data = await response.json();
@@ -57,19 +60,14 @@ const PopTest = ({ onAdd, onCancel }) => {
       if (response.ok) {
         onAdd(data);
         toast.success('You successfully added a test');
-        // Clear the input field
         setInputValue('');
-
-        // Close the PopTest component
         onCancel();
       } else {
         console.error('Error adding test:', data.error);
         toast.error(data.error);
-        // Handle the error, show a message, etc.
       }
     } catch (error) {
       console.error('Error adding test:', error);
-      // Handle the error, show a message, etc.
     }
   };
 
@@ -83,8 +81,7 @@ const PopTest = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Add Test</p>
           <button onClick={handleCancel}>
-            <
-FaTimes className="h-5 w-5 text-[#2D6C56]" />
+            <FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Take records of tested and fit-for-transit vehicles</p>
@@ -98,6 +95,7 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
             onChange={(e) => setSelectedVehicle(e.target.value)}
             className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
           >
+            <option value="" disabled>Select a vehicle</option>
             {vehicles.map((vehicle) => (
               <option key={vehicle.id} value={vehicle.id}>
                 {vehicle.name}
@@ -105,6 +103,14 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
             ))}
           </select>
         </div>
+        <select
+        value={selectedOutcome}
+        onChange={(e) => setSelectedOutcome(e.target.value === 'true')}
+        className="m-5"
+      >
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
         <input
           type="text"
           id="input"
@@ -112,7 +118,6 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
           onChange={(e) => setInputValue(e.target.value)}
           className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
         />
-       
         <div className="flex justify-center">
           <button
             onClick={handleAdd}

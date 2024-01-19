@@ -10,27 +10,32 @@ const TestReports = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch data from the backend (replace with your actual endpoint)
-        const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`);
-        const data = await response.json();
-
-        // Update state based on fetched data
-        if (response.ok) {
-          setTestedCars(data.testedCars);
-          setReadyCars(data.readyCars);
-        } else {
-          console.error('Error fetching test data:', data.error);
-        }
-      } catch (error) {
-        console.error('Error fetching test data:', error);
-      } finally {
+    const vehicle_id = JSON.parse(localStorage.getItem('vehicle_id')) || [];
+  
+    const authToken = localStorage.getItem('authToken'); // Replace with your actual authorization token
+  
+    // Set initial loading state
+    setLoading(true);
+  
+    fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
+      headers: {
+        'Authorization': `Token ${authToken}`, // Include the authorization token
+        'Content-Type': 'application/json', // Adjust content type if needed
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Update state with the fetched data
+        setTestedCars(data.testedCars);
+        setReadyCars(data.readyCars);
+        // Set loading to false after data is fetched
         setLoading(false);
-      }
-    };
-
-    fetchData();
+      })
+      .catch((error) => {
+        console.error('Error fetching data from the backend:', error);
+        // Set loading to false in case of an error
+        setLoading(false);
+      });
   }, []);
 
   const handleAdd = () => {
@@ -54,7 +59,9 @@ const TestReports = () => {
         </button>
         {showTest && <PopTest onAdd={handleAdd} onCancel={handleCancel} />}
       </div>
-      {!loading && (
+      {loading ? (
+        <p className="ml-5 mt-3">Loading...</p>
+      ) : (
         <>
           {testedCars > 0 || readyCars > 0 ? (
             <div className="flex justify-between border-2 mx-5 py-3 rounded px-5">
