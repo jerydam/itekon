@@ -1,16 +1,49 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsX } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Popup = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicleId, setSelectedVehicleId] = useState(null);
   const userToken = localStorage.getItem('authToken');
 
+  useEffect(() => {
+    const fleet_id = localStorage.getItem('fleet_id');
+
+    const fetchVehicles = async () => {
+      try {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+          headers: {
+            Authorization: `Token ${userToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setVehicles(data); // Set the fetched vehicles
+          if (data.length > 0) {
+            // Set the selected vehicle ID to the first vehicle in the list
+            setSelectedVehicleId(data[0].id);
+          }
+        } else {
+          console.error('Failed to fetch vehicles. Please try again.');
+          // Handle the case where the request was not successful
+        }
+      } catch (error) {
+        console.error('Error fetching vehicles:', error);
+      }
+    };
+
+    fetchVehicles();
+  }, [userToken]);
+
   const handleAdd = async () => {
-    try {
-      const response = await fetch(`https://itekton.onrender.com//reports/transit-reports/${vehicle_id}/`, {
-        method: 'POST',
+    const vehicle_id = selectedVehicleId; // Assuming selectedVehicleId is the correct variable name
+  try {
+    const response = await fetch(`https://itekton.onrender.com/reports/transit-reports/${vehicle_id}/`, {
+      method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${userToken}`,
@@ -24,14 +57,13 @@ const Popup = ({ onAdd, onCancel }) => {
         setInputValue(''); // Clear the input value
       } else {
         console.error('Failed to add report. Please try again.');
-        toast.error(data.error);
+        toast.error('Failed to add report. Please try again.');
         // Handle the case where the request was not successful
       }
     } catch (error) {
       console.error('Error adding report:', error);
     }
   };
-
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -43,6 +75,20 @@ const Popup = ({ onAdd, onCancel }) => {
           </button>
         </div>
         <p>You can add a vehicle report here to keep track of transits and vehicle movement</p>
+        <p className="mt-5 mb-3">Select a Vehicle</p>
+  {/* Dropdown (select input) */}
+  <select
+    value={selectedVehicleId}
+    onChange={(e) => setSelectedVehicleId(e.target.value)}
+    className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
+  >
+    {/* Mapping over the 'vehicles' array to generate dropdown options */}
+    {vehicles.map((vehicle) => (
+      <option key={vehicle.id} value={vehicle.id}>
+        {vehicle.name}
+      </option>
+    ))}
+  </select>
         <p className="mt-5 mb-3">Write your Report</p>
         <input
           type="text"

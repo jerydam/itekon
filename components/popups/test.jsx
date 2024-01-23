@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const PopTest = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
+  const [testResult, setTestResult] = useState(true); // Default to true
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
 
@@ -20,13 +21,12 @@ const PopTest = ({ onAdd, onCancel }) => {
             'Content-Type': 'application/json',
             Authorization: `Token ${userToken}`,
           },
-          body: JSON.stringify({ testDescription: inputValue }),
         });
         const data = await response.json();
 
         if (response.ok) {
           setVehicles(data);
-          setSelectedVehicle(data[0]?.id); // Select the first vehicle by default
+          setSelectedVehicle(data[0]?.id);
         } else {
           console.error('Error fetching vehicles:', data?.error || 'Invalid data format');
         }
@@ -36,7 +36,7 @@ const PopTest = ({ onAdd, onCancel }) => {
     };
 
     fetchVehicles();
-  }, [setSelectedVehicle]);
+  }, []);
 
   const handleAdd = async () => {
     try {
@@ -49,7 +49,10 @@ const PopTest = ({ onAdd, onCancel }) => {
           'Content-Type': 'application/json',
           Authorization: `Token ${userToken}`,
         },
-        body: JSON.stringify({ testDescription: inputValue }),
+        body: JSON.stringify({
+          testDescription: inputValue,
+          outcome: testResult, // Include the testResult
+        }),
       });
 
       const data = await response.json();
@@ -57,8 +60,9 @@ const PopTest = ({ onAdd, onCancel }) => {
       if (response.ok) {
         onAdd(data);
         toast.success('You successfully added a test');
-        // Clear the input field
+        // Clear the input field and reset testResult to true
         setInputValue('');
+        setTestResult(true);
 
         // Close the PopTest component
         onCancel();
@@ -83,8 +87,7 @@ const PopTest = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Add Test</p>
           <button onClick={handleCancel}>
-            <
-FaTimes className="h-5 w-5 text-[#2D6C56]" />
+            <FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Take records of tested and fit-for-transit vehicles</p>
@@ -105,6 +108,19 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
             ))}
           </select>
         </div>
+        <div>
+          <label htmlFor="testResult">Select Test Result:</label>
+          <select
+            name="testResult"
+            id="testResult"
+            value={testResult}
+            onChange={(e) => setTestResult(e.target.value === 'true')}
+            className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
+          >
+            <option value={true}>True</option>
+            <option value={false}>False</option>
+          </select>
+        </div>
         <input
           type="text"
           id="input"
@@ -112,7 +128,7 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
           onChange={(e) => setInputValue(e.target.value)}
           className="border border-[#2D6C56] px-3 py-2 mb-4 rounded-md w-full"
         />
-       
+
         <div className="flex justify-center">
           <button
             onClick={handleAdd}
