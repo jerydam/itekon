@@ -23,14 +23,10 @@ const Reminder = () => {
   useEffect(() => {
     // Fetch data from the backend
     const fetchData = async () => {
-      const fleet_id = localStorage.getItem('fleet_id')
       try {
-        fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
-          headers: {
-            'Authorization': `Token ${authToken}`, // Include the authorization token
-            'Content-Type': 'application/json', // Adjust content type if needed
-          },
-        })
+        const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`);
+        const data = await response.json();
+
         if (response.ok) {
           // Update state with data from the backend
           setOverDue(data.overDue);

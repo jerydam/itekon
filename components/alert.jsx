@@ -8,28 +8,34 @@ const Alert = () => {
   const [showAlert, setAlert] = useState(false);
 
   useEffect(() => {
-    // Your authorization token
-    const authToken = localStorage.getItem('authToken');
-  
-    // Make an API call to fetch alerts data
-    fetch('https://itekton.onrender.com/reports/alerts/', {
-      method: 'GET', // GET method
-      headers: {
-        'Authorization': `Token ${authToken}`, // Include the authorization header
-        'Content-Type': 'application/json', // Specify the content type if needed
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setAlerts(data);
-        setLoading(false); // Set loading to false after fetching data
-      })
-      .catch((error) => {
-        console.error('Error fetching data from the backend:', error);
-        setLoading(false); // Set loading to false in case of an error
-      });
+    const fetchAlerts = async () => {
+      try {
+        // Fetch data from the backend (replace with your actual endpoint)
+        const response = await fetch('https://itekton.onrender.com/reports/alerts/' ,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${userToken}`,
+          },
+        });
+        const data = await response.json();
+
+        // Update state based on fetched data
+        if (response.ok && Array.isArray(data)) {
+          setAlerts(data);
+        } else {
+          console.error('Error fetching alerts:', data?.error || 'Invalid data format');
+        }
+      } catch (error) {
+        console.error('Error fetching alerts:', error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Fetch alerts when the component mounts
+    fetchAlerts();
   }, []);
-  
   const handleAdd = () => {
    
     setAlerts((prevAlerts) => [...prevAlerts, newAlertData]);

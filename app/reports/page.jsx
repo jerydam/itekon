@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import Popup from '@/components/popups/popups';
+import Popup from '@/components/popups/popup';
 import { TiPlus, TiTimes } from 'react-icons/ti';
 import { cartel } from '@/index';
 import Sidebar from "@/components/sidebar";
@@ -32,117 +32,68 @@ const Report = (onCancel) => {
   const [completed, setCompleted] = useState(0);
   
   useEffect(() => {
-  // Your authorization token
-  const authToken = localStorage.getItem('authToken');
-
-  // Make an API call to fetch alerts data
-  fetch('https://itekton.onrender.com/reports/alerts/', {
-    method: 'GET', // GET method
-    headers: {
-      'Authorization': `Token ${authToken}`, // Include the authorization header
-      'Content-Type': 'application/json', // Specify the content type if needed
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      setAlerts(data);
-      setLoading(false); // Set loading to false after fetching data
-    })
-    .catch((error) => {
-      console.error('Error fetching data from the backend:', error);
-      setLoading(false); // Set loading to false in case of an error
-    });
-}, []);
-
+    // Make an API call to fetch alerts data
+    fetch('https://itekton.onrender.com/reports/alerts/')
+      .then((response) => response.json())
+      .then((data) => {
+        setAlerts(data);
+        setLoading(false); // Set loading to false after fetching data
+      })
+      .catch((error) => {
+        console.error('Error fetching data from the backend:', error);
+        setLoading(false); // Set loading to false in case of an error
+      });
+  }, []);
   
   
 useEffect(() => {
   const fleet_id = localStorage.getItem('fleet_id');
-  const authToken = localStorage.getItem('authToken'); // Replace with your actual authorization token
 
-  // Set initial loading state
-  setLoadingMaintenance(true);
-
-  fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
-    headers: {
-      'Authorization': `Token ${authToken}`, // Include the authorization token
-      'Content-Type': 'application/json', // Adjust content type if needed
-    },
-  })
+  fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`)
     .then((response) => response.json())
     .then((data) => {
       // Update state with the fetched data
       setOverDue(data.overDue);
       setDueSoon(data.dueSoon);
       setCompleted(data.completed);
-      // Set loading to false after data is fetched
+      setLoadingCriticalFault(false); // Set loading to false after data is fetched
+    })
+    .catch((error) => {
+      console.error('Error fetching maintenance reminder data:', error);
+      setLoadingCriticalFault(false); // Set loading to false in case of an error
+    });
+}, []);
+
+useEffect(() => {
+  const vehicle_id = localStorage.getItem('vehicle_id');
+  fetch(`https://itekton.onrender.com/reports/critical-faults/${vehicle_id}/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setOverDue(data.overDue);
+      setDueSoon(data.dueSoon);
+      setCompleted(data.completed);
       setLoadingMaintenance(false);
     })
     .catch((error) => {
       console.error('Error fetching maintenance reminder data:', error);
-      // Set loading to false in case of an error
       setLoadingMaintenance(false);
     });
 }, []);
 
 useEffect(() => {
   const vehicle_id = localStorage.getItem('vehicle_id');
-  const authToken = localStorage.getItem('authToken'); // Replace with your actual authorization token
-
-  // Set initial loading state
-  setLoadingMaintenance(true);
-
-  fetch(`https://itekton.onrender.com/reports/critical-faults/${vehicle_id}/`, {
-    headers: {
-      'Authorization': `Token ${authToken}`, // Include the authorization token
-      'Content-Type': 'application/json', // Adjust content type if needed
-    },
-  })
+  fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`)
     .then((response) => response.json())
     .then((data) => {
-      // Update state with the fetched data
-      setOverDue(data.overDue);
-      setDueSoon(data.dueSoon);
-      setCompleted(data.completed);
-      // Set loading to false after data is fetched
-      setLoadingMaintenance(false);
-    })
-    .catch((error) => {
-      console.error('Error fetching critical faults data:', error);
-      // Set loading to false in case of an error
-      setLoadingMaintenance(false);
-    });
-}, []);
-
-useEffect(() => {
-  const vehicle_id = JSON.parse(localStorage.getItem('vehicle_id')) || [];
-
-  const authToken = localStorage.getItem('authToken'); // Replace with your actual authorization token
-
-  // Set initial loading state
-  setLoadingTests(true);
-
-  fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
-    headers: {
-      'Authorization': `Token ${authToken}`, // Include the authorization token
-      'Content-Type': 'application/json', // Adjust content type if needed
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Update state with the fetched data
       setTestedCars(data.testedCars);
       setReadyCars(data.readyCars);
-      // Set loading to false after data is fetched
       setLoadingTests(false);
     })
     .catch((error) => {
       console.error('Error fetching data from the backend:', error);
-      // Set loading to false in case of an error
       setLoadingTests(false);
     });
 }, []);
-
 
 useEffect(() => {
   const vehicle_id = localStorage.getItem('vehicle_id')
@@ -161,33 +112,20 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  const fleet_id = localStorage.getItem('fleet_id');
-  const authToken = localStorage.getItem('authToken');; // Replace with your actual authorization token
-
-  // Set initial loading state
-  setLoadingRenewal(true);
-
-  fetch(`https://itekton.onrender.com/reports/registrations/${fleet_id}/`, {
-    headers: {
-      'Authorization': `Token ${authToken}`, // Include the authorization token
-      'Content-Type': 'application/json', // Adjust content type if needed
-    },
-  })
+  const fleet_id = localStorage.getItem('fleet_id')
+  fetch(`https://itekton.onrender.com//reports/registrations/${fleet_id}/`)
     .then((response) => response.json())
     .then((data) => {
       // Update state with the fetched data
       // Assuming data is an array, you can adjust accordingly
       setRenewalData(data);
-      // Set loading to false after data is fetched
       setLoadingRenewal(false);
     })
     .catch((error) => {
       console.error('Error fetching registration renewal data:', error);
-      // Set loading to false in case of an error
       setLoadingRenewal(false);
     });
 }, []);
-
   const handleAdd = (input) => {
     // Add your logic for handling the input here
     console.log('Adding:', input);
@@ -359,40 +297,28 @@ useEffect(() => {
         )}
       </div>
 
-      
+      {/* Registration Renewal Reminder Section */}
       <div className="w-full lg:w-1/2 border-2 h-full rounded">
-  <div className='flex justify-between align-middle items-center'>
-    <p className="m-5 text-lg font-sans font-medium w-full">Registration Renewal Reminder</p>
-    <button onClick={() => setRenew(true)} className="flex justify-end items-center my-5 w-fit">
-      <TiPlus className="h-5 w-5 text-[#2D6C56]" /> Add Reminder
-    </button>
-    {ShowRenew && <PopRenew onAdd={handleAdd} onCancel={handleCancel} />}
-  </div>
-  {loadingRenewal ? (
-    <p className='ml-5 mt-3'>Loading renewal reminder data...</p>
-  ) : (
-    <>
-      <div className='flex justify-between border-2 mx-5 py-3 rounded px-5'>
-        <div className="text-center">
-          <p>Over Due</p>
-          <p>{overDue}</p>
+        <div className='flex justify-between align-middle items-center'>
+          <p className="m-5 text-lg font-sans font-medium w-full">Registration Renewal Reminder</p>
+          <button onClick={() => setRenew(true)} className="flex justify-end items-center my-5 w-fit">
+            <TiPlus className="h-5 w-5 text-[#2D6C56]" /> Add Reminder
+          </button>
+          {ShowRenew && <PopRenew onAdd={handleAdd} onCancel={handleCancel} />}
         </div>
-        <div className="text-center">
-          <p>Due Soon</p>
-          <p>{dueSoon}</p>
-        </div>
-        <div className="text-center">
-          <p>Completed</p>
-          <p>{completed}</p>
-        </div>
+        {loadingRenewal ? (
+          <p className='ml-5 mt-3'>Loading renewal reminder data...</p>
+        ) : (
+          <>
+            <div className='flex justify-between border-2 mx-5 py-3 rounded px-5'>
+              {/* Display your renewal reminder data here */}
+            </div>
+            <p className='ml-5 mt-3'>
+              {/* Display a message based on your renewal data */}
+            </p>
+          </>
+        )}
       </div>
-      <p className='ml-5 mt-3'>
-        {overDue === 0 && dueSoon === 0 && completed === 0 ? 'You have no registration reminder at the moment.' : ''}
-      </p>
-    </>
-  )}
-</div>
-
     </div>
         
       </div>

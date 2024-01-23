@@ -7,6 +7,7 @@ const Popup = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const userToken = localStorage.getItem('authToken');
+  const [selectedVehicleId, setSelectedVehicleId] = useState(null);
 
   useEffect(() => {
     const fleet_id = localStorage.getItem('fleet_id');
@@ -27,7 +28,7 @@ const Popup = ({ onAdd, onCancel }) => {
 
         if (response.ok) {
           setVehicles(data);
-          setSelectedVehicle(data[0]?.id);
+          setSelectedVehicleId(data[0]?.id); // Assuming you set the ID of the first vehicle as selected
         } else {
           console.error('Error fetching vehicles:', data?.error || 'Invalid data format');
         }
@@ -38,11 +39,17 @@ const Popup = ({ onAdd, onCancel }) => {
 
     fetchVehicles();
   }, []); 
+
   const handleAdd = async () => {
     try {
-      setLoading(true); // Set loading to true during the fetch operation
+      if (!selectedVehicleId) {
+        console.error('No selected vehicle ID available');
+        return;
+      }
 
-      const response = await fetch(`https://itekton.onrender.com//reports/transit-reports/${vehicle_id}/`, {
+      setLoading(true);
+
+      const response = await fetch(`https://itekton.onrender.com//reports/transit-reports/${selectedVehicleId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,16 +61,15 @@ const Popup = ({ onAdd, onCancel }) => {
       if (response.ok) {
         onAdd();
         toast.success('Report added successfully');
-        setInputValue(''); // Clear the input value
+        setInputValue('');
       } else {
         console.error('Failed to add report. Please try again.');
         toast.error(data.error);
-        // Handle the case where the request was not successful
       }
     } catch (error) {
       console.error('Error adding report:', error);
     } finally {
-      setLoading(false); // Reset loading to false after the fetch operation
+      setLoading(false);
     }
   };
 

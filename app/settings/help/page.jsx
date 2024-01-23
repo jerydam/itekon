@@ -1,16 +1,9 @@
-import Navbar from '@/components/nav'
-import Sidebar from '@/components/sidebar'
 import React from 'react'
 
-const help = () => {
+const page = () => {
   return (
-    <div className='flex'>
-      <Sidebar/>
-      <div className='w-full'>
-      <Navbar/>
-    </div>
-    </div>
+    <div>page</div>
   )
 }
 
-export default help
+export default page

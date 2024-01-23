@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsX } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,8 +32,12 @@ const Popup = ({ onAdd, onCancel }) => {
     }
   };
 
+  useEffect(() => {
+    // Client-side logic if needed
+  }, []);
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md">
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Add Report</p>
