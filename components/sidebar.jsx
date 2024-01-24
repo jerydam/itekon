@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link';
+import a from 'next/link';
 import { useState, useEffect } from 'react';
 import "/styles/global.css";
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   return (
     <div className="text-gray-800 w-64 border-x-2 h-screen p-4 sidebar">
-      <Link href="/login"className="flex items-center">
+      <a href="/login"className="flex items-center">
         <img
           className="my-5"
           src="/images/logo.png"
@@ -51,11 +51,11 @@ const Sidebar = () => {
           width="100"
           height="100"
         />
-      </Link>
+      </a>
 
       <ul className="space-y-2 h-full">
         <li>
-          <Link href="/dashboard"
+          <a href="/dashboard"
               onClick={() => handleItemClick('dashboard')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
@@ -68,10 +68,10 @@ const Sidebar = () => {
               />{' '}
               Dashboard
             
-          </Link>
+          </a>
         </li>
         <li>
-          <Link href="/track-vehicle"
+          <a href="/track-vehicle"
             
               onClick={() => handleItemClick('track-vehicles')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -85,10 +85,10 @@ const Sidebar = () => {
               />{' '}
               Track Vehicles
             
-          </Link>
+          </a>
           </li>
           <li>
-          <Link href="/vehicles"
+          <a href="/vehicles"
             
               onClick={() => handleItemClick('vehicles')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -102,11 +102,11 @@ const Sidebar = () => {
               />{' '}
               Vehicles
             
-          </Link>
+          </a>
             </li>
 
             <li>
-          <Link href="/driver"
+          <a href="/driver"
             
               onClick={() => handleItemClick('drivers')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'drivers' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -120,11 +120,11 @@ const Sidebar = () => {
               />{' '}
               Drivers
             
-          </Link>
+          </a>
             </li>
 
             <li>
-          <Link href="/reports"
+          <a href="/reports"
             
               onClick={() => handleItemClick('reports')}
               className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'reports' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
@@ -138,7 +138,7 @@ const Sidebar = () => {
               />{' '}
               Reports
             
-          </Link>
+          </a>
         </li>
         <li>
   <div className="flex flex-col relative">
@@ -164,19 +164,19 @@ const Sidebar = () => {
       <ul className="ml-4 mb-64">
       
         <li>
-          <Link href="/settings/account" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <a href="/settings/account" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
            Account
-          </Link>
+          </a>
         </li>
         <li>
-          <Link href="/settings/billing" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <a href="/settings/billing" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
             Billing
-          </Link>
+          </a>
         </li>
         <li>
-          <Link href="/settings/help" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
+          <a href="/settings/help" className="font-normal mb-2 flex items-center hover:text-[#2D6C56]">
             Help
-          </Link>
+          </a>
         </li>
        
       </ul>
@@ -185,9 +185,9 @@ const Sidebar = () => {
 </li>
 
         <div className=''>
-      <Link href="/fleet/add-vehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
+      <a href="/fleet/add-vehicle" className='border-b-4 border-2 border-[#2D6C56] rounded text-center p-3'>
             + Add vehicles
-          </Link>
+          </a>
       </div>
       {userData && (
         <div className="static bottom-0 left-0 w-1/2 bg-white p-4">
