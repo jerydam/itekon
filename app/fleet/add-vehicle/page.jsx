@@ -46,7 +46,8 @@ const Add = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+  let vehicle_id;
+  let driver_id;
       // Check for empty fields
       const emptyFields = [
         { field: 'vehicleName', value: vehicleName, label: 'Vehicle Name' },
@@ -56,10 +57,8 @@ const Add = () => {
         { field: 'fuelType', value: fuelType, label: 'Fuel Type' },
         { field: 'vehicleMeter', value: vehicleMeter, label: 'Vehicle Meter' },
         { field: 'color', value: color, label: 'Color' },
-        { field: 'name', value: name, label: 'Name' },
         { field: 'license', value: license, label: 'License Number' },
-        { field: 'num', value: num, label: 'Phone Number' },
-        { field: 'email', value: email, label: 'Email' },
+       
         
       ];
       
@@ -77,6 +76,7 @@ const Add = () => {
   }
     // Create a FormData object to handle file uploads
     const formData = new FormData();
+    
     const userToken = localStorage.getItem('authToken');
     console.log('User Token:', userToken);
 
@@ -88,11 +88,13 @@ const Add = () => {
     formData.append('fuelType', fuelType);
     formData.append('color', color);
     formData.append('carLogo', carLogo);
-    formData.append('userImage', userImage);
-    formData.append('name', name);
-    formData.append('license', license);
-    formData.append('number', number);
-    formData.append('email', email);
+
+    const listData = new FormData();
+    listData.append('userImage', userImage);
+    listData.append('name', name);
+    listData.append('license', license);
+    listData.append('number', number);
+    listData.append('email', email);
   
     try {
       // Make a POST request to your backend endpoint
@@ -110,11 +112,68 @@ const Add = () => {
 if (response.status === 201) {
   const responseData = await response.json();
   const data = responseData.data;
+  vehicle_id = data.id
+  console.log(vehicle_id)
   console.log('Vehicle added successfully');
-  toast.success('Vehicle added successfully');
-  const existingVehicleIds = JSON.parse(localStorage.getItem('vehicle_id')) || [];
-  existingVehicleIds.push(data.id);
-  localStorage.setItem('vehicle_id', JSON.stringify(existingVehicleIds));
+ 
+} else {
+  console.error('Error adding vehicle:', await response.text());
+  toast.error('Error adding vehicle');
+  // Handle error, show error message, etc.
+}
+
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle unexpected errors
+    }
+    try {
+      // Make a POST request to your backend endpoint
+      const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+        body: listData,
+      });
+        const responseData = await response.json();
+
+     // Assuming `data` is an object with an `id` property representing the vehicle ID
+
+if (response.status === 201) {
+  const responseData = await response.json();
+  const data = responseData.data;
+  driver_id = data.id;
+  console.log(driver_id)
+} else {
+  console.error('Error adding driver:', await response.text());
+  toast.error('Error adding driver');
+  // Handle error, show error message, etc.
+}
+
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle unexpected errors
+    }
+
+    try {
+      
+      const response = await fetch(`https://itekton.onrender.com/vehicles/assign/${vehicle_id}/${driver_id}/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${userToken}`,
+        },
+        
+      });
+        const responseData = await response.json();
+
+     // Assuming `data` is an object with an `id` property representing the vehicle ID
+
+if (response.status === 201) {
+  const responseData = await response.json();
+  const data = responseData.data;
+  console.log('vehicle and driver added successfully');
+  toast.success('vehicle and driver added successfully');
+  window.href.location = './vehicleadded.jsx'
 } else {
   console.error('Error adding vehicle:', await response.text());
   toast.error('Error adding vehicle');
@@ -126,6 +185,7 @@ if (response.status === 201) {
       // Handle unexpected errors
     }
   };
+
   
   return (
    

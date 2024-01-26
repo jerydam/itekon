@@ -11,6 +11,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDrive, setShowDrive] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
+  const [selectedDriverId, setSelectedDriverId] = useState(null);
 
   let userId;
   let userToken;
@@ -19,14 +20,16 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
     if (typeof localStorage !== 'undefined') {
       const userToken = localStorage.getItem('authToken');
       console.log(userToken);
-      const userId = localStorage.getItem('id');
+      const userId = localStorage.getItem('fleet_id');
     }
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
+      const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id')
       try {
-        const response = await fetch(`https://itekton.onrender.com//vehicles/drivers/${userId}/`, {
+        const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
           method: 'GET',  // Change to GET
           headers: {
             Authorization: `Token ${userToken}`,
@@ -43,18 +46,20 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
   }, [userId, userToken]);
    // The empty dependency array ensures that this effect runs once when the component mounts
 
-  const handleEdit = (id) => {
-    onEdit(id);
+   const handleEdit = (id) => {
+    localStorage.setItem("selectedDriverId", id);
     setShowEdit(true);
   };
-
+  
   const handleDrive = (id) => {
-    onDrive(id);
+    localStorage.setItem("selectedDriverId", id);
     setShowDrive(true);
   };
-
+  
   const handleDelete = (id) => {
-    onRemove(id);
+    console.log(selectedDriverId(id))
+    alert(selectedDriverId)
+    localStorage.setItem("selectedDriverId", id);
     setShowRemove(true);
   };
 
@@ -93,7 +98,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2">ID</th>
+            
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">License ID</th>
             <th className="px-4 py-2">Phone Number</th>
@@ -103,8 +108,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
         <tbody>
           {drivers.map((item) => (
             <tr key={item.id}>
-              <td className="border px-4 py-2">{item.id}</td>
-              <td className="border px-4 py-2 flex items-center">
+              <td className="border-b-2 px-4 py-2 flex items-center">
                 <div className="mr-2">
                   <img
                     src={item.image}
@@ -117,9 +121,9 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
                   <div className="text-sm text-gray-500">{item.email}</div>
                 </div>
               </td>
-              <td className="border px-4 font-semibold py-2">{item.iD}</td>
-              <td className="border px-4 font-semibold py-2">{item.phoneNumber}</td>
-              <td className="border font-semibold px-4 py-2">
+              <td className="border-b-2 px-4 font-semibold py-2">{item.iD}</td>
+              <td className="border-b-2 px-4 font-semibold py-2">{item.phoneNumber}</td>
+              <td className="border-b-2 font-semibold px-4 py-2">
                 <button
                   className="border-b-[#2D6C56] border-b-4 border-[#2D6C56] border-2 text-[#2D6C56] font-bold py-2 mx-2 px-4 rounded"
                 >

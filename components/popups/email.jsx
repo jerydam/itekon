@@ -1,22 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
+const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const userToken = localStorage.getItem('authToken');
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const handleBoth = (e) => {
-      if (handleNext) {
-        handleNext(e);
-      }
-      if (handleSubmit) {
-        handleSubmit(e);
+  const nextButtonRef = useRef(); // Ref for the "Next" button
+
+  useEffect(() => {
+    // When the component mounts, set up a listener for successful responses
+    const handleSuccessfulResponse = () => {
+      if (nextButtonRef.current) {
+        nextButtonRef.current.click(); // Programmatically trigger a click on the "Next" button
       }
     };
+
+    document.addEventListener('successfulResponse', handleSuccessfulResponse);
+
+    return () => {
+      // Clean up the listener when the component unmounts
+      document.removeEventListener('successfulResponse', handleSuccessfulResponse);
+    };
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     // Your API endpoint URL
     const apiUrl = 'https://itekton.onrender.com/fleets/send-otp/';
 
@@ -28,7 +38,7 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+          'Authorization': `Token ${userToken}`,
         },
         body: JSON.stringify({ email }),
       });
@@ -37,14 +47,19 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
 
       // Handle the response from the backend
       if (response.ok) {
-        // Data was successfully submitted
-        console.log(data);
-        // Add any further actions you want to perform upon successful submission
-        toast.success('OTP sent successfully');
-        handle();
-      // Assuming this function moves to the next step/page
-      } else {
-        console.error(data.message); // Adjust based on your backend response structure
+        toast.success('OTP has already been sent');
+        handleNext();
+
+        
+      } 
+      else if (response.status ===400) {
+          
+        toast.success('OTP has already been sent');
+        handleNext();
+      }
+      else {
+        // Handle error response
+        console.error(data.message);
         toast.error('Error sending OTP. Please try again.');
       }
     } catch (error) {
@@ -54,6 +69,7 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
       setLoading(false);
     }
   };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md">
@@ -62,18 +78,14 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext}) => {
             <div className="flex justify-between items-center mb-4">
               <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
               <button onClick={onCancel}>
-                <
-FaTimes className="h-5 w-5 text-[#2D6C56]" />
+                <FaTimes className="h-5 w-5 text-[#2D6C56]" />
               </button>
             </div>
             <p>3. Verify your account. A one-time password will be sent to your email account.</p>
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block my-3 text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="email" className="block my-3 text-sm font-medium text-gray-700">
                   Email Address
                 </label>
                 <input
@@ -95,16 +107,16 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
               >
                 {loading ? 'Sending...' : 'Send OTP'}
               </button>
-              <button
-                onClick={handleNext}
-                type=""
-                className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+              <p
+                ref={nextButtonRef}
+                type="" // Make it a button, not a submit
+                className={` ${
                   loading ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={loading}
               >
-                Next
-              </button>
+                
+              </p>
             </form>
 
             <div className="flex justify-center mt-3 space-x-2">
@@ -125,3 +137,4 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
 };
 
 export default CompleteEmail;
+

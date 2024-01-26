@@ -12,10 +12,9 @@ const Edit = ({ onAdd, onCancel }) => {
 
   const handleAdd = async () => {
     try {
-      setLoading(true);
   
       const id = localStorage.getItem('userId');
-      const response = await fetch(`https://itekton.onrender.com/accounts/users/${id}/`, {
+      const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/${id}/`, {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -41,9 +40,9 @@ const Edit = ({ onAdd, onCancel }) => {
         toast.error(data.error);
       }
   
-      setLoading(false);
+      
     } catch (error) {
-      setLoading(false);
+     
       console.error('Error updating data:', error);
       toast.error(error);
     }
@@ -64,7 +63,7 @@ const Edit = ({ onAdd, onCancel }) => {
   
 
   return (
-    <div className="absolute inset-0 bg-gray-500 bg-opacity-100 flex items-center justify-center">
+    <div className="absolute inset-0 bg-gray-300 bg-opacity-100 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md my-5">
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Edit Profile</p>
