@@ -6,23 +6,19 @@ import "/styles/global.css";
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
-  const [userData, setUserData] = useState(null); // State to store user data
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Start with the sidebar closed
+  const [userData, setUserData] = useState(null);
   const userToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
-  console.log('User Token:', userToken);
-
-  // Simulating fetching user data from the backend
   useEffect(() => {
-    // Replace this with actual fetching logic
     const fetchUserData = async () => {
       try {
         const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Token ${userToken}`,
-  },
-  
-});
-        
+          method: 'GET',
+          headers: {
+            'Authorization': `Token ${userToken}`,
+          },
+        });
+
         const data = await response.json();
         setUserData(data);
       } catch (error) {
@@ -41,8 +37,14 @@ const Sidebar = () => {
     setActiveItem(itemName === activeItem ? null : itemName);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="text-gray-800 w-64 border-x-2 h-screen p-4 sidebar">
+    <div className={`text-gray-800 w-64 border-x-2 h-screen p-4 sidebar ${isSidebarOpen ? '' : 'hidden sm:hidden'}`}>
+    
+
       <a href="/login"className="flex items-center">
         <img
           className="my-5"
@@ -74,7 +76,7 @@ const Sidebar = () => {
           <a href="/track-vehicle"
             
               onClick={() => handleItemClick('track-vehicles')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] text-sm rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
                 className="my-5 mx-5"
@@ -202,7 +204,12 @@ const Sidebar = () => {
         </div>
       )}       
       </ul>
-
+ <button
+  className={`mt-5 mb-2 bg-[#2D6C56] text-white p-2 rounded sm:hidden fixed top-0 left-0`}
+  onClick={toggleSidebar}
+>
+  Toggle Sidebar
+</button>
       
     </div>
   );
