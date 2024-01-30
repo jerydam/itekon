@@ -110,19 +110,19 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
             <tr key={item.id}>
               <td className="border-b-2 px-4 py-2 flex items-center">
                 <div className="mr-2">
+                  <div>{item.name}</div>
                   <img
-                    src={item.image}
+                    src={item.drivers_image}
                     alt="Driver"
                     className="h-5 w-5 rounded-full"
                   />
+                  
                 </div>
-                <div>
-                  <div>{item.name}</div>
-                  <div className="text-sm text-gray-500">{item.email}</div>
-                </div>
+                
               </td>
-              <td className="border-b-2 px-4 font-semibold py-2">{item.iD}</td>
-              <td className="border-b-2 px-4 font-semibold py-2">{item.phoneNumber}</td>
+              <td className="border-b-2 px-4 font-semibold py-2">{item.license_number}</td>
+              <td className="border-b-2 px-4 font-semibold py-2">{item.phone_number}</td>
+
               <td className="border-b-2 font-semibold px-4 py-2">
                 <button
                   className="border-b-[#2D6C56] border-b-4 border-[#2D6C56] border-2 text-[#2D6C56] font-bold py-2 mx-2 px-4 rounded"

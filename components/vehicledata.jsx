@@ -11,8 +11,9 @@ const Vehicles = () => {
     const fetchVehicles = async () => {
       try {
         const userToken = localStorage.getItem('authToken');
+        const fleet_id = localStorage.getItem('fleet_id');
         
-        const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -36,8 +37,6 @@ const Vehicles = () => {
     fetchVehicles();
   }, []);
 
-  // Mock data if backend response is empty
-  const mockData = mockCars; // Use mockCars from index.js
 
   return (
     <div className="w-full lg:w-1/2 border-2 h-60 rounded p-4 overflow-y-auto">
@@ -56,8 +55,8 @@ const Vehicles = () => {
           <tbody>
             {vehicles.map((vehicle) => (
               <tr key={vehicle.id} className="border">
-                <td className="border p-2">{vehicle.vehicleId}</td>
-                <td className="border p-2">{vehicle.assignedLocation}</td>
+                <td className="border p-2">{vehicle.id}</td>
+                <td className="border p-2">{vehicle.assigned_location}</td>
                 <td className="border p-2">{vehicle.driver}</td>
               </tr>
             ))}
@@ -65,8 +64,7 @@ const Vehicles = () => {
         </table>
       ) : (
         <div>
-          <p>Mocks datas</p>
-          {/* Display mock data */}
+         
           <table className="w-full">
             <thead>
               <tr>
@@ -75,15 +73,7 @@ const Vehicles = () => {
                 <th className="border p-2">Driver</th>
               </tr>
             </thead>
-            <tbody>
-              {mockData.map((mockVehicle) => (
-                <tr key={mockVehicle.id} className="border">
-                  <td className="border p-2">{mockVehicle.carId}</td>
-                  <td className="border p-2">{mockVehicle.carLocation}</td>
-                  <td className="border p-2">{mockVehicle.driverName}</td>
-                </tr>
-              ))}
-            </tbody>
+           
           </table>
         </div>
       )}

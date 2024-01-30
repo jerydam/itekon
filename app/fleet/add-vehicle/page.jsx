@@ -19,7 +19,7 @@ const Add = () => {
   const [license, setLicense] = useState('');
   const [userImage, setUserImage] = useState(null);
   const [carLogo, setCarLogo] = useState(null);
-
+  const [loading, setLoading] = useState(false);
  
   const handleUserImageChange = (e) => {
     const file = e.target.files[0];
@@ -46,8 +46,8 @@ const Add = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-  let vehicle_id;
-  let driver_id;
+    setLoading(true);
+
       // Check for empty fields
       const emptyFields = [
         { field: 'vehicleName', value: vehicleName, label: 'Vehicle Name' },
@@ -57,7 +57,7 @@ const Add = () => {
         { field: 'fuelType', value: fuelType, label: 'Fuel Type' },
         { field: 'vehicleMeter', value: vehicleMeter, label: 'Vehicle Meter' },
         { field: 'color', value: color, label: 'Color' },
-        { field: 'license', value: license, label: 'License Number' },
+        
        
         
       ];
@@ -88,14 +88,13 @@ const Add = () => {
     formData.append('fuelType', fuelType);
     formData.append('color', color);
     formData.append('carLogo', carLogo);
+    formData.append('name', name);
+      formData.append('license_number', license);
+      formData.append('phone_number', num);
+      formData.append('email', email);
+      formData.append('driver_image', userImage);
 
-    const listData = new FormData();
-    listData.append('userImage', userImage);
-    listData.append('name', name);
-    listData.append('license', license);
-    listData.append('number', number);
-    listData.append('email', email);
-  
+      
     try {
       // Make a POST request to your backend endpoint
       const response = await fetch('https://itekton.onrender.com/vehicles/vehicles/', {
@@ -105,15 +104,15 @@ const Add = () => {
         },
         body: formData,
       });
-        const responseData = await response.json();
+        const data = await response.json();
 
      // Assuming `data` is an object with an `id` property representing the vehicle ID
 
 if (response.status === 201) {
-  const responseData = await response.json();
-  const data = responseData.data;
-  vehicle_id = data.id
-  console.log(vehicle_id)
+
+  localStorage.setItem('vehicle_id',data.id);
+
+  console.log(data.id)
   console.log('Vehicle added successfully');
  
 } else {
@@ -126,65 +125,69 @@ if (response.status === 201) {
       console.error('Error:', error.message);
       // Handle unexpected errors
     }
-    try {
-      // Make a POST request to your backend endpoint
-      const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-        body: listData,
-      });
+    if (name || license || num || email || userImage) {
+      // Append driver-related data to FormData
+      formData.append('name', name);
+      formData.append('license_number', license);
+      formData.append('phone_number', num);
+      formData.append('email', email);
+      formData.append('driver_image', userImage);
+    
+      // Make a POST request for the driver
+      try {
+        const userToken = localStorage.getItem('authToken');
+        const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
+          method: 'POST',
+          headers: {
+            Authorization: `Token ${userToken}`,
+          },
+          body: formData,
+        });
+        const data = await response.json();
+    
+        if (response.status === 201) {
+          localStorage.setItem('driver_id', data.id);
+          console.log('Driver added successfully:', data.id);
+        } else {
+          console.error('Error adding driver:', await response.text());
+          toast.error('Error adding driver');
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    
+      // Make a POST request to assign the driver to the vehicle
+      try {
+        const vehicle_id = localStorage.getItem('vehicle_id');
+        const driver_id = localStorage.getItem('driver_id');
+        const response = await fetch(`https://itekton.onrender.com/vehicles/assign/${vehicle_id}/${driver_id}/`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Token ${userToken}`,
+          },
+        });
         const responseData = await response.json();
-
-     // Assuming `data` is an object with an `id` property representing the vehicle ID
-
-if (response.status === 201) {
-  const responseData = await response.json();
-  const data = responseData.data;
-  driver_id = data.id;
-  console.log(driver_id)
-} else {
-  console.error('Error adding driver:', await response.text());
-  toast.error('Error adding driver');
-  // Handle error, show error message, etc.
-}
-
-    } catch (error) {
-      console.error('Error:', error.message);
-      // Handle unexpected errors
+    
+        if (response.ok) {
+          toast.success('Vehicle and driver added successfully');
+          localStorage.removeItem('vehicle_id');
+          localStorage.removeItem('driver_id');
+        } else {
+          console.error('Error assigning driver to vehicle:', await response.text());
+          toast.error('Error assigning driver to vehicle');
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    } else {
+      // No driver-related data, proceed to vehicle success message
+      toast.success('Vehicle added successfully');
+      // window.href.location ='./'
     }
-
-    try {
-      
-      const response = await fetch(`https://itekton.onrender.com/vehicles/assign/${vehicle_id}/${driver_id}/`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-        
-      });
-        const responseData = await response.json();
-
-     // Assuming `data` is an object with an `id` property representing the vehicle ID
-
-if (response.status === 201) {
-  const responseData = await response.json();
-  const data = responseData.data;
-  console.log('vehicle and driver added successfully');
-  toast.success('vehicle and driver added successfully');
-  window.href.location = './vehicleadded.jsx'
-} else {
-  console.error('Error adding vehicle:', await response.text());
-  toast.error('Error adding vehicle');
-  // Handle error, show error message, etc.
-}
-
-    } catch (error) {
-      console.error('Error:', error.message);
-      // Handle unexpected errors
-    }
-  };
+    
+   
+        setLoading(false);
+      };
 
   
   return (
@@ -435,8 +438,13 @@ if (response.status === 201) {
         </div>
         </div>
 
-      <button onClick={handleSubmit} className='w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5'>+ Add Vehicle Details </button>
-      
+        <button
+        onClick={handleSubmit}
+        className={`w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        disabled={loading} // Disable the button when loading is true
+      >
+        {loading ? 'Adding Vehicle...' : '+ Add Vehicle Details'}
+      </button>
     </div>
           
    </div>

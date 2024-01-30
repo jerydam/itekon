@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const PopCri = ({ onAdd, onCancel }) => {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  
+
+  // Retrieve userToken from localStorage
+  const userToken = localStorage.getItem('authToken');
+
   const handleAdd = async () => {
     try {
       setLoading(true);
       const vehicle_id = selectedVehicle;
-      
+
       const response = await fetch(`https://itekton.onrender.com/reports/critical-faults/${vehicle_id}/`, {
         method: 'POST',
         headers: {
@@ -53,7 +57,12 @@ const PopCri = ({ onAdd, onCancel }) => {
 
     const fetchVehicles = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`);
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${userToken}`, // Include the authentication token in the headers
+          },
+        });
         const data = await response.json();
 
         if (response.ok) {
@@ -68,9 +77,10 @@ const PopCri = ({ onAdd, onCancel }) => {
     };
 
     fetchVehicles();
-  }, [setSelectedVehicle]);
+  }, [userToken, setSelectedVehicle]);
 
   const handleCancel = () => {
+    
     onCancel();
   };
 
@@ -80,8 +90,7 @@ const PopCri = ({ onAdd, onCancel }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Critical Faults</p>
           <button onClick={handleCancel}>
-            <
-FaTimes className="h-5 w-5 text-[#2D6C56]" />
+            <FaTimes className="h-5 w-5 text-[#2D6C56]" />
           </button>
         </div>
         <p>Note critical faults for each vehicle</p>

@@ -44,16 +44,17 @@ const PopTest = ({ onAdd, onCancel }) => {
       const userToken = localStorage.getItem('authToken');
       // Make a fetch request to send data to the backend
       const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${userToken}`,
-        },
-        body: JSON.stringify({
-          testDescription: inputValue,
-          outcome: testResult, // Include the testResult
-        }),
-      });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Token ${userToken}`,
+  },
+  body: JSON.stringify({
+    testDescription: inputValue,  // Make sure this matches your Django model's field name
+    outcome: testResult,
+  }),
+});
+
 
       const data = await response.json();
 

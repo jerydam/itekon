@@ -3,6 +3,8 @@ import Navbar from '@/components/nav';
 import EditDetails from '@/components/popups/editCompany';
 import Sidebar from '@/components/sidebar';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SettingsPage = () => {
   const [userDetails, setUserDetails] = useState({
@@ -68,6 +70,7 @@ const SettingsPage = () => {
       if (response.status === 204) {
         // User successfully deleted
         toast.success('User deleted successfully');
+        window.href.location = './login'
         // Implement any additional logic or redirect as needed
       } else {
         // Handle other response statuses (e.g., error)
@@ -89,13 +92,26 @@ const SettingsPage = () => {
     }));
   };
 
-  const handleCheckboxChange = (key) => {
-    setPreference((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
+  
+  useEffect(() => {
+    // Fetch user details from the backend
+    fetchUserDetails(); // Replace with your actual fetch function
 
+    // Fetch user preferences from local storage
+    const storedPreferences = sessionStorage.getItem('userPreferences');
+    if (storedPreferences) {
+      setPreference(JSON.parse(storedPreferences));
+    }
+  }, []);
+
+  const handleCheckboxChange = (key) => {
+    setPreference((prev) => {
+      const updatedPreferences = { ...prev, [key]: !prev[key] };
+      // Save updated preferences to local storage
+      sessionStorage.setItem('userPreferences', JSON.stringify(updatedPreferences));
+      return updatedPreferences;
+    });
+  };
   return (
     <div className='flex'>
       <Sidebar/>

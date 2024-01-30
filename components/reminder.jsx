@@ -21,14 +21,21 @@ const Reminder = () => {
   };
 
   useEffect(() => {
-    // Fetch data from the backend
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`);
+        const userToken = localStorage.getItem('authToken');
+        const fleet_id = localStorage.getItem('fleet_id');
+  
+        const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${userToken}`, // Include the authentication token in the headers
+          },
+        });
+  
         const data = await response.json();
-
+  
         if (response.ok) {
-          // Update state with data from the backend
           setOverDue(data.overDue);
           setDueSoon(data.dueSoon);
           setCompleted(data.completed);
@@ -38,15 +45,13 @@ const Reminder = () => {
       } catch (error) {
         console.error('Error fetching maintenance reminders:', error);
       } finally {
-        // Set loading to false after fetching data
         setLoading(false);
       }
     };
-
-    // Call the fetchData function
+  
     fetchData();
-  }, []); // Empty dependency array to run the effect once on component mount
-
+  }, []);
+  
   return (
     <div className="w-full lg:w-1/2 border-2 h-full rounded">
       <div className="flex justify-between align-middle items-center">

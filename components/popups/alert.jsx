@@ -11,7 +11,7 @@ const PopAlert = ({ onAdd, onCancel }) => {
   const handleAdd = async () => {
     try {
       setLoading(true); // Set loading to true during the fetch operation
-
+  
       // Make a fetch request to send data to the backend
       const response = await fetch('https://itekton.onrender.com/reports/alerts/', {
         method: 'POST',
@@ -21,39 +21,33 @@ const PopAlert = ({ onAdd, onCancel }) => {
         },
         body: JSON.stringify({ description: inputValue }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         const responseData = await response.json();
         const data = responseData.data;
-
-        // Add the alert ID to local storage
-        const existingAlertIds = JSON.parse(localStorage.getItem('alertIds')) || [];
-        existingAlertIds.push(data.id);
-        localStorage.setItem('alertIds', JSON.stringify(existingAlertIds));
-
-        // Perform other actions
-        onAdd(data);
+  
         toast.success('You successfully added an alert');
-
+  
         // Clear the input field
         setInputValue('');
-
-        // Close the PopTest component
-        onCancel();
+  
+        // Close the PopAlert component
+        handleCancel();
       } else {
-        console.error('Error adding test:', data.error);
+        console.error('Error adding alert:', data.error);
         toast.error(data.error);
         // Handle the error, show a message, etc.
       }
     } catch (error) {
-      console.error('Error adding test:', error);
+      console.error('Error adding alert:', error);
       // Handle the error, show a message, etc.
     } finally {
       setLoading(false); // Reset loading to false after the fetch operation
     }
   };
+  
 
   const handleCancel = () => {
     onCancel();
