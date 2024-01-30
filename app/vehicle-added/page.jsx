@@ -6,16 +6,16 @@ import { useEffect } from 'react';
 
 const VehiclePage = () => {
   
-  const vehicle_name = localStorage.getItem('vehicle_name');
-  const driver_name = localStorage.getItem('driver_name');
-  const vehicle_id = localStorage.getItem('vehicle_id');
+ 
   useEffect(() => {
     const token =  localStorage.getItem('authToken')
     if (!token) {
       window.location.href = './login' // Replace '/login' with the appropriate login page URL
     }
   }, []);
-
+  const vehicle_name = localStorage.getItem('vehicle_name');
+  const driver_name = localStorage.getItem('driver_name');
+  const vehicle_id = localStorage.getItem('vehicle_id');
   const handleShowVehicleList = () => {
     window.location.href="./vehicles"
    

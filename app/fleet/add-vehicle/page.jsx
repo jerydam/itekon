@@ -172,7 +172,7 @@ if (response.status === 201) {
     
         if (response.ok) {
           toast.success('Vehicle and driver added successfully');
-         // window.location.href = './vehicle-added';
+         //window.location.href = './vehicle-added';
           
           localStorage.removeItem('driver_id');
 
@@ -193,35 +193,33 @@ if (response.status === 201) {
         setLoading(false);
       };
 
+    return (
+    <div className='flex flex-col md:flex-row'>
+      <Sidebar />
+      <div className='ml-5 w-full md:w-2/3 lg:w-3/4'>
+        <p className='font-sans mt-20 font-normal'>Add vehicle</p>
+        <p className='font-sans my-5 text-[#6A6A6A] font-normal'>This is a form to add a new vehicle to your fleet</p>
   
-  return (
-   
-    <div className='flex'>
-      <Sidebar/>
-     <div className='ml-5'>
-    <p className='font-sans mt-20 font-normal'>Add vehicle</p>
-    <p className='font-sans my-5 text-[#6A6A6A] font-normal'>This is a form to add a new vehicle to your fleet</p>
-    
-    <div className='flex'>
-          <form onSubmit={handleSubmit} className='mr-10'>
-          <div className='flex items-center gap-1 mb-5'>
-          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>1</div>
-          <p className='font-sans font-normal'>Vehicle Registration Details</p>
-          </div>
-
+        <div className='flex flex-col md:flex-row'>
+          <form onSubmit={handleSubmit} className='mb-10 md:mr-10 w-full md:w-1/2'>
+            <div className='flex items-center gap-1 mb-5'>
+              <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>1</div>
+              <p className='font-sans font-normal'>Vehicle Registration Details</p>
+            </div>
+  
             <div className='border-2 rounded-md p-5'>
-        <div className="mb-4">
-            <label htmlFor="vehicleName" className="text-sm font-medium">Vehicle Name</label><br/>
-            <input
-              type="text"
-              id="vehicleName"
-              name="vehicleName"
-              value={vehicleName}
-              onChange={(e) => setVehicleName(e.target.value)}
-              required
-              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-[400px]"
-            />
-          </div>
+              <div className="mb-4">
+                <label htmlFor="vehicleName" className="text-sm font-medium">Vehicle Name</label><br/>
+                <input
+                  type="text"
+                  id="vehicleName"
+                  name="vehicleName"
+                  value={vehicleName}
+                  onChange={(e) => setVehicleName(e.target.value)}
+                  required
+                  className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
+                />
+              </div>      
 
           <div className="mb-4">
             <label htmlFor="identificationNumber" className="text-sm font-medium">Identification Number</label><br/>
@@ -232,7 +230,7 @@ if (response.status === 201) {
               value={identificationNumber}
               onChange={(e) => setIdentificationNumber(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>
 
@@ -245,7 +243,7 @@ if (response.status === 201) {
               value={vehicleModel}
               onChange={(e) => setVehicleModel(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>
           <div className="mb-4">
@@ -257,7 +255,7 @@ if (response.status === 201) {
               value={vehicleMake}
               onChange={(e) => setVehicleMake(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>
       
@@ -270,7 +268,7 @@ if (response.status === 201) {
               value={vehicleMeter}
               onChange={(e) => setVehicleMeter(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>
  
@@ -284,7 +282,7 @@ if (response.status === 201) {
           value={fuelType}
           onChange={(e) => setFuelType(e.target.value)}
           required
-          className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+          className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
           />
         </div>
           <div className="mb-4">
@@ -296,32 +294,32 @@ if (response.status === 201) {
               value={color}
               onChange={(e) => setColor(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>   
-          </div>   
-        </form>
-
-        <form onSubmit={handleSubmit} >
-        <div className='flex items-center gap-1 mb-5'>
-          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>2</div>
-          <p className='font-sans font-normal'>Operator/Driver’s Details</p>
-          </div>
-            <div className='border-2 rounded-md p-5'>
-        <div className="mb-4">
-            <label htmlFor="vehicleName" className="text-sm font-medium">Name</label><br/>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-[400px]"
-            />
-          </div>
-
           
+            </div>
+          </form>
+  
+          <form onSubmit={handleSubmit} className='w-full md:w-1/2'>
+            <div className='flex items-center gap-1 mb-5'>
+              <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>2</div>
+              <p className='font-sans font-normal'>Operator/Driver’s Details</p>
+            </div>
+  
+            <div className='border-2 rounded-md p-5'>
+              <div className="mb-4">
+                <label htmlFor="name" className="text-sm font-medium">Name</label><br/>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
+                />
+              </div>         
           <div className="mb-4">
             <label htmlFor="vehicleModel" className="text-sm font-medium">License Number</label><br/>
             <input
@@ -331,7 +329,7 @@ if (response.status === 201) {
               value={license}
               onChange={(e) => setLicense(e.target.value)}
               required
-              className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+              className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
             />
           </div>
 
@@ -344,7 +342,7 @@ if (response.status === 201) {
     value={num}
     onChange={(e) => setNum(e.target.value)}
     required
-    className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+    className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
   />
 </div>
 
@@ -358,16 +356,18 @@ if (response.status === 201) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="bg-[#F5F4E9] rounded px-2 py-1 w-[400px]"
+          className="bg-[#F5F4E9] rounded-sm px-2 py-1 w-full md:w-[400px]"
           />
         </div>
             
           </div> 
+          
           <div className='flex items-center gap-1 my-5'>
-          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>4</div>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>3</div>
           <p className='font-sans font-normal'>Upload Driver’s Image</p>
-          </div>  
-          <div className='border-2 mt-3 rounded'> 
+        </div>
+  
+        <div className='border-2 mt-3 rounded'> 
           <p className='m-3'>Upload Image of Driver/Operator</p>
         <div className="relative m-3 w-40 h-40 rounded-full border-dotted border-2 border-[#6A6A6A] overflow-hidden">
           <label htmlFor="userImage" className="cursor-pointer block">
@@ -399,15 +399,18 @@ if (response.status === 201) {
             </button>
           )}
         </div>
+           
             </div>
-        </form>
-
+          </form>
         </div>
-
+  
+        
+  
         <div className='flex items-center gap-1 mb-5'>
-          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>3</div>
+          <div className='h-8 w-8 p-2 border-2 border-[#131313] flex items-center justify-center rounded-full text-black'>4</div>
           <p className='font-sans font-normal'>Upload Vehicle Image</p>
-          </div>      
+        </div>
+  
         <div className='border-2 rounded my-5'> 
         <p className='m-3'>Upload Image of Vehicle</p>
         <div className="relative w-40  h-40 rounded m-3 border-dotted border-2 border-[#6A6A6A] overflow-hidden">
@@ -441,18 +444,18 @@ if (response.status === 201) {
   )}
         </div>
         </div>
-
+  
         <button
-        onClick={handleSubmit}
-        className={`w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={loading} // Disable the button when loading is true
-      >
-        {loading ? 'Adding Vehicle...' : '+ Add Vehicle Details'}
-      </button>
+          onClick={handleSubmit}
+          className={`w-full bg-[#2D6C56] text-white border-2 p-3 border-gray-300 border-b-4 my-5 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={loading}
+        >
+          {loading ? 'Adding Vehicle...' : '+ Add Vehicle Details'}
+        </button>
+      </div>
     </div>
-          
-   </div>
   );
+  
 };
 
 export default Add;
