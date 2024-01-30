@@ -11,6 +11,32 @@ const MapComponent = () => {
 
   const accessToken = 'pk.eyJ1IjoiY3liZXJoYWNrYiIsImEiOiJjbHMwNmk2aHIxb3o1MmtwcWt2ZmFsd3VmIn0.I3Se25FRhkF68tjORmngng';
 
+
+  // useEffect(() => {
+  //   // ... (previous code)
+
+  //   if (data.length > 0) {
+  //     // Calculate the center of all markers
+  //     const center = data.reduce(
+  //       (acc, location) => {
+  //         acc.latitude += location.latitude;
+  //         acc.longitude += location.longitude;
+  //         return acc;
+  //       },
+  //       { latitude: 0, longitude: 0 }
+  //     );
+
+  //     center.latitude /= data.length;
+  //     center.longitude /= data.length;
+
+  //     // Set the viewport to the calculated center
+  //     setViewport((prevViewport) => ({
+  //       ...prevViewport,
+  //       latitude: center.latitude,
+  //       longitude: center.longitude,
+  //     }));
+  //   }
+  // }, [data]);
   useEffect(() => {
     const fetchVehicleLocations = async () => {
       try {
@@ -45,8 +71,8 @@ const MapComponent = () => {
 				mapStyle="mapbox://styles/mapbox/streets-v12"
 				style={classes.mapStyle}
 	
-				maxZoom={20}
-				minZoom={-2}
+				maxZoom={200}
+				minZoom={5}
 			>
         {/* Geolocate and Navigation controls */}
         <GeolocateControl />
