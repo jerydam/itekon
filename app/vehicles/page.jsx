@@ -220,26 +220,36 @@ const RegisteredCars = () => {
           <table className="table-auto w-full  border-collapse">
             <thead>
               <tr>
-                <th className="px-4 border-b-2 py-2">Vehicle ID</th>
-                <th className="px-4 border-b-2 py-2">Driver</th>
-                <th className="px-4 border-b-2 py-2">Last Test</th>
-                <th className="px-4 border-b-2 py-2">Ready for Use</th>
-                <th className="px-4 border-b-2 py-2">Assign Location</th>
-                <th className="px-4 border-b-2 py-2">Alerts</th>
-                <th className="px-4 border-b-2 py-2">Actions</th>
+                <th className="px-4 text-center border-b-2 py-2">Vehicle ID</th>
+                <th className="px-4 text-center border-b-2 py-2">Driver</th>
+                <th className="px-4 text-center border-b-2 py-2">Last Test</th>
+                <th className="px-4 text-center border-b-2 py-2">Ready for Use</th>
+                <th className="px-4 text-center border-b-2 py-2">Assign Location</th>
+                <th className="px-4 text-center border-b-2 py-2">Alerts</th>
+                <th className="px-4 text-center border-b-2 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {cars.map((car) => (
-                <tr key={car.id}>
-                  <td className="px-4 border-b-2 py-2">{car.id}</td>
-                  <td className="px-4 border-b-2 py-2">
+              {cars.map((car, index) => (
+                <>
+                <tr key={car.id} className='relative'>
+
+                  <td className="gap-4 border-b-2 py-2 flex">
+                    
+                  <span className='font-bold'>{index + 1}</span>
+                    <div className="flex flex-col">
+                    <p className="font-bold text-sm">{car.name !=""? car.name : 'car name not set'},</p>
+                    <p className="text-gray-300">{car.vehicle_identification_number !="" ? car.vehicle_identification_number : 'not-set'}</p>
+                    </div>
+                    
+                    </td>
+                  <td className="px-4 text-center border-b-2 py-2">
                     {/* Adjust the driver information display as needed */}
-                    {/* <a href={`vehicles/assign-driver/${car.driver.id}`}>{car.driver.name}</a> */}
+                    <span>{car.driver != null ? car.driver.name: <a href={`vehicles/assign-driver/${car.id}`} className="text-[#2D6C56] hover:underline cursor-pointer">Assign Driver</a>}</span>
                   </td>
-                  <td className="px-4 border-b-2 py-2">{car.lastTest}</td>
-                  <td className="px-4 border-b-2 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
-                  <td className="px-4 border-b-2 py-2">
+                  <td className="px-4 text-center border-b-2 py-2">{car.lastTest}</td>
+                  <td className="px-4 text-center border-b-2 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
+                  <td className="px-4 text-center border-b-2 py-2">
                     <button
                       onClick={() => handleAssignLocationClick(car.id)}
                       className="text-[#2D6C56] hover:underline cursor-pointer"
@@ -247,12 +257,12 @@ const RegisteredCars = () => {
                       Assign Location
                     </button>
                   </td>
-                  <td className="px-4 border-b-2 py-2">{car.alerts}</td>
-                  <td className="px-4 border-b-2 py-2">
+                  <td className="px-4 text-center border-b-2 py-2">{car.alerts}</td>
+                  <td className="px-4 border-b-2 py-2 ">
                     <div className="relative">
                       <div
-                        onMouseEnter={() => handleMouseEnter(car.id)}
-                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleMouseEnter(car.id)}
+                        // onMouseLeave={handleMouseLeave}
                         className="text-gray-700 font-semibold py-2 px-4 border-b-2 rounded inline-flex items-center cursor-pointer"
                       >
                         <svg
@@ -263,8 +273,14 @@ const RegisteredCars = () => {
                           <path d="M6 8l4 4 4-4z" />
                         </svg>
                       </div>
+                    </div>
+                  </td>
+                  
+                </tr>
+                  <tr key={car.id} className="absolute z-[3000]">
+
                       {hoveredDropdown === car.id && (
-                        <ul className="dropdown-content flex absolute mt-2 bg-gray-700 text-gray-100 p-2">
+                        <ul className="dropdown-content flex  bg-white text-black">
                           <li className="block m-5 w-full">
                             <VehicleRDetails vehicle={car} />
                           </li>
@@ -276,9 +292,8 @@ const RegisteredCars = () => {
                           </li>
                         </ul>
                       )}
-                    </div>
-                  </td>
-                </tr>
+                  </tr>
+                  </>
               ))}
             </tbody>
           </table>
