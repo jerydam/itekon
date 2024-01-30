@@ -1,19 +1,22 @@
+"use client"
 import React, { useEffect } from 'react';
 import { driver } from '@/index';
 import '/styles/global.css'; 
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
-const AssignDriver = () => {
+const AssignDriver = ({params}) => {
   const router = useRouter();
-    
+    const id = params.id;
+    console.log(id)
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Replace '/login' with the appropriate login page URL
+    const token = localStorage.getItem('authToken');
+    if (token===null) {
+      router.push('/login');
     }
+    
   }, [router]);
 
 
