@@ -48,7 +48,7 @@ const EditDetails = ({ userDetails, onEdit, onCancel }) => {
   
 
   return (
-    <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+    <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-md">
       <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Edit Profile</p>

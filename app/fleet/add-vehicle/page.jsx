@@ -111,6 +111,7 @@ const Add = () => {
 if (response.status === 201) {
 
   localStorage.setItem('vehicle_id',data.id);
+  localStorage.setItem('car_name',data.name);
 
   console.log(data.id)
   console.log('Vehicle added successfully');
@@ -147,6 +148,7 @@ if (response.status === 201) {
     
         if (response.status === 201) {
           localStorage.setItem('driver_id', data.id);
+          localStorage.setItem('driver_name',data.name);
           console.log('Driver added successfully:', data.id);
         } else {
           console.error('Error adding driver:', await response.text());
@@ -170,8 +172,10 @@ if (response.status === 201) {
     
         if (response.ok) {
           toast.success('Vehicle and driver added successfully');
-          localStorage.removeItem('vehicle_id');
+         // window.location.href = './vehicle-added';
+          
           localStorage.removeItem('driver_id');
+
         } else {
           console.error('Error assigning driver to vehicle:', await response.text());
           toast.error('Error assigning driver to vehicle');

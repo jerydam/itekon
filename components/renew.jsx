@@ -103,7 +103,7 @@ function isDatePassed(targetDate) {
   }, []); // Empty dependency array to run the effect once on component mount
 
   return (
-    <div className="w-full lg:w-1/2 border-2 h-full rounded">
+    <div className="w-full lg:w-1/2 border-2 h-full rounded z-50">
       <div className="flex justify-between align-middle items-center">
         <p className="m-5 text-lg font-sans font-medium w-full">Registration Renewal Reminder</p>
         <button onClick={() => setRenewal(true)} className="flex justify-end items-center my-5 w-fit">

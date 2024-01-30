@@ -51,7 +51,7 @@ const OTP = ({ currentPage, onCancel, handleNext }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="p-6 rounded-md">
         <div className="flex items-center justify-center h-full">
           <div className="bg-white p-8 rounded shadow-md">

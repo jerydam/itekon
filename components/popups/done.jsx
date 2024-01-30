@@ -12,7 +12,7 @@ const Added = ({onCancel, currentPage, onAdd}) => {
     console.log('Cancelled');
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div className="bg-white p-6 rounded-md">
       <div className='flex justify-between  mb-4'>
       <p className="text-2xl font-bold mb-4">Complete Your Profile</p>
@@ -35,7 +35,7 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
         
         className="text-[#2D6C56]  border-[#2D6C56] border-b-4 border-2 font-semibold px-4 py-2 mt-4 rounded"
       >
-        <a href="/fleet/add-vehicle">Verification complete</a>
+        <a href="./welcome">Verification complete</a>
        
       </button>
    

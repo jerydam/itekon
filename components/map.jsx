@@ -9,7 +9,7 @@ const MapComponent = () => {
   const [vehicleLocations, setVehicleLocations] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
-  const accessToken = 'pk.eyJ1IjoiamVyeWRhbSIsImEiOiJjbG82ZHV4Nm4wbHNxMmptdm1lcDh3cXk1In0.tuRnKgTxnUigcE4m2QqqNg';
+  const accessToken = 'pk.eyJ1IjoiY3liZXJoYWNrYiIsImEiOiJjbHMwNmk2aHIxb3o1MmtwcWt2ZmFsd3VmIn0.I3Se25FRhkF68tjORmngng';
 
   useEffect(() => {
     const fetchVehicleLocations = async () => {
@@ -60,7 +60,7 @@ const MapComponent = () => {
             latitude={location.latitude}
           >
             <FaCar
-              size={20}
+              size={50}
               color="#FF0000" // Adjust the color as needed
               onClick={() => setSelectedMarker(location)}
               className="cursor-pointer"

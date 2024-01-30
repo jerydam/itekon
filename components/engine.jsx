@@ -37,7 +37,7 @@ const Engine = () => {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id');
         try {
-          const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers/${fleet_id}/`, {
+          const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
             method: 'GET',  // Specify the HTTP method (GET in this case)
             headers: {
               'Content-Type': 'application/json',

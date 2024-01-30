@@ -63,7 +63,7 @@ const Edit = ({ onAdd, onCancel }) => {
   
 
   return (
-    <div className="absolute inset-0 bg-gray-300 bg-opacity-100 flex items-center justify-center">
+    <div className="absolute inset-0 bg-gray-300 bg-opacity-100 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-md my-5">
         <div className="flex justify-between items-center mb-4">
           <p className="block mb-2 text-lg font-medium">Edit Profile</p>

@@ -1,27 +1,33 @@
-'use client'
+// Import necessary libraries and components
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Define the AddDriver component
 const AddDriver = ({ onAdd, onCancel }) => {
+  // State variables for input fields, image preview, and loading
   const [inputValue, setInputValue] = useState('');
   const [license, setLicense] = useState('');
   const [num, setNum] = useState('');
   const [mail, setMail] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  // Handle the "Add New Driver" button click
   const handleAdd = async () => {
     try {
+      setLoading(true);
+
       const formData = new FormData();
       formData.append('name', inputValue);
       formData.append('license_number', license);
       formData.append('phone_number', num);
       formData.append('email', mail);
       formData.append('driver_image', imagePreview);
-  
+
       const userToken = localStorage.getItem('authToken');
-  
+
       const response = await fetch('https://itekton.onrender.com/vehicles/drivers/', {
         method: 'POST',
         headers: {
@@ -29,26 +35,29 @@ const AddDriver = ({ onAdd, onCancel }) => {
         },
         body: formData,
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        // Handle success, e.g., update the UI or close the modal
-        console.log('Driver added successfully:', data);
-        toast.success(data)
-        onAdd(data); // Assuming onAdd is a callback to update the driver list or perform any other action
+        toast.success('Driver added successfully');
+        onAdd(data);
+        setInputValue('');
+        setLicense('');
+        setNum('');
+        setMail('');
+        setImagePreview(null);
       } else {
-        // Handle the case where the request was not successful
-        console.log('Error adding driver:', response.statusText);
-        toast.success(data)
-
+        console.error('Error adding driver:', response.statusText);
+        toast.error('Failed to add driver');
       }
     } catch (error) {
-      // Handle any network errors or other issues
       console.error('Error adding driver:', error);
-    } 
+      
+    } finally {
+      setLoading(false);
+    }
   };
-  
 
+  // Handle the image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -61,8 +70,9 @@ const AddDriver = ({ onAdd, onCancel }) => {
     }
   };
 
+  // JSX structure of the AddDriver component
   return (
-    <div className="absolute h-fit py-5  inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center ">
+    <div className="absolute h-fit py-5  inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white w-fit p-6 rounded-md">
         <div className="flex justify-between items-center my-4">
           <p className="block mb-2 text-lg font-medium">Add New Driver</p>
@@ -135,12 +145,15 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
 </div>
 
       
-        <div className="flex justify-center">
+<div className="flex justify-center">
           <button
             onClick={handleAdd}
-            className="border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded"
+            className={`border-b-4 border-2 border-[#2D6C56] text-[#2D6C56] font-bold py-2 px-4 rounded ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
           >
-            Add New Driver
+            {loading ? 'Adding New driver...' : 'Add New Driver'}
           </button>
         </div>
       </div>
@@ -148,4 +161,5 @@ FaTimes className="h-5 w-5 text-[#2D6C56]" />
   );
 };
 
+// Export the AddDriver component
 export default AddDriver;
