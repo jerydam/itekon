@@ -3,16 +3,16 @@ import "/styles/global.css";
 const Transist = ({ vehicle }) => {  
 
   return (
-    <div  className='border-2 p-5 w-96'>
+    <div  className=' flex flex-col px-5 w-full gap-3 h-full '>
       <p className='font-bold'>Transist Details</p>
       <div className='flex justify-between '>
-      <p className='my-5 '>Assigned Location: {vehicle?.assignedLocation}</p> <a href="" className='text-[#2D6C56]'>See History</a>
+      <p className='text-left'>Assigned Location: {vehicle?.assignedLocation}</p> <a href="" className='text-[#2D6C56]'>See History</a>
       </div>
-      <p className='my-5 '>Battery Voltage: {vehicle?.batteryVoltage}</p>
-      <p className='my-5 '>Battery Error: {vehicle?.batteryError}</p>
-      <p className='my-5 '>Mileage: {vehicle?.mileage}</p>
-      <p className='my-5 '>Service Status: {vehicle?.serviceStatus}</p>
-      <p className='my-5 '>Current Location: {vehicle?.location}</p> 
+      <p className='text-left'>Battery Voltage: {vehicle?.batteryVoltage}</p>
+      <p className='text-left'>Battery Error: {vehicle?.batteryError}</p>
+      <p className='text-left'>Mileage: {vehicle?.mileage}</p>
+      <p className='text-left'>Service Status: {vehicle?.serviceStatus}</p>
+      <p className='text-left'>Current Location: {vehicle?.location}</p> 
       <button className='border-b-4 border-2 border-[#D33F00] text-[#D33F00] rounded text-center p-3'>
             Stop Vehicle
           </button>  
