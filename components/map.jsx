@@ -2,29 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Map, Marker, Popup, NavigationControl, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { FaCar } from 'react-icons/fa';
 import classes from "./map.module.css";
-import { carImages } from '..';
 
 const MapComponent = () => {
   const [vehicleLocations, setVehicleLocations] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
   const accessToken = 'pk.eyJ1IjoiY3liZXJoYWNrYiIsImEiOiJjbHMwNmk2aHIxb3o1MmtwcWt2ZmFsd3VmIn0.I3Se25FRhkF68tjORmngng';
-
-  const getMarkerColor = (vehicleColor) => {
-    switch (vehicleColor) {
-      case 'red':
-        return 'red';
-      case 'blue':
-        return 'blue';
-      case 'yellow':
-        return 'yellow';
-      case 'black':
-        return 'black';
-      default:
-        return 'default';
-    }
-  };
 
   useEffect(() => {
     const fetchVehicleLocations = async () => {
@@ -41,18 +26,7 @@ const MapComponent = () => {
         const data = await response.json();
 
         if (response.ok) {
-          // Map vehicle color to color-specific image source
-          const locationsWithImages = data.map(location => {
-            const markerColor = getMarkerColor(location.vehicle.color);
-            const imageSource = carImages[markerColor] || carImages.default;
-
-            return {
-              ...location,
-              imageSource,
-            };
-          });
-
-          setVehicleLocations(locationsWithImages);
+          setVehicleLocations(data);
         } else {
           console.error('Error getting vehicle locations:', data.error);
         }
@@ -66,13 +40,14 @@ const MapComponent = () => {
 
   return (
     <main id='map' className="flex h-full rounded-md">
-      <Map
-        mapboxAccessToken={accessToken}
-        mapStyle="mapbox://styles/mapbox/streets-v12"
-        style={classes.mapStyle}
-        maxZoom={200}
-        minZoom={5}
-      >
+   			<Map
+				mapboxAccessToken={accessToken}
+				mapStyle="mapbox://styles/mapbox/streets-v12"
+				style={classes.mapStyle}
+	
+				maxZoom={20}
+				minZoom={-2}
+			>
         {/* Geolocate and Navigation controls */}
         <GeolocateControl />
         <NavigationControl />
@@ -84,13 +59,11 @@ const MapComponent = () => {
             longitude={location.longitude}
             latitude={location.latitude}
           >
-            {/* Use the custom car image instead of the FaCar icon */}
-            <img
-              src={carImage}
-              alt={`Car Marker ${index}`}
+            <FaCar
+              size={50}
+              color="#FF0000" // Adjust the color as needed
               onClick={() => setSelectedMarker(location)}
               className="cursor-pointer"
-              style={{ width: '50px', height: '50px' }} // Adjust the size as needed
             />
           </Marker>
         ))}
@@ -106,6 +79,8 @@ const MapComponent = () => {
             {/* Adjust popup content based on your data */}
             <div className="text-center bg-black text-white">
               <h3 className="text-lg font-bold mb-2">Vehicle Info</h3>
+              {/* <p>Latitude: {selectedMarker.vehicle.vehicle_name}</p> */}
+              {/* <p>Longitude: {selectedMarker.vehicle.longitude}</p> */}
               {/* Add more details as needed */}
             </div>
           </Popup>

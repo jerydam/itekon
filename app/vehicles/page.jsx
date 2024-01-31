@@ -273,11 +273,11 @@ const RegisteredCars = () => {
                     <span>{car.driver != null ? car.driver.name: <a href={`vehicles/assign-driver/${car.id}`} className="text-[#2D6C56] hover:underline cursor-pointer">Assign Driver</a>}</span>
                   </td>
                   <td className="px-4 text-center border-b-2 py-2">{car.lastTest}</td>
-                  <td className="px-4 text-center border-b-2 py-2">
+                  <td className="text-center items-center justify-center border-b-2 py-2">
   {car.readyForUse ? (
-    <img src="/images/yes.png" alt="Yes" className="w-6  h-6" />
+    <img src="/images/yes.png" alt="Yes" className="w-8 h-6 " />
   ) : (
-    <img src="/images/no.png" alt="No" className="w-6  h-6" />
+    <img src="/images/no.png" alt="No" className="w-8  h-6  m-auto" />
   )}
 </td>
 
