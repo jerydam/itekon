@@ -204,8 +204,9 @@ const RegisteredCars = () => {
   };
 
   
-  const handleAssignLocationClick = (vehicleId) => {
-    window.location.href = `assign-location/`;
+  const handleAssignLocationClick = (vehicle_id) => {
+    const id = vehicle_id;
+    window.location.href = `assign-location/${id}`;
     
   };
   

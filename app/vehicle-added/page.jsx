@@ -5,34 +5,38 @@ import { useEffect } from 'react';
 
 
 const VehiclePage = () => {
-  
- 
   useEffect(() => {
-    const token =  localStorage.getItem('authToken')
-    if (!token) {
-      window.location.href = './login' // Replace '/login' with the appropriate login page URL
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        window.location.href = './login'; // Replace '/login' with the appropriate login page URL
+      }
     }
   }, []);
-  const vehicle_name = localStorage.getItem('vehicle_name');
-  const driver_name = localStorage.getItem('driver_name');
-  const vehicle_id = localStorage.getItem('vehicle_id');
+
+  const vehicle_name = typeof window !== 'undefined' ? localStorage.getItem('vehicle_name') : null;
+  const driver_name = typeof window !== 'undefined' ? localStorage.getItem('driver_name') : null;
+  const vehicle_id = typeof window !== 'undefined' ? localStorage.getItem('vehicle_id') : null;
+
   const handleShowVehicleList = () => {
-    window.location.href="./vehicles"
-   
-    localStorage.removeItem('vehicle_name');
-    localStorage.removeItem('driver_name');
-    localStorage.removeItem('vehicle_id');
+    window.location.href = "./vehicles";
+
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('vehicle_name');
+      localStorage.removeItem('driver_name');
+      localStorage.removeItem('vehicle_id');
+    }
   };
 
   const handleAddVehicle = () => {
+    window.location.href = "./fleet/add-vehicle";
 
-   window.location.href="./fleet/add-vehicle"
-   
-   localStorage.removeItem('vehicle_name');
-   localStorage.removeItem('driver_name');
-   localStorage.removeItem('vehicle_id');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('vehicle_name');
+      localStorage.removeItem('driver_name');
+      localStorage.removeItem('vehicle_id');
+    }
   };
-
   return (
     <div className='flex'>
       <Sidebar/>

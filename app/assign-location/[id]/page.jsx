@@ -6,25 +6,20 @@ import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/nav';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { selectedVehicleId } from '../vehicles/page';
-const AssignLocation = () => {
-   // Use the imported selectedVehicleId
+import { selectedVehicleId } from '../../vehicles/page';
+const AssignLocation = ({ params }) => {
+   
   
 
-  
-
+   const id = params.id;
+   const vehicle_id = id;
   const [address, setAddress] = useState('');
 
-  const handleGetAddress = async () => {
+  const handleAddAddress = async () => {
     try {
-      if (!vehicleId) {
-        console.error('Vehicle ID not provided');
-        toast.error('Vehicle ID not provided');
-        return;
-      }
-  
+        
       const userToken = localStorage.getItem('authToken');
-      const response = await fetch(`https://itekton.onrender.com/vehicles/${vehicleId}/assign_location/`, {
+      const response = await fetch(`https://itekton.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +40,7 @@ const AssignLocation = () => {
     }
   };
 
-  const handleAddAddress = () => {
+  const handleGetAddress= () => {
     // Implement logic to add the address
     console.log('Address added:', address);
   };

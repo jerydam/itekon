@@ -43,7 +43,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
     };
   
     fetchData();
-  }, [userId, userToken]);
+  }, []);
    // The empty dependency array ensures that this effect runs once when the component mounts
 
    const handleEdit = (id) => {

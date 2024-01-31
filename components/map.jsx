@@ -4,39 +4,29 @@ import { Map, Marker, Popup, NavigationControl, GeolocateControl } from 'react-m
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaCar } from 'react-icons/fa';
 import classes from "./map.module.css";
-
+import { carImages } from '..';
 const MapComponent = () => {
   const [vehicleLocations, setVehicleLocations] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
 
   const accessToken = 'pk.eyJ1IjoiY3liZXJoYWNrYiIsImEiOiJjbHMwNmk2aHIxb3o1MmtwcWt2ZmFsd3VmIn0.I3Se25FRhkF68tjORmngng';
 
+const getMarkerColor = (vehicleColor) => {
+  switch (vehicleColor) {
+    case 'red':
+      return 'red';
+    case 'blue':
+      return 'blue';
+    case 'yellow':
+      return 'yellow';
+    case 'black':
+      return 'black';
+    default:
+      return 'default';
+  }
+};
 
-  // useEffect(() => {
-  //   // ... (previous code)
-
-  //   if (data.length > 0) {
-  //     // Calculate the center of all markers
-  //     const center = data.reduce(
-  //       (acc, location) => {
-  //         acc.latitude += location.latitude;
-  //         acc.longitude += location.longitude;
-  //         return acc;
-  //       },
-  //       { latitude: 0, longitude: 0 }
-  //     );
-
-  //     center.latitude /= data.length;
-  //     center.longitude /= data.length;
-
-  //     // Set the viewport to the calculated center
-  //     setViewport((prevViewport) => ({
-  //       ...prevViewport,
-  //       latitude: center.latitude,
-  //       longitude: center.longitude,
-  //     }));
-  //   }
-  // }, [data]);
+  
   useEffect(() => {
     const fetchVehicleLocations = async () => {
       try {
@@ -48,11 +38,22 @@ const MapComponent = () => {
             Authorization: `Token ${token}`,
           },
         });
-
+  
         const data = await response.json();
-
+  
         if (response.ok) {
-          setVehicleLocations(data);
+          // Map vehicle color to color-specific image source
+          const locationsWithImages = data.map(location => {
+            const markerColor = getMarkerColor(location.vehicle.color);
+            const imageSource = carImages[markerColor] || carImages.default;
+  
+            return {
+              ...location,
+              imageSource,
+            };
+          });
+  
+          setVehicleLocations(locationsWithImages);
         } else {
           console.error('Error getting vehicle locations:', data.error);
         }
@@ -60,9 +61,10 @@ const MapComponent = () => {
         console.error('Error fetching vehicle locations:', error);
       }
     };
-
+  
     fetchVehicleLocations();
   }, []);
+  
 
   return (
     <main id='map' className="flex h-full rounded-md">
