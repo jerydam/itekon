@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Sidebar from '@/components/sidebar';
 import Driver from '@/app/vehicles/driver';
 import VehicleRDetails from '@/app/vehicles/vehicleRd';
@@ -14,6 +14,27 @@ const RegisteredCars = () => {
   const handleMouseEnter = (carId) => {
     setHoveredDropdown(carId);
   };
+
+  const dropdownRef = useRef(null);
+  
+  const handleOutsideClick = (event) => {
+    // Check if the clicked element is inside the dropdown or is the dropdown itself
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      // Clicked outside the dropdown, close it
+      setHoveredDropdown(null);
+    }
+  };
+
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [dropdownRef]);
+
 
   const handleMouseLeave = () => {
     setHoveredDropdown(null);
@@ -218,7 +239,7 @@ const RegisteredCars = () => {
         <Navbar />
         <div className="container mx-auto px-4 border-b-2 py-8">
           <p className="mb-10">Vehicle</p>
-          <table className="table-auto w-full  border-collapse">
+          <table className="table-auto w-full overflow-hidden border-collapse relative">
             <thead>
               <tr>
                 <th className="px-4 text-center border-b-2 py-2">Vehicle ID</th>
@@ -231,6 +252,9 @@ const RegisteredCars = () => {
               </tr>
             </thead>
             <tbody>
+            
+
+ 
               {cars.map((car, index) => (
                 <>
                 <tr key={car.id} className='relative'>
@@ -278,22 +302,23 @@ const RegisteredCars = () => {
                   </td>
                   
                 </tr>
-                  <tr key={car.id} className="absolute z-[3000]">
 
-                      {hoveredDropdown === car.id && (
-                        <ul className="dropdown-content flex  bg-white text-black">
-                          <li className="block m-5 w-full">
-                            <VehicleRDetails vehicle={car} />
-                          </li>
-                          <li className="block m-5 w-full">
-                            <Transist vehicle={car} />
-                          </li>
-                          <li className="block m-5 w-full">
-                            <Driver vehicle={car} />
-                          </li>
-                        </ul>
-                      )}
-                  </tr>
+                {hoveredDropdown === car.id && (
+                <tr ref={dropdownRef} className="z-[3000] w-full overflow-clip ">
+
+
+
+<td colSpan={2} className="text-center border-b-2 shadow-lg border w-fit py-0 justify-end items-baseline m-auto">
+      <VehicleRDetails vehicle={car} />
+    </td>
+    <td colSpan={2} className="text-center border-b-2 shadow-lg border w-fit py-0 justify-end items-baseline m-auto">
+      <Transist vehicle={car} />
+    </td>
+    <td colSpan={3} className="text-center border-b-2 shadow-lg border w-fit py-0 justify-end items-baseline m-auto">
+      <Driver vehicle={car} />
+    </td>
+</tr>
+                )}
                   </>
               ))}
             </tbody>
