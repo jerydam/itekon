@@ -96,7 +96,6 @@ const Engine = () => {
     fetchAllEngineCount();
   }, []); 
 
-
   return (
     <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5">
       <div className='w-full lg:w-1/4 border-2 h-32 lg:h-auto border-b-4 hover:border-[#2D6C56]'>
@@ -105,7 +104,7 @@ const Engine = () => {
           <div className="text-center py-5">
             <p>Active Engine</p>
             <p className="text-xl font-bold">
-              {loadingActiveEngine ? "Loading ..." : activeEngineCount}
+              {loadingActiveEngine ? "Loading..." : activeEngineCount}
             </p>
           </div>
         </div>
@@ -116,7 +115,7 @@ const Engine = () => {
           <div className="text-center py-5">
             <p>All Driver</p>
             <p className="text-xl font-bold">
-              {loadingAllDriver ? "Loading ..." : allDriverCount}
+              {loadingAllDriver ? "Loading..." : allDriverCount}
             </p>
           </div>
         </div>
@@ -127,7 +126,7 @@ const Engine = () => {
           <div className="text-center py-5">
             <p>Idle Engine</p>
             <p className="text-xl font-bold">
-              {loadingIdleEngine ? "Loading ..." : idleEngineCount}
+              {loadingIdleEngine ? "Loading..." : idleEngineCount}
             </p>
           </div>
         </div>
@@ -138,7 +137,7 @@ const Engine = () => {
           <div className="text-center py-5">
             <p>All Engine</p>
             <p className="text-xl font-bold">
-              {loadingAllEngine ? "Loading ..." : allEngineCount}
+              {loadingAllEngine ? "Loading..." : allEngineCount}
             </p>
           </div>
         </div>
