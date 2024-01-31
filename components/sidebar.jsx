@@ -10,9 +10,10 @@ const Sidebar = () => {
   const [userData, setUserData] = useState(null);
   const userToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
   useEffect(() => {
+    const fleet_id = localStorage.getItem('fleet_id');
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+        const response = await fetch(`https://itekton.onrender.com/fleets/fleets/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Authorization': `Token ${userToken}`,
@@ -59,7 +60,7 @@ const Sidebar = () => {
         <li>
           <a href="/dashboard"
               onClick={() => handleItemClick('dashboard')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-xl font-normal mb-4 flex items-center ${activeItem === 'dashboard' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
                 className="my-5 mx-5"
@@ -76,10 +77,10 @@ const Sidebar = () => {
           <a href="/track-vehicle"
             
               onClick={() => handleItemClick('track-vehicles')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] text-sm rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-xl font-normal mb-4 flex items-center ${activeItem === 'track-vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
-                className="my-5 mx-5"
+                className="my-5 mx-3"
                 src="/images/track.png"
                 alt="Logo"
                 width="20"
@@ -93,7 +94,7 @@ const Sidebar = () => {
           <a href="/vehicles"
             
               onClick={() => handleItemClick('vehicles')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-xl font-normal mb-4 flex items-center ${activeItem === 'vehicles' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
                 className="my-5 mx-5"
@@ -111,7 +112,7 @@ const Sidebar = () => {
           <a href="/driver"
             
               onClick={() => handleItemClick('drivers')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'drivers' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-xl font-normal mb-4 flex items-center ${activeItem === 'drivers' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
                 className="my-5 mx-5"
@@ -129,7 +130,7 @@ const Sidebar = () => {
           <a href="/reports"
             
               onClick={() => handleItemClick('reports')}
-              className={`text-2xl font-normal mb-4 flex items-center ${activeItem === 'reports' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
+              className={`text-xl font-normal mb-4 flex items-center ${activeItem === 'reports' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
             >
               <img
                 className="my-5 mx-5"
@@ -149,7 +150,7 @@ const Sidebar = () => {
         toggleSettingsDropdown();
         handleItemClick('setting');
       }}
-      className={`text-2xl font-normal mb-4 flex items-center cursor-pointer ${
+      className={`text-xl font-normal mb-4 flex items-center cursor-pointer ${
         isSettingsDropdownOpen ? 'text-[#2D6C56]' : ''
       } ${activeItem === 'setting' ? 'border-l-4 border-l-[#2D6C56] rounded-md bg-[#F5F4E9]' : ''}`}
     >

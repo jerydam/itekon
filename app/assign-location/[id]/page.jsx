@@ -48,7 +48,7 @@ const AssignLocation = ({ params }) => {
   return (
     <div className='flex'>
       <Sidebar />
-      <div className="h-full">
+      <div className="">
         <Navbar />
         <p className='m-5'>Vehicles {'>'} Assign Location</p>
         <p className='m-5'>Enter the address of the location you want to assign your vehicles to.</p>
