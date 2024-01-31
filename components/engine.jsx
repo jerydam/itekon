@@ -6,85 +6,92 @@ const Engine = () => {
   const [allDriverCount, setAllDriverCount] = useState(0);
   const [idleEngineCount, setIdleEngineCount] = useState(0);
   const [allEngineCount, setAllEngineCount] = useState(0);
-
-  // State variables to track loading status
-  const [loadingActiveEngine, setLoadingActiveEngine] = useState(true);
-  const [loadingAllDriver, setLoadingAllDriver] = useState(true);
-  const [loadingIdleEngine, setLoadingIdleEngine] = useState(true);
-  const [loadingAllEngine, setLoadingAllEngine] = useState(true);
-
+  
   useEffect(() => {
     const userToken = localStorage.getItem('authToken');
     const fleet_id = localStorage.getItem('fleet_id');
-
     const fetchActiveEngineCount = async () => {
       try {
         const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
-          method: 'GET',
+          method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${userToken}`,
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
           },
         });
         const data = await response.json();
+        
+        // Assuming each engine object has a 'driver' property
         const activeEngines = data.filter(engine => engine.driver !== null);
+        
         setActiveEngineCount(activeEngines.length);
-        setLoadingActiveEngine(false); // Set loading status to false after data is fetched
       } catch (error) {
         console.error('Error fetching Active Engine count:', error);
       }
     };
 
+    // Fetch data for All Driver count
     const fetchAllDriverCount = async () => {
-      try {
-        const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${userToken}`,
-          },
-        });
-        const data = await response.json();
-        const driverCount = data.length;
-        setAllDriverCount(driverCount);
-        setLoadingAllDriver(false);
-      } catch (error) {
-        console.log('Error fetching All Driver count:', error);
-      }
-    };
+      const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
+        try {
+          const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
+            method: 'GET',  // Specify the HTTP method (GET in this case)
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
+            },
+          });
+          const data = await response.json();
+          const driverCount = data.length;
+          setAllDriverCount(driverCount);
+        } catch (error) {
+          console.log('Error fetching All Driver count:', error);
+        }
+      };
+      
 
+    // Fetch data for Idle Engine count   
     const fetchIdleEngineCount = async () => {
+      const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
         const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
-          method: 'GET',
+          method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${userToken}`,
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
           },
         });
+    
         const data = await response.json();
+        
+        // Assuming each engine object has a 'driver' property
         const idleEngines = data.filter(engine => engine.driver === null);
+        
         setIdleEngineCount(idleEngines.length);
-        setLoadingIdleEngine(false);
       } catch (error) {
         console.error('Error fetching Idle Engine count:', error);
       }
     };
+    
 
+    // Fetch data for All Engine count
     const fetchAllEngineCount = async () => {
+      const userToken = localStorage.getItem('authToken');
+      const fleet_id = localStorage.getItem('fleet_id');
       try {
         const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
-          method: 'GET',
+          method: 'GET',  // Specify the HTTP method (GET in this case)
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${userToken}`,
+            'Authorization': `Token ${userToken}`,  // Assuming userToken is defined
           },
         });
         const data = await response.json();
-        const engineCount = data.length;
-        setAllEngineCount(engineCount);
-        setLoadingAllEngine(false);
-      } catch (error) {
+          const engineCount = data.length;
+          setAllEngineCount(engineCount);
+        } catch (error) {
         console.log('Error fetching All Engine count:', error);
       }
     };
@@ -94,7 +101,9 @@ const Engine = () => {
     fetchAllDriverCount();
     fetchIdleEngineCount();
     fetchAllEngineCount();
-  }, []); 
+  }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
+
 
   return (
     <div className="flex flex-col lg:flex-row w-full justify-between gap-4 p-5">
@@ -103,9 +112,7 @@ const Engine = () => {
           <img src='images/Carin.png' alt="Car" />
           <div className="text-center py-5">
             <p>Active Engine</p>
-            <p className="text-xl font-bold">
-              {loadingActiveEngine ? "Loading..." : activeEngineCount}
-            </p>
+            <p className="text-xl font-bold">{activeEngineCount}</p>
           </div>
         </div>
       </div>
@@ -114,9 +121,7 @@ const Engine = () => {
           <img src='images/Car rental.png' alt="Car" />
           <div className="text-center py-5">
             <p>All Driver</p>
-            <p className="text-xl font-bold">
-              {loadingAllDriver ? "Loading..." : allDriverCount}
-            </p>
+            <p className="text-xl font-bold">{allDriverCount}</p>
           </div>
         </div>
       </div>
@@ -125,9 +130,7 @@ const Engine = () => {
           <img src='images/car.png' alt="Car" />
           <div className="text-center py-5">
             <p>Idle Engine</p>
-            <p className="text-xl font-bold">
-              {loadingIdleEngine ? "Loading..." : idleEngineCount}
-            </p>
+            <p className="text-xl font-bold">{idleEngineCount}</p>
           </div>
         </div>
       </div>
@@ -136,9 +139,7 @@ const Engine = () => {
           <img src='images/taxi car.png' alt="Car" />
           <div className="text-center py-5">
             <p>All Engine</p>
-            <p className="text-xl font-bold">
-              {loadingAllEngine ? "Loading..." : allEngineCount}
-            </p>
+            <p className="text-xl font-bold">{allEngineCount}</p>
           </div>
         </div>
       </div>
