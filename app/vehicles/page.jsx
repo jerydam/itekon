@@ -147,7 +147,7 @@ const RegisteredCars = () => {
           // Fetch alerts for each vehicle
           const carsWithAlerts = await Promise.all(
             data.map(async (vehicle) => {
-              const alerts = await fetchAlerts(vehicle.id);
+              const alerts = await fetchCars(vehicle.id);
               return { ...vehicle, alerts };
             })
           );
@@ -273,7 +273,14 @@ const RegisteredCars = () => {
                     <span>{car.driver != null ? car.driver.name: <a href={`vehicles/assign-driver/${car.id}`} className="text-[#2D6C56] hover:underline cursor-pointer">Assign Driver</a>}</span>
                   </td>
                   <td className="px-4 text-center border-b-2 py-2">{car.lastTest}</td>
-                  <td className="px-4 text-center border-b-2 py-2">{car.readyForUse ? 'Yes' : 'No'}</td>
+                  <td className="px-4 text-center border-b-2 py-2">
+  {car.readyForUse ? (
+    <img src="/images/yes.png" alt="Yes" className="w-6  h-6" />
+  ) : (
+    <img src="/images/no.png" alt="No" className="w-6  h-6" />
+  )}
+</td>
+
                   <td className="px-4 text-center border-b-2 py-2">
                     <button
                       onClick={() => handleAssignLocationClick(car.id)}

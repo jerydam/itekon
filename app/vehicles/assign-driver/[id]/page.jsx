@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 const AssignDriver = ({ params }) => {
   const router = useRouter();
   const id = params.id;
+ 
+  const [drivers, setDrivers] = useState([]);
   const userToken = localStorage.getItem("authToken");
   const userId = localStorage.getItem("fleet_id");
-  const [drivers, setDrivers] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
+      
       try {
         const response = await fetch(
           "https://itekton.onrender.com/vehicles/drivers/",
@@ -71,7 +72,7 @@ const AssignDriver = ({ params }) => {
     } catch (error) {
       console.error("Error:", error.message);
     }
-  };s
+  };
   return (
     <div className="flex">
       <Sidebar />
