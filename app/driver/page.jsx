@@ -20,7 +20,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
     if (typeof localStorage !== 'undefined') {
       const userToken = localStorage.getItem('authToken');
       console.log(userToken);
-      const userId = localStorage.getItem('fleet_id');
+       userId = localStorage.getItem('fleet_id');
     }
   }, []);
 
@@ -29,7 +29,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id')
       try {
-        const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
+        const response = await fetch(`https://itekton.onrender.com/fleets/drivers/${fleet_id}/`, {
           method: 'GET',  // Change to GET
           headers: {
             Authorization: `Token ${userToken}`,
