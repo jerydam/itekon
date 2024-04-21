@@ -17,7 +17,7 @@ const Track = () => {
     const fetchVehicleLocations = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch('https://itekton.onrender.com/vehicles/fleet/vehicle_locations/', {
+        const response = await fetch('https://itekton-wden.onrender.com/vehicles/fleet/vehicle_locations/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

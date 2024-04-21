@@ -13,7 +13,7 @@ const PopAlert = ({ onAdd, onCancel }) => {
       setLoading(true); // Set loading to true during the fetch operation
   
       // Make a fetch request to send data to the backend
-      const response = await fetch('https://itekton.onrender.com/reports/alerts/', {
+      const response = await fetch('https://itekton-wden.onrender.com/reports/alerts/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

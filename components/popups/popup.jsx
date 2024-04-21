@@ -14,7 +14,7 @@ const Popup = ({ onAdd, onCancel }) => {
 
     const fetchVehicles = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           headers: {
             Authorization: `Token ${userToken}`,
           },
@@ -42,7 +42,7 @@ const Popup = ({ onAdd, onCancel }) => {
   const handleAdd = async () => {
     const vehicle_id = selectedVehicleId; // Assuming selectedVehicleId is the correct variable name
   try {
-    const response = await fetch(`https://itekton.onrender.com/reports/transit-reports/${vehicle_id}/`, {
+    const response = await fetch(`https://itekton-wden.onrender.com/reports/transit-reports/${vehicle_id}/`, {
       method: 'POST',
         headers: {
           'Content-Type': 'application/json',

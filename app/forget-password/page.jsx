@@ -9,7 +9,7 @@ const ForgetPassword = () => {
     try {
       // Simulate the password reset request
       // You would replace this with your actual API call
-      const response = await fetch('https://itekton.onrender.com/accounts/password_reset/', {
+      const response = await fetch('https://itekton-wden.onrender.com/accounts/password_reset/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

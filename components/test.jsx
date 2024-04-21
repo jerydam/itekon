@@ -13,7 +13,7 @@ const TestReports = () => {
     const fetchData = async () => {
       try {
         // Fetch data from the backend (replace with your actual endpoint)
-        const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`);
+        const response = await fetch(`https://itekton-wden.onrender.com/reports/tests/${vehicle_id}/`);
         const data = await response.json();
 
         // Update state based on fetched data

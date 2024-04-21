@@ -24,7 +24,7 @@ const OTP = ({ currentPage, onCancel, handleNext }) => {
     const userToken = localStorage.getItem('authToken');
   
     try {
-      const response = await fetch('https://itekton.onrender.com/fleets/verify-otp/', {
+      const response = await fetch('https://itekton-wden.onrender.com/fleets/verify-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ const Critical = (onCancel) => {
       try {
         const userToken = localStorage.getItem('authToken');
 
-        const response = await fetch('https://itekton.onrender.com/reports/get-critical-fault/', {
+        const response = await fetch('https://itekton-wden.onrender.com/reports/get-critical-fault/', {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`,

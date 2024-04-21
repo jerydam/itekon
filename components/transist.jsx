@@ -20,7 +20,7 @@ const TransitReports = () => {
     
     const fetchTransitReports = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/reports/transit-reports/${vehicle_id}/`);
+        const response = await fetch(`https://itekton-wden.onrender.com/reports/transit-reports/${vehicle_id}/`);
         const data = await response.json();
 
         if (response.ok) {

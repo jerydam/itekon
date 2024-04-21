@@ -18,7 +18,7 @@ const AssignDriver = ({ params }) => {
       
       try {
         const response = await fetch(
-          "https://itekton.onrender.com/vehicles/drivers/",
+          "https://itekton-wden.onrender.com/vehicles/drivers/",
           {
             method: "GET",
             headers: {
@@ -49,7 +49,7 @@ const AssignDriver = ({ params }) => {
       const vehicle_id = id;
 
       const response = await fetch(
-        `https://itekton.onrender.com/vehicles/assign/${vehicle_id}/${driverId}/`,
+        `https://itekton-wden.onrender.com/vehicles/assign/${vehicle_id}/${driverId}/`,
         {
           method: "POST",
           headers: {

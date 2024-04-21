@@ -14,7 +14,7 @@ const Edit = ({ onAdd, onCancel }) => {
     try {
   
       const id = localStorage.getItem('userId');
-      const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/${id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/vehicles/drivers/${id}/`, {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',

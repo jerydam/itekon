@@ -12,7 +12,7 @@ const Alert = () => {
       try {
         // Fetch data from the backend (replace with your actual endpoint)
         const userToken = localStorage.getItem('authToken'); // Make sure userToken is defined
-        const response = await fetch('https://itekton.onrender.com/reports/alerts/', {
+        const response = await fetch('https://itekton-wden.onrender.com/reports/alerts/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

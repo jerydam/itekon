@@ -42,7 +42,7 @@ const Signup = () => {
     const userData = { email, password }; // Replace with the appropriate data
   
       setLoading(true);
-      const response = await fetch('https://itekton.onrender.com/accounts/signup/', {
+      const response = await fetch('https://itekton-wden.onrender.com/accounts/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

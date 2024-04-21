@@ -28,7 +28,7 @@ const CompleteEmail = ({ onCancel, currentPage, handleNext }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Your API endpoint URL
-    const apiUrl = 'https://itekton.onrender.com/fleets/send-otp/';
+    const apiUrl = 'https://itekton-wden.onrender.com/fleets/send-otp/';
 
     try {
       setLoading(true);

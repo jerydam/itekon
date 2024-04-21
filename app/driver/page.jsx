@@ -29,7 +29,7 @@ const Page = ({ onDrive, onRemove, onEdit, onAssignVehicle }) => {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id')
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/drivers/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/drivers/${fleet_id}/`, {
           method: 'GET',  // Change to GET
           headers: {
             Authorization: `Token ${userToken}`,

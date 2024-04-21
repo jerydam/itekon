@@ -114,7 +114,7 @@ const Add = () => {
         console.log(vehicleformData)
 
       const response = await fetch(
-        "https://itekton.onrender.com/vehicles/vehicles/",
+        "https://itekton-wden.onrender.com/vehicles/vehicles/",
         {
           method: "POST",
           headers: {
@@ -154,7 +154,7 @@ const Add = () => {
       try {
         const userToken = localStorage.getItem("authToken");
         const response = await fetch(
-          "https://itekton.onrender.com/vehicles/drivers/",
+          "https://itekton-wden.onrender.com/vehicles/drivers/",
           {
             method: "POST",
             headers: {
@@ -182,7 +182,7 @@ const Add = () => {
         const vehicle_id = localStorage.getItem("vehicle_id");
         const driver_id = localStorage.getItem("driver_id");
         const response = await fetch(
-          `https://itekton.onrender.com/vehicles/assign/${vehicle_id}/${driver_id}/`,
+          `https://itekton-wden.onrender.com/vehicles/assign/${vehicle_id}/${driver_id}/`,
           {
             method: "POST",
             headers: {

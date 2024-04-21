@@ -58,7 +58,7 @@ const SettingsPage = () => {
       const userId = localStorage.getItem('userId');
   
       // Make a DELETE request to the server
-      const response = await fetch(`https://itekton.onrender.com/accounts/users/${userId}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/accounts/users/${userId}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

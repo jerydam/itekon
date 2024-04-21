@@ -15,7 +15,7 @@ const PopRem = ({ onAdd, onCancel }) => {
     try {
       setLoading(true); // Set loading to true during the fetch operation
   
-      const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/reports/reminders/${fleet_id}/`, {
         method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`, // Include the authentication token in the headers

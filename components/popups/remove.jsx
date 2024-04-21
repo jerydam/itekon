@@ -6,7 +6,7 @@ const Remove = ({ driverId, onRemove, onCancel }) => {
     const id = localStorage.getItem("selectedDriverId");
         try {
       const userToken = localStorage.getItem('authToken');
-      const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/${id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/vehicles/drivers/${id}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const Sidebar = () => {
     const fleet_id = localStorage.getItem('fleet_id');
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleets/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleets/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Authorization': `Token ${userToken}`,

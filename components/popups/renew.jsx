@@ -15,7 +15,7 @@ const handleAdd = async () => {
     // Format expiration date to ISO 8601 format
     const formattedExpirationDate = new Date(expirationDate).toISOString();
 
-    const response = await fetch(`https://itekton.onrender.com/reports/registrations/${fleet_id}/`, {
+    const response = await fetch(`https://itekton-wden.onrender.com/reports/registrations/${fleet_id}/`, {
       method: 'POST',
       headers: {
         Authorization: `Token ${userToken}`,

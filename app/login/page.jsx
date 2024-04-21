@@ -19,7 +19,7 @@ const Login = () => {
       try {
         const userToken = localStorage.getItem('authToken'); 
 
-        const response = await fetch('https://itekton.onrender.com/fleets/get_user_fleet/', {
+        const response = await fetch('https://itekton-wden.onrender.com/fleets/get_user_fleet/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Login = () => {
         localStorage.removeItem('rememberedPassword');
       }
   
-      const response = await fetch('https://itekton.onrender.com/accounts/signin/', {
+      const response = await fetch('https://itekton-wden.onrender.com/accounts/signin/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ const RegisteredCars = () => {
         const userToken = localStorage.getItem('authToken');
         const fleet_id = localStorage.getItem('fleet_id');
 
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const RegisteredCars = () => {
       const id = localStorage.getItem('alert_id');
       const alert_id = id;
       try {
-        const response = await fetch(`https://itekton.onrender.com/reports/alerts/${alert_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/reports/alerts/${alert_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const RegisteredCars = () => {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id');
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const RegisteredCars = () => {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id');
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ const RegisteredCars = () => {
     const userToken = localStorage.getItem('authToken');
     const vehicle_id = vehicleId; // Corrected variable name
     try {
-      const response = await fetch(`https://itekton.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ const RegisteredCars = () => {
     const fleet_id = localStorage.getItem('fleet_id');
     try {
       const userToken = localStorage.getItem('authToken');
-      const response = await fetch(`https://itekton.onrender.com/fleets/fleet/drivers-vehicles/${fleet_id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/drivers-vehicles/${fleet_id}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

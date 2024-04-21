@@ -33,7 +33,7 @@ function isDatePassed(targetDate) {
         return;
       }
   
-      const response = await fetch(`https://itekton.onrender.com/reports/registrations/${fleet_id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/reports/registrations/${fleet_id}/`, {
         method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`,
@@ -74,7 +74,7 @@ function isDatePassed(targetDate) {
         const userToken = localStorage.getItem('authToken');
         const fleet_id = localStorage.getItem('fleet_id');
 
-        const response = await fetch(`https://itekton.onrender.com/reports/registrations/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/reports/registrations/${fleet_id}/`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`, // Include the authentication token in the headers

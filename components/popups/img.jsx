@@ -30,7 +30,7 @@ const CompleteImg = ({ onCancel, currentPage, handleNext, formData }) => {
   
       const userToken = localStorage.getItem('authToken');
   
-      const response = await fetch('https://itekton.onrender.com/fleets/fleets/', {
+      const response = await fetch('https://itekton-wden.onrender.com/fleets/fleets/', {
         method: 'POST',
         headers: {
           Authorization: `Token ${userToken}`,

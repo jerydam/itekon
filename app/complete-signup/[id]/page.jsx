@@ -16,7 +16,7 @@ const userid = params?.id;
     const userData = { name, user, number };
     try {
       setLoading(true);
-      const response = await fetch(`https://itekton.onrender.com/accounts/complete_signup/${userid}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/accounts/complete_signup/${userid}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

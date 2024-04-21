@@ -19,7 +19,7 @@ const AssignLocation = ({ params }) => {
     try {
         
       const userToken = localStorage.getItem('authToken');
-      const response = await fetch(`https://itekton.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/vehicles/${vehicle_id}/assign_location/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

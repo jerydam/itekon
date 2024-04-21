@@ -13,7 +13,7 @@ const EditDetails = ({ userDetails, onEdit, onCancel }) => {
       setLoading(true);
 
       const id = localStorage.getItem('userId');
-      const response = await fetch(`https://itekton.onrender.com/accounts/users/${id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/accounts/users/${id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

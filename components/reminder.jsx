@@ -26,7 +26,7 @@ const Reminder = () => {
         const userToken = localStorage.getItem('authToken');
         const fleet_id = localStorage.getItem('fleet_id');
   
-        const response = await fetch(`https://itekton.onrender.com/reports/reminders/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/reports/reminders/${fleet_id}/`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`, // Include the authentication token in the headers

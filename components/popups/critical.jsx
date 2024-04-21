@@ -15,7 +15,7 @@ const PopCri = ({ onAdd, onCancel }) => {
       setLoading(true);
       const vehicle_id = selectedVehicle;
 
-      const response = await fetch(`https://itekton.onrender.com/reports/critical-faults/${vehicle_id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/reports/critical-faults/${vehicle_id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const PopCri = ({ onAdd, onCancel }) => {
 
     const fetchVehicles = async () => {
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`, // Include the authentication token in the headers

@@ -23,7 +23,7 @@ const Page = ({ onAdd }) => {
     try {
       const userToken = localStorage.getItem('authToken');
       const fleet_id = localStorage.getItem('fleet_id');
-      const response = await fetch(`https://itekton.onrender.com/vehicles/drivers/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/vehicles/drivers/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

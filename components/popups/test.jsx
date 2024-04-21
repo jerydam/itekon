@@ -15,7 +15,7 @@ const PopTest = ({ onAdd, onCancel }) => {
     const fetchVehicles = async () => {
       const userToken = localStorage.getItem('authToken');
       try {
-        const response = await fetch(`https://itekton.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
+        const response = await fetch(`https://itekton-wden.onrender.com/fleets/fleet/vehicles/${fleet_id}/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ const PopTest = ({ onAdd, onCancel }) => {
       const vehicle_id = selectedVehicle;
       const userToken = localStorage.getItem('authToken');
       // Make a fetch request to send data to the backend
-      const response = await fetch(`https://itekton.onrender.com/reports/tests/${vehicle_id}/`, {
+      const response = await fetch(`https://itekton-wden.onrender.com/reports/tests/${vehicle_id}/`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
